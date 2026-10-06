@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Variable.woff2') format('woff2-variations'),
+       url('/fonts/Switzer-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/Switzer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Switzer', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-pop: 'Switzer', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Switzer', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: 'Switzer', sans-serif;
+  }
+}
+
+.font-pop {
+  font-family: 'Switzer', sans-serif;
+}
+
+/* User Defined Font Hierarchy System (Switzer) */
+.font-h1 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 66px;
+  line-height: 1.08;
+  color: #000000;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+}
+
+.font-h2 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 54px;
+  line-height: 1.12;
+  color: #000000;
+  font-weight: 550;
+  letter-spacing: -0.03em;
+}
+
+.font-h3 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 44px;
+  line-height: 1.15;
+  color: #000000;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.font-h4 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 40px;
+  line-height: 1.18;
+  color: #000000;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.font-h5 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #000000;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.font-text-28 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 28px;
+  line-height: 1.25;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.font-text-22 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 22px;
+  line-height: 1.35;
+  color: #101011;
+  font-weight: 550;
+}
+
+.font-text-20 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #101011;
+  font-weight: 550;
+}
+
+.font-text-18 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #7D7D7D;
+  font-weight: 500;
+}
+
+.font-text-16 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #7D7D7D;
+  font-weight: 500;
+}
+
+.font-text-15 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #000000;
+  font-weight: 500;
+}
+
+.font-text-14 {
+  font-family: 'Switzer', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #000000;
+  font-weight: 500;
+}
+
+.font-text-14-upper {
+  font-family: 'Switzer', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
