@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, X, Sparkles, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-import visualIdentityImg from "@/assets/visual-identity.webp";
-import webDesignImg from "@/assets/web-design.webp";
-import marketingImg from "@/assets/marketing.webp";
-import socialMediaImg from "@/assets/social-media.webp";
+import visualIdentityImg from "@/assets/project-section/visual-identity.webp";
+import webDesignImg from "@/assets/project-section/web-design.webp";
+import marketingImg from "@/assets/project-section/marketing.webp";
+import socialMediaImg from "@/assets/project-section/social-media.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -123,6 +124,7 @@ const SERVICES_DATA: ServiceItemData[] = [
 ];
 
 export const ServicesSection: React.FC = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const serviceItemRefs = useRef<(HTMLElement | null)[]>([]);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
@@ -471,15 +473,18 @@ export const ServicesSection: React.FC = () => {
                 >
                   Close
                 </button>
-                <a
-                  href="#contact"
-                  onClick={() => setSelectedService(null)}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedService(null);
+                    navigate("/contact");
+                  }}
                   style={{ color: "#ffffff", backgroundColor: "#0a0a0a" }}
                   className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-text-15 font-semibold bg-neutral-950 hover:bg-neutral-800 !text-white transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"
                 >
                   <span style={{ color: "#ffffff" }} className="!text-white font-semibold">Start a Project</span>
                   <ArrowUpRight className="w-4 h-4 !text-white" style={{ color: "#ffffff" }} />
-                </a>
+                </button>
               </div>
             </div>
           </div>

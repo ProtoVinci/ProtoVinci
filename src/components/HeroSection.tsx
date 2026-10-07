@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { CloudShader } from "@/components/ui/cloud-shader";
 import { PopButton } from "@/components/ui/pop-button";
 import { Navbar } from "@/components/Navbar";
 import { HeroCarousel } from "@/components/HeroCarousel";
 
 export const HeroSection: React.FC = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -166,7 +168,8 @@ export const HeroSection: React.FC = () => {
           <PopButton
             color="black"
             size="lg"
-            className="rounded-full px-6 sm:px-7 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform"
+            onClick={() => navigate("/projects")}
+            className="rounded-full px-6 sm:px-7 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
           >
             <span>Explore projects</span>
             <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
@@ -178,7 +181,8 @@ export const HeroSection: React.FC = () => {
           <PopButton
             color="default"
             size="lg"
-            className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all"
+            onClick={() => navigate("/contact")}
+            className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all cursor-pointer"
           >
             <span>Contact Us</span>
           </PopButton>

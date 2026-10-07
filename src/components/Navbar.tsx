@@ -3,8 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import logoImg from "@/assets/Logo.png";
 import { Menu, X } from "lucide-react";
 import { PopButton } from "@/components/ui/pop-button";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isHovered, setIsHovered] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -14,7 +17,7 @@ export const Navbar: React.FC = () => {
     { name: "Services", href: "#services" },
     { name: "Process", href: "#process" },
     { name: "Pricing", href: "#pricing" },
-    { name: "Projects", href: "#projects" },
+    { name: "Projects", href: "/projects" },
   ];
 
   const handleMouseEnter = () => {
@@ -29,6 +32,50 @@ export const Navbar: React.FC = () => {
   };
 
   const isExpanded = isHovered || mobileMenuOpen;
+
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    setIsHovered(false);
+
+    if (href.startsWith("/")) {
+      navigate(href);
+      return;
+    }
+
+    // Hash link handling
+    if (location.pathname !== "/") {
+      navigate(`/${href}`);
+      setTimeout(() => {
+        const el = document.querySelector(href);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    } else {
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setMobileMenuOpen(false);
+    setIsHovered(false);
+
+    if (location.pathname === "/contact") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/contact");
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
     <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
@@ -53,7 +100,10 @@ export const Navbar: React.FC = () => {
         }`}
       >
         {/* Left: ProtoVinci Logo (Always visible as the anchor) */}
-        <div className="flex items-center gap-2.5 shrink-0 select-none">
+        <div
+          onClick={handleLogoClick}
+          className="flex items-center gap-2.5 shrink-0 select-none cursor-pointer"
+        >
           <motion.div
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
@@ -73,7 +123,7 @@ export const Navbar: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.2 }}
-                className="font-['Switzer'] font-[650] text-[18px] sm:text-[20px] text-[#000000] tracking-[-0.02em] hidden sm:inline-block"
+                className="font-['Switzer'] font-[650] text-[18px] sm:text-[20px] text-[#000000] tracking-[-0.02em] hidden sm:inline-block hover:opacity-80 transition-opacity"
               >
                 ProtoVinci
               </motion.span>
@@ -95,6 +145,7 @@ export const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-['Switzer'] text-[14px] font-[500] text-neutral-600 hover:text-black transition-colors py-1 hover:translate-y-[-0.5px]"
                 >
                   {link.name}
@@ -118,11 +169,7 @@ export const Navbar: React.FC = () => {
                 color="black"
                 size="sm"
                 className="rounded-full px-4 sm:px-5 py-2 font-['Switzer'] text-[13px] sm:text-[14px] font-[550] shadow-sm tracking-tight cursor-pointer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const contact = document.querySelector("#contact");
-                  contact?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={handleContactClick}
               >
                 Contact us
               </PopButton>
@@ -158,10 +205,7 @@ export const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setIsHovered(false);
-                  }}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-['Switzer'] text-base font-medium text-neutral-800 hover:text-neutral-950 py-1.5 border-b border-neutral-100"
                 >
                   {link.name}
@@ -172,12 +216,7 @@ export const Navbar: React.FC = () => {
               color="black"
               size="default"
               className="w-full rounded-xl font-['Switzer'] text-[14px] font-[550]"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                setIsHovered(false);
-                const contact = document.querySelector("#contact");
-                contact?.scrollIntoView({ behavior: "smooth" });
-              }}
+              onClick={handleContactClick}
             >
               Contact us
             </PopButton>

@@ -2,15 +2,56 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { Agentation } from "agentation";
-import { HeroSection } from "@/components/HeroSection";
-import { ServicesIntro } from "@/components/ServicesIntro";
-import { ServicesSection } from "@/components/ServicesSection";
-import { HowItWorksSection } from "@/components/HowItWorksSection";
-import { OurProjectsSection } from "@/components/OurProjectsSection";
+import { HomePage } from "@/pages/HomePage";
+import { ContactPage } from "@/pages/ContactPage";
+import { ProjectsPage } from "@/pages/ProjectsPage";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Helper component to handle scroll reset and hash scrolling with Lenis
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    const lenis = (window as unknown as { lenis?: Lenis }).lenis;
+    if (hash) {
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          if (lenis) {
+            lenis.scrollTo(el as HTMLElement, { offset: -60, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }, 120);
+      return () => clearTimeout(timer);
+    } else {
+      window.scrollTo(0, 0);
+      lenis?.scrollTo(0, { immediate: true });
+      ScrollTrigger.refresh();
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
+// Redirect hash #contact to dedicated /contact route for consistent experience
+function HashRedirect() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#contact") {
+      navigate("/contact", { replace: true });
+    }
+  }, [location, navigate]);
+
+  return null;
+}
 
 export function App() {
   useEffect(() => {
@@ -48,34 +89,22 @@ export function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#e1e1e1] selection:bg-neutral-900 selection:text-white">
-      {/* Visual Feedback Toolbar for AI Agents */}
-      <Agentation />
+    <BrowserRouter>
+      <ScrollToTop />
+      <HashRedirect />
+      <div className="w-full min-h-screen bg-[#e1e1e1] selection:bg-neutral-900 selection:text-white">
+        {/* Visual Feedback Toolbar for AI Agents */}
+        <Agentation />
 
-      {/* 1. Landing Hero Section */}
-      <HeroSection />
-
-      {/* 2. Increased Gap & Editorial Transition with Blurry Slide-in Animation */}
-      <ServicesIntro />
-
-      {/* 3. Four Full-Width Services with Parallax & Static Slicing */}
-      <ServicesSection />
-
-      {/* Spacing Gap between Services Section and How It Works (Matches Landing to Services gap) */}
-      <div
-        className="w-full h-28 sm:h-36 md:h-44"
-        style={{
-          background: "#e1e1e1",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* 4. Strictly Created How It Works Section with Frosted Neomorphic Graph */}
-      <HowItWorksSection />
-
-      {/* 5. Our Projects Section (Stacked Cards Format) */}
-      <OurProjectsSection />
-    </div>
+        {/* Application Routes */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
 
 import awarddockImg from "@/assets/landing-pages/awarddock.webp";
@@ -62,6 +63,7 @@ const PROJECTS: ProjectItem[] = [
 ];
 
 export const OurProjectsSection: React.FC = () => {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -304,7 +306,7 @@ export const OurProjectsSection: React.FC = () => {
           color="black"
           size="lg"
           onClick={() => {
-            window.location.hash = "projects";
+            navigate("/projects");
           }}
           className="rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
         >
