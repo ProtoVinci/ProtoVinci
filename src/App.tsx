@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ServicesIntro } from "@/components/ServicesIntro";
 import { ServicesSection } from "@/components/ServicesSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { OurProjectsSection } from "@/components/OurProjectsSection";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,7 +33,7 @@ export function App() {
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
 
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
@@ -60,9 +61,9 @@ export function App() {
       {/* 3. Four Full-Width Services with Parallax & Static Slicing */}
       <ServicesSection />
 
-      {/* Spacing Gap between Services Section and How It Works */}
+      {/* Spacing Gap between Services Section and How It Works (Matches Landing to Services gap) */}
       <div
-        className="w-full h-24 sm:h-32 md:h-44"
+        className="w-full h-28 sm:h-36 md:h-44"
         style={{
           background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
         }}
@@ -71,6 +72,9 @@ export function App() {
 
       {/* 4. Strictly Created How It Works Section with Frosted Neomorphic Graph */}
       <HowItWorksSection />
+
+      {/* 5. Our Projects Section (Stacked Cards Format) */}
+      <OurProjectsSection />
     </div>
   );
 }

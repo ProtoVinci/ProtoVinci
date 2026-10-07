@@ -174,11 +174,11 @@ export const HeroSection: React.FC = () => {
             </span>
           </PopButton>
 
-          {/* Secondary PopButton: "Contact Us" */}
+          {/* Secondary PopButton: "Contact Us" (Light Color) */}
           <PopButton
             color="default"
             size="lg"
-            className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] border-neutral-300 text-[#000000] shadow-sm hover:shadow-md"
+            className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all"
           >
             <span>Contact Us</span>
           </PopButton>
