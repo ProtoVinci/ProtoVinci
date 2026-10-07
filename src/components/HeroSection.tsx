@@ -95,7 +95,7 @@ export const HeroSection: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between bg-neutral-100 font-['Switzer']"
+      className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between bg-[#e1e1e1] font-['Switzer']"
     >
       {/* 1. Live WebGL Cloud Shader Background (Reference Image 2) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -192,7 +192,7 @@ export const HeroSection: React.FC = () => {
 
       {/* Seamless Transition Fade at bottom of Landing Section */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-18 z-20 bg-gradient-to-t from-[#f8f9fb] via-[#f8f9fb]/50 to-transparent"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-18 z-20 bg-gradient-to-t from-[#e1e1e1] via-[#e1e1e1]/50 to-transparent"
         aria-hidden="true"
       />
     </div>

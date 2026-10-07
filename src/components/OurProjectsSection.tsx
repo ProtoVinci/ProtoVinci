@@ -70,19 +70,23 @@ export const OurProjectsSection: React.FC = () => {
       cardRefs.current.forEach((card) => {
         if (!card) return;
 
-        // Pure opacity fade entrance with zero vertical displacement to prevent scroll fighting/jitter
+        // Smooth pop-in animation on scroll aligning the whole card unit
         gsap.fromTo(
           card,
           {
             opacity: 0,
+            y: 32,
+            scale: 0.98,
           },
           {
             opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 92%",
+              start: "top 88%",
               once: true,
             },
           }
@@ -100,7 +104,7 @@ export const OurProjectsSection: React.FC = () => {
       aria-label="Selected Projects"
       className="relative w-full py-28 sm:py-36 md:py-44 overflow-hidden select-none"
       style={{
-        background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+        background: "#e1e1e1",
       }}
     >
       {/* 1. Header Area (Uniform spacing matching Landing-to-Services gap) */}
@@ -138,8 +142,8 @@ export const OurProjectsSection: React.FC = () => {
         </p>
       </div>
 
-      {/* 2. Project Cards: Decreased width (max-w-[1080px]), larger side padding, increased gap between cards (gap-6 to gap-8) */}
-      <div className="w-full max-w-[1080px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 flex flex-col gap-6 sm:gap-7 md:gap-8">
+      {/* 2. Project Cards: Frosted cards placed outside the image (top-left outside & bottom-right outside) */}
+      <div className="w-full max-w-[1080px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 flex flex-col gap-10 sm:gap-12 md:gap-14">
         {PROJECTS.map((project, idx) => {
           const isDark = project.theme === "dark";
 
@@ -149,33 +153,17 @@ export const OurProjectsSection: React.FC = () => {
               ref={(el) => {
                 cardRefs.current[idx] = el;
               }}
-              className="group relative w-full h-[320px] sm:h-[400px] md:h-[460px] lg:h-[480px] overflow-hidden border border-neutral-200/90 cursor-pointer isolate"
-              style={{
-                borderRadius: "0px",
-                backgroundColor: isDark ? "#070b14" : "#ffffff",
-              }}
+              className="group flex flex-col w-full cursor-pointer isolate"
             >
-              {/* Plain Landing Page Image directly filling the card (No background beneath it) */}
-              <img
-                src={project.landingImage}
-                alt={project.name}
-                decoding="async"
-                loading="eager"
-                className="w-full h-full object-cover object-top select-none transition-transform duration-500 ease-out group-hover:scale-[1.015]"
-                style={{
-                  borderRadius: "0px",
-                }}
-              />
-
-              {/* Top-Left Corner: Small, Sleek Translucent Frosted Glass Card */}
-              <div className="absolute top-3 sm:top-4 md:top-4 left-3 sm:left-4 md:left-4 z-20 max-w-[200px] sm:max-w-[240px] md:max-w-[260px] transform-gpu">
+              {/* Top-Left: Small, Sleek Translucent Frosted Glass Card OUTSIDE the image at top-left */}
+              <div className="self-start mb-2.5 sm:mb-3 transform-gpu transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
                 <div
-                  className={`p-2.5 sm:p-3 md:p-3.5 backdrop-blur-sm border transition-all duration-300 ${
+                  className={`p-2.5 sm:p-3 md:p-3.5 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
-                      ? "bg-neutral-950/85 border-white/15 text-white shadow-[0_6px_20px_rgba(0,0,0,0.45)]"
-                      : "bg-white/92 border-neutral-300/80 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+                      ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
+                      : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
                   }`}
-                  style={{ borderRadius: "0px" }}
+                  style={{ borderRadius: "0px", maxWidth: "280px" }}
                 >
                   <div className="flex items-baseline gap-1.5 mb-1 sm:mb-1.5">
                     <span
@@ -206,15 +194,35 @@ export const OurProjectsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bottom-Right Corner: Small, Sleek Translucent Frosted Glass Card (Timeline, Service, Kickoff) */}
-              <div className="absolute bottom-3 sm:bottom-4 md:bottom-4 right-3 sm:right-4 md:right-4 z-20 w-[170px] sm:w-[195px] md:w-[215px] transform-gpu">
+              {/* Plain Landing Page Image: 100% clean and unobstructed with 0px corners */}
+              <div
+                className="relative w-full h-[320px] sm:h-[400px] md:h-[460px] lg:h-[480px] overflow-hidden border border-neutral-300/90 shadow-sm group-hover:shadow-lg transition-shadow duration-300"
+                style={{
+                  borderRadius: "0px",
+                  backgroundColor: isDark ? "#070b14" : "#ffffff",
+                }}
+              >
+                <img
+                  src={project.landingImage}
+                  alt={project.name}
+                  decoding="async"
+                  loading="eager"
+                  className="w-full h-full object-cover object-top select-none transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  style={{
+                    borderRadius: "0px",
+                  }}
+                />
+              </div>
+
+              {/* Bottom-Right: Small, Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
+              <div className="self-end mt-2.5 sm:mt-3 transform-gpu transition-transform duration-500 ease-out group-hover:translate-y-1.5">
                 <div
-                  className={`p-2 sm:p-2.5 md:p-3 backdrop-blur-sm border transition-all duration-300 ${
+                  className={`p-2 sm:p-2.5 md:p-3 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
-                      ? "bg-neutral-950/85 border-white/15 text-white shadow-[0_6px_20px_rgba(0,0,0,0.45)]"
-                      : "bg-white/92 border-neutral-300/80 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+                      ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
+                      : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
                   }`}
-                  style={{ borderRadius: "0px" }}
+                  style={{ borderRadius: "0px", minWidth: "190px" }}
                 >
                   {/* Row 1: Timeline */}
                   <div
@@ -291,7 +299,7 @@ export const OurProjectsSection: React.FC = () => {
       </div>
 
       {/* 3. PopButton to view more projects */}
-      <div className="w-full mt-10 sm:mt-14 md:mt-16 flex items-center justify-center">
+      <div className="w-full mt-10 sm:mt-14 md:mt-10 flex items-center justify-center">
         <PopButton
           color="black"
           size="lg"

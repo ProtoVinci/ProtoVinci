@@ -229,7 +229,7 @@ export const HowItWorksSection: React.FC = () => {
       aria-label="How It Works Methodology"
       className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-4 sm:px-8 select-none"
       style={{
-        background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+        background: "#e1e1e1",
       }}
     >
       <div id="process" className="absolute -top-32" aria-hidden="true" />

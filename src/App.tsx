@@ -48,7 +48,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white selection:bg-neutral-900 selection:text-white">
+    <div className="w-full min-h-screen bg-[#e1e1e1] selection:bg-neutral-900 selection:text-white">
       {/* Visual Feedback Toolbar for AI Agents */}
       <Agentation />
 
@@ -65,7 +65,7 @@ export function App() {
       <div
         className="w-full h-28 sm:h-36 md:h-44"
         style={{
-          background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+          background: "#e1e1e1",
         }}
         aria-hidden="true"
       />

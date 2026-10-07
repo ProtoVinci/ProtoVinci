@@ -100,7 +100,7 @@ export const ServicesIntro: React.FC = () => {
       ref={containerRef}
       className="relative w-full py-28 sm:py-36 md:py-44 px-6 sm:px-12 flex flex-col items-center justify-center text-center overflow-hidden"
       style={{
-        background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+        background: "#e1e1e1",
       }}
       aria-label="Services Introduction"
     >

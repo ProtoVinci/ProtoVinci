@@ -236,6 +236,22 @@ export const ServicesSection: React.FC = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedService]);
 
+  // Prevent background scrolling and let mouse wheel scroll modal cleanly
+  useEffect(() => {
+    const lenis = (window as unknown as { lenis?: { stop: () => void; start: () => void } }).lenis;
+    if (selectedService) {
+      lenis?.stop();
+      document.body.style.overflow = "hidden";
+    } else {
+      lenis?.start();
+      document.body.style.overflow = "";
+    }
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = "";
+    };
+  }, [selectedService]);
+
   return (
     <section
       ref={containerRef}
@@ -243,7 +259,7 @@ export const ServicesSection: React.FC = () => {
       aria-label="Our Agency Services"
       className="services-section relative w-full overflow-hidden"
       style={{
-        background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+        background: "#e1e1e1",
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -345,11 +361,13 @@ export const ServicesSection: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-service-title"
+          data-lenis-prevent="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/70 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
           onClick={() => setSelectedService(null)}
         >
           <div
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl border border-neutral-200 p-6 sm:p-10 flex flex-col gap-8 cursor-default"
+            data-lenis-prevent="true"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain bg-white rounded-2xl shadow-2xl border border-neutral-200 p-6 sm:p-10 flex flex-col gap-8 cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -456,10 +474,11 @@ export const ServicesSection: React.FC = () => {
                 <a
                   href="#contact"
                   onClick={() => setSelectedService(null)}
-                  className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-text-15 font-semibold bg-neutral-950 hover:bg-neutral-800 text-white transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"
+                  style={{ color: "#ffffff", backgroundColor: "#0a0a0a" }}
+                  className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-text-15 font-semibold bg-neutral-950 hover:bg-neutral-800 !text-white transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"
                 >
-                  <span>Start a Project</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <span style={{ color: "#ffffff" }} className="!text-white font-semibold">Start a Project</span>
+                  <ArrowUpRight className="w-4 h-4 !text-white" style={{ color: "#ffffff" }} />
                 </a>
               </div>
             </div>
