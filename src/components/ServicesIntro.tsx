@@ -104,16 +104,19 @@ export const ServicesIntro: React.FC = () => {
       }}
       aria-label="Services Introduction"
     >
-      {/* 1. Glassmorphic Depth Badge */}
+      {/* 1. Translucent Frosted Pill: "OUR SERVICES" (Matches HOW IT WORKS pill exactly) */}
       <div
         ref={badgeRef}
-        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-neutral-200/80 shadow-[0_2px_10px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.9)] mb-6 select-none"
+        className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-6 transition-transform hover:scale-105 select-none"
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse" />
-        <span className="font-text-14-upper text-[11px] sm:text-[12px] tracking-[0.24em] text-neutral-700 font-semibold [text-shadow:_0_1px_0_rgba(255,255,255,0.8)]">
-          Core Disciplines
+        <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+        <span
+          className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
+          style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+        >
+          OUR SERVICES
         </span>
-        <span className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
       </div>
 
       {/* 2. Headline with Visual Depth and Blurry Slide-In Animation */}

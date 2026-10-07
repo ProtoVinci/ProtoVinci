@@ -23,7 +23,8 @@ export function App() {
       autoRaf: false, // Driven strictly via GSAP ticker for frame-locked sync
     });
 
-    // 2. Synchronize Lenis with GSAP ScrollTrigger
+    // 2. Synchronize Lenis with GSAP ScrollTrigger & expose globally
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const updateTicker = (time: number) => {
@@ -40,6 +41,7 @@ export function App() {
     return () => {
       clearTimeout(timer);
       gsap.ticker.remove(updateTicker);
+      (window as unknown as { lenis?: Lenis }).lenis = undefined;
       lenis.destroy();
     };
   }, []);
