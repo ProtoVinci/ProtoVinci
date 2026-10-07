@@ -190,16 +190,11 @@ export const HeroSection: React.FC = () => {
         </div>
       </main>
 
-      {/* Footer Branding Bar */}
-      <footer className="relative z-10 w-full py-4 px-6 flex items-center justify-between border-t border-neutral-200/50 bg-white/40 backdrop-blur-xs font-['Switzer']">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-[14px] text-[#7D7D7D] font-[500]">Available for Q2 Projects</span>
-        </div>
-        <div className="text-[14px] text-[#7D7D7D] font-[500]">
-          © {new Date().getFullYear()} ProtoVinci Agency. All rights reserved.
-        </div>
-      </footer>
+      {/* Seamless Transition Fade at bottom of Landing Section */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-18 z-20 bg-gradient-to-t from-[#f8f9fb] via-[#f8f9fb]/50 to-transparent"
+        aria-hidden="true"
+      />
     </div>
   );
 };
