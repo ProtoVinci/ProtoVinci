@@ -2,35 +2,26 @@
 
 @font-face {
   font-family: 'Switzer';
-  src: url('/fonts/Switzer-Variable.woff2') format('woff2-variations'),
-       url('/fonts/Switzer-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Switzer';
   src: url('/fonts/Switzer-Medium.woff2') format('woff2');
-  font-weight: 500;
+  font-weight: 100 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
-  font-weight: 600;
+  font-weight: 501 650;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/Switzer-Bold.woff2') format('woff2');
-  font-weight: 700;
+  font-weight: 651 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @layer base {

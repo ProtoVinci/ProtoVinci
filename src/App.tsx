@@ -6,6 +6,7 @@ import { Agentation } from "agentation";
 import { HeroSection } from "@/components/HeroSection";
 import { ServicesIntro } from "@/components/ServicesIntro";
 import { ServicesSection } from "@/components/ServicesSection";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,6 +57,18 @@ export function App() {
 
       {/* 3. Four Full-Width Services with Parallax & Static Slicing */}
       <ServicesSection />
+
+      {/* Spacing Gap between Services Section and How It Works */}
+      <div
+        className="w-full h-24 sm:h-32 md:h-44"
+        style={{
+          background: "linear-gradient(to right, #f8f9fb 0%, #f8f9fb 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 4. Strictly Created How It Works Section with Frosted Neomorphic Graph */}
+      <HowItWorksSection />
     </div>
   );
 }
