@@ -4,6 +4,7 @@ import { ArrowRight, Mail, Phone, MapPin, ChevronDown, CheckCircle2 } from "luci
 import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
 import { Navbar } from "@/components/Navbar";
+import { FaqSection } from "@/components/FaqSection";
 import contactImgWebp from "@/assets/contact-img.webp";
 
 export const ContactPage: React.FC = () => {
@@ -147,7 +148,7 @@ export const ContactPage: React.FC = () => {
       <Navbar />
 
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col items-center">
+      <main className="relative z-10 w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-32 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col items-center">
         {/* Top Indicator: ▪ CONTACT US (Exact from Image 1) */}
         <div className="flex items-center gap-2 mb-4 sm:mb-5 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -471,6 +472,9 @@ export const ContactPage: React.FC = () => {
           </div>
         </div>
       </main>
+
+      {/* Frequently Asked Questions Section on Contact Page */}
+      <FaqSection />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { ServicesIntro } from "@/components/ServicesIntro";
 import { ServicesSection } from "@/components/ServicesSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { OurProjectsSection } from "@/components/OurProjectsSection";
+import { FaqSection } from "@/components/FaqSection";
 
 export const HomePage: React.FC = () => {
   return (
@@ -17,20 +18,14 @@ export const HomePage: React.FC = () => {
       {/* 3. Four Full-Width Services with Parallax & Static Slicing */}
       <ServicesSection />
 
-      {/* Spacing Gap between Services Section and How It Works */}
-      <div
-        className="w-full h-28 sm:h-36 md:h-44"
-        style={{
-          background: "#e1e1e1",
-        }}
-        aria-hidden="true"
-      />
-
       {/* 4. Strictly Created How It Works Section with Frosted Neomorphic Graph */}
       <HowItWorksSection />
 
       {/* 5. Our Projects Section (Stacked Cards Format) */}
       <OurProjectsSection />
+
+      {/* 6. Frequently Asked Questions (FAQ) Section */}
+      <FaqSection />
     </div>
   );
 };

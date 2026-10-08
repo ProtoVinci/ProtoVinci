@@ -98,7 +98,7 @@ export const ServicesIntro: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-28 sm:py-36 md:py-44 px-6 sm:px-12 flex flex-col items-center justify-center text-center overflow-hidden"
+      className="relative w-full py-28 sm:py-36 md:py-44 px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center justify-center text-center overflow-hidden"
       style={{
         background: "#e1e1e1",
       }}

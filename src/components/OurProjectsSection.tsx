@@ -104,13 +104,13 @@ export const OurProjectsSection: React.FC = () => {
       ref={containerRef}
       id="projects"
       aria-label="Selected Projects"
-      className="relative w-full py-28 sm:py-36 md:py-44 overflow-hidden select-none"
+      className="relative w-full pt-24 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 overflow-hidden select-none border-t border-[#cecece]"
       style={{
-        background: "#e1e1e1",
+        background: "#dedede",
       }}
     >
       {/* 1. Header Area (Uniform spacing matching Landing-to-Services gap) */}
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-16">
+      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-16">
         {/* Pill matching How It Works */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-3 sm:mb-4 transition-transform hover:scale-105 select-none">
           <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
@@ -144,8 +144,8 @@ export const OurProjectsSection: React.FC = () => {
         </p>
       </div>
 
-      {/* 2. Project Cards: Frosted cards placed outside the image (top-left outside & bottom-right outside) */}
-      <div className="w-full max-w-[1080px] mx-auto px-6 sm:px-10 md:px-14 lg:px-16 flex flex-col gap-10 sm:gap-12 md:gap-14">
+      {/* 2. Project Cards: Symmetrical max-w-[1240px] aligned with all sections */}
+      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col gap-10 sm:gap-12 md:gap-14">
         {PROJECTS.map((project, idx) => {
           const isDark = project.theme === "dark";
 

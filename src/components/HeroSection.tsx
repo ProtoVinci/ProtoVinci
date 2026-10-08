@@ -118,7 +118,7 @@ export const HeroSection: React.FC = () => {
       <Navbar />
 
       {/* 3. Hero Main Content Area (Badge removed per user request) */}
-      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 md:pt-36 flex flex-col items-center text-center">
+      <main className="relative z-10 w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-28 sm:pt-32 md:pt-36 flex flex-col items-center text-center">
         {/* Large Headline: 
             Get premium design
             with endless solutions.

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { OurProjectsSection } from "@/components/OurProjectsSection";
+import { FaqSection } from "@/components/FaqSection";
 import { PopButton } from "@/components/ui/pop-button";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
@@ -15,7 +16,7 @@ export const ProjectsPage: React.FC = () => {
 
       <main className="relative z-10 w-full pt-28 sm:pt-32">
         {/* Top Back Action */}
-        <div className="max-w-6xl mx-auto px-6 mb-4 flex items-center justify-between">
+        <div className="max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 mb-4 flex items-center justify-between">
           <PopButton
             color="default"
             size="sm"
@@ -29,6 +30,9 @@ export const ProjectsPage: React.FC = () => {
 
         {/* Stacked Showcase from OurProjectsSection */}
         <OurProjectsSection />
+
+        {/* Frequently Asked Questions Section on Projects Page */}
+        <FaqSection />
       </main>
     </div>
   );

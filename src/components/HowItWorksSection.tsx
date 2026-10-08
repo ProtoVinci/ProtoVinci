@@ -227,9 +227,9 @@ export const HowItWorksSection: React.FC = () => {
       ref={sectionRef}
       id="how-it-works"
       aria-label="How It Works Methodology"
-      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-4 sm:px-8 select-none"
+      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-6 sm:px-10 md:px-12 lg:px-16 select-none border-t border-[#cecece]"
       style={{
-        background: "#e1e1e1",
+        background: "#eeeef0",
       }}
     >
       <div id="process" className="absolute -top-32" aria-hidden="true" />
@@ -240,7 +240,7 @@ export const HowItWorksSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-5xl flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1240px] flex flex-col items-center">
         {/* 1. Translucent Frosted Pill with Solid Dark Text: "HOW IT WORKS" */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-2.5 transition-transform hover:scale-105 select-none">
           <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
@@ -472,7 +472,7 @@ export const HowItWorksSection: React.FC = () => {
         </div>
 
         {/* 3. Description Area with Buttery Smooth Crossfade Directly on Plain Background (Card Container Removed) */}
-        <div className="w-full max-w-3xl mt-4 sm:mt-5 px-3 sm:px-6 relative min-h-[160px] sm:min-h-[145px] flex items-center justify-center">
+        <div className="w-full max-w-4xl mt-4 sm:mt-5 px-3 sm:px-6 relative min-h-[160px] sm:min-h-[145px] flex items-center justify-center">
           {STAGES.map((stage, idx) => {
             const isActive = idx === activeStageIndex;
             const isPast = idx < activeStageIndex;
@@ -495,16 +495,16 @@ export const HowItWorksSection: React.FC = () => {
                     "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s",
                 }}
               >
-                {/* Stage Indicator Pill */}
-                <div className="flex items-center gap-2 mb-2">
+                {/* Stage Indicator Pill - Strictly horizontal */}
+                <div className="flex flex-row flex-nowrap items-center justify-center gap-2 mb-2 shrink-0 whitespace-nowrap">
                   <span
-                    className="text-[11px] uppercase tracking-[0.2em] font-[600] px-2.5 py-0.5 rounded-full bg-neutral-900 text-white shadow-xs"
+                    className="text-[11px] uppercase tracking-[0.2em] font-[600] px-2.5 py-0.5 rounded-full bg-neutral-900 text-white shadow-xs shrink-0 whitespace-nowrap"
                     style={{ fontFamily: "'Switzer', sans-serif" }}
                   >
                     PHASE {stage.step}
                   </span>
                   <span
-                    className="text-neutral-500 font-[500] text-xs sm:text-[13.5px] tracking-[-0.01em]"
+                    className="text-neutral-500 font-[500] text-xs sm:text-[13.5px] tracking-[-0.01em] shrink-0 whitespace-nowrap"
                     style={{ fontFamily: "'Switzer', sans-serif" }}
                   >
                     {stage.subtitle}
@@ -513,22 +513,22 @@ export const HowItWorksSection: React.FC = () => {
 
                 {/* Stage Primary Description directly on plain background */}
                 <p
-                  className="text-[#1a1a1d] font-[500] leading-relaxed max-w-2xl m-0 text-sm sm:text-[16px] md:text-[17px] tracking-[-0.01em]"
+                  className="text-[#1a1a1d] font-[500] leading-relaxed max-w-2xl mx-auto m-0 text-sm sm:text-[16px] md:text-[17px] tracking-[-0.01em]"
                   style={{ fontFamily: "'Switzer', sans-serif" }}
                 >
                   {stage.description}
                 </p>
 
-                {/* Deliverables Badges Horizontal Row directly on plain background */}
-                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mt-3 pt-3 border-t border-neutral-300/60 w-full max-w-2xl">
+                {/* Deliverables Badges Strictly Horizontal Row - never stacks up for all phases */}
+                <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-2.5 mt-3 pt-3 border-t border-neutral-300/60 w-full max-w-4xl overflow-x-auto sm:overflow-visible no-scrollbar">
                   {stage.deliverables.map((item, dIdx) => (
                     <div
                       key={dIdx}
-                      className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 backdrop-blur-md border border-neutral-300/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
+                      className="flex flex-row flex-nowrap items-center gap-1.5 px-3 py-1 rounded-full bg-white/85 backdrop-blur-md border border-neutral-300/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] shrink-0 whitespace-nowrap flex-none"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-neutral-900 shrink-0" />
                       <span
-                        className="text-neutral-700 font-[500] text-[11.5px] sm:text-xs"
+                        className="text-neutral-700 font-[500] text-[11.5px] sm:text-xs whitespace-nowrap"
                         style={{ fontFamily: "'Switzer', sans-serif" }}
                       >
                         {item}

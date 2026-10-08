@@ -259,9 +259,9 @@ export const ServicesSection: React.FC = () => {
       ref={containerRef}
       id="services"
       aria-label="Our Agency Services"
-      className="services-section relative w-full overflow-hidden"
+      className="services-section relative w-full overflow-hidden border-t border-[#cecece]"
       style={{
-        background: "#e1e1e1",
+        background: "#f6f6f6",
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
