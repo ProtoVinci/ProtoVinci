@@ -16,6 +16,10 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     const lenis = (window as unknown as { lenis?: Lenis }).lenis;
     if (hash) {
       const timer = setTimeout(() => {
@@ -31,8 +35,18 @@ function ScrollToTop() {
       return () => clearTimeout(timer);
     } else {
       window.scrollTo(0, 0);
-      lenis?.scrollTo(0, { immediate: true });
-      ScrollTrigger.refresh();
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      lenis?.scrollTo(0, { immediate: true, force: true });
+
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        lenis?.scrollTo(0, { immediate: true, force: true });
+        ScrollTrigger.refresh();
+      }, 30);
+      return () => clearTimeout(timer);
     }
   }, [pathname, hash]);
 

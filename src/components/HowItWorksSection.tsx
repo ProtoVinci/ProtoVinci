@@ -227,7 +227,7 @@ export const HowItWorksSection: React.FC = () => {
       ref={sectionRef}
       id="how-it-works"
       aria-label="How It Works Methodology"
-      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-6 sm:px-10 md:px-12 lg:px-16 select-none border-t border-[#cecece]"
+      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-6 sm:px-10 md:px-12 lg:px-16 select-none"
       style={{
         background: "#eeeef0",
       }}

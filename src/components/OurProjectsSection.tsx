@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
 
 import awarddockImg from "@/assets/landing-pages/awarddock.webp";
 import rkEnterprisesImg from "@/assets/landing-pages/rk-enterprises.webp";
 import socialxbrandImg from "@/assets/landing-pages/socialxbrand.webp";
+import wmcImg from "@/assets/landing-pages/wmc.webp";
+import gullycultureImg from "@/assets/landing-pages/gullyculture.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,24 +23,39 @@ export interface ProjectItem {
   kickoff: string;
   landingImage: string;
   theme: "light" | "dark";
+  liveUrl: string;
 }
 
-const PROJECTS: ProjectItem[] = [
+export const ALL_PROJECTS: ProjectItem[] = [
   {
-    id: "awarddock",
+    id: "socialxbrand",
     step: "01",
-    name: "AwardDock",
+    name: "SocialX Brand",
     description:
-      "A certificate automation infrastructure structured to generate, verify, and deliver high-volume credentials with zero friction.",
-    timeline: "4 Weeks",
-    service: "Certificate Automation",
-    kickoff: "Mar 12, 2024",
-    landingImage: awarddockImg,
+      "A conversion-focused digital brand presence engineered to accelerate social momentum, elevate visual authority, and capture market share.",
+    timeline: "5 Weeks",
+    service: "Product Design",
+    kickoff: "Nov 04, 2024",
+    landingImage: socialxbrandImg,
     theme: "light",
+    liveUrl: "https://socialxbrand.com",
+  },
+  {
+    id: "wmc",
+    step: "02",
+    name: "WMC Labs",
+    description:
+      "A high-craft design system and intuitive user interface created for next-generation web applications and collaborative workflows.",
+    timeline: "4 Weeks",
+    service: "UI/UX Design",
+    kickoff: "Feb 10, 2024",
+    landingImage: wmcImg,
+    theme: "dark",
+    liveUrl: "https://wmclabs.com",
   },
   {
     id: "rk-enterprises",
-    step: "02",
+    step: "03",
     name: "RK Enterprises",
     description:
       "A high-performance industrial equipment platform engineered with comprehensive machine catalogs, instant quotation flows, and precision responsive layout.",
@@ -47,32 +64,65 @@ const PROJECTS: ProjectItem[] = [
     kickoff: "Jan 15, 2024",
     landingImage: rkEnterprisesImg,
     theme: "dark",
+    liveUrl: "https://rkenterprises.in",
   },
   {
-    id: "socialxbrand",
-    step: "03",
-    name: "SocialX Brand",
+    id: "gullyculture",
+    step: "04",
+    name: "Gully Culture",
     description:
-      "A conversion-focused digital brand presence engineered to accelerate social momentum, elevate visual authority, and capture market share.",
-    timeline: "5 Weeks",
-    service: "Digital Product Strategy",
-    kickoff: "Nov 04, 2024",
-    landingImage: socialxbrandImg,
+      "An energetic, street-culture inspired e-commerce landing experience built with bold art direction, punchy typography, and fluid micro-interactions.",
+    timeline: "3 Weeks",
+    service: "Landing Page",
+    kickoff: "Apr 18, 2024",
+    landingImage: gullycultureImg,
     theme: "light",
+    liveUrl: "https://gullyculture.com",
+  },
+  {
+    id: "awarddock",
+    step: "05",
+    name: "AwardDock",
+    description:
+      "A certificate automation infrastructure structured to generate, verify, and deliver high-volume credentials with zero friction.",
+    timeline: "4 Weeks",
+    service: "Automation",
+    kickoff: "Mar 12, 2024",
+    landingImage: awarddockImg,
+    theme: "light",
+    liveUrl: "https://awarddock.com",
   },
 ];
 
-export const OurProjectsSection: React.FC = () => {
+export interface OurProjectsSectionProps {
+  limit?: number;
+  showHeader?: boolean;
+  showBorderTop?: boolean;
+  showCta?: boolean;
+  sectionPadding?: string;
+  bg?: string;
+}
+
+export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
+  limit,
+  showHeader = true,
+  showBorderTop = true,
+  showCta = true,
+  sectionPadding,
+  bg = "#dedede",
+}) => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  const displayedProjects = limit ? ALL_PROJECTS.slice(0, limit) : ALL_PROJECTS;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       cardRefs.current.forEach((card) => {
         if (!card) return;
 
-        // Smooth pop-in animation on scroll aligning the whole card unit
+        // Smooth subtle entrance animation on scroll aligning the whole card unit
         gsap.fromTo(
           card,
           {
@@ -97,67 +147,80 @@ export const OurProjectsSection: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [displayedProjects.length]);
+
+  const paddingClasses =
+    sectionPadding ||
+    (showHeader
+      ? "pt-20 sm:pt-28 md:pt-32 pb-20 sm:pb-28 md:pb-32"
+      : "pt-4 sm:pt-6 pb-20 sm:pb-28 md:pb-32");
 
   return (
     <section
       ref={containerRef}
       id="projects"
       aria-label="Selected Projects"
-      className="relative w-full pt-24 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 overflow-hidden select-none border-t border-[#cecece]"
+      className={`relative w-full ${paddingClasses} overflow-hidden select-none ${
+        showBorderTop ? "border-t border-[#cecece]" : ""
+      }`}
       style={{
-        background: "#dedede",
+        background: bg,
       }}
     >
-      {/* 1. Header Area (Uniform spacing matching Landing-to-Services gap) */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-16">
-        {/* Pill matching How It Works */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-3 sm:mb-4 transition-transform hover:scale-105 select-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
-          <span
-            className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
-            style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+      {/* 1. Header Area (Only displayed when showHeader is true) */}
+      {showHeader && (
+        <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
+          {/* Pill matching How It Works */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-3 sm:mb-3.5 transition-transform hover:scale-105 select-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+            <span
+              className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
+              style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+            >
+              OUR PROJECTS
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+          </div>
+
+          {/* Section Headline */}
+          <h2
+            className="text-3xl sm:text-4xl md:text-[50px] lg:text-[54px] text-[#000000] font-[550] tracking-[-0.035em] text-center max-w-3xl leading-[1.08] m-0"
+            style={{ fontFamily: "'Switzer', sans-serif" }}
           >
-            OUR PROJECTS
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+            <span>Selected </span>
+            <span className="text-[#6b7280]">projects</span>
+            <br />
+            <span>crafted with purpose</span>
+          </h2>
+
+          {/* Subtitle */}
+          <p
+            className="text-neutral-500 font-medium text-sm sm:text-base md:text-[17px] max-w-xl mx-auto mt-3 sm:mt-3.5 leading-relaxed text-center"
+            style={{ fontFamily: "'Switzer', sans-serif" }}
+          >
+            A showcase of thoughtfully designed products, websites, and brand experiences
+            built for modern, fast-growing teams.
+          </p>
         </div>
+      )}
 
-        {/* Section Headline */}
-        <h2
-          className="text-3xl sm:text-4xl md:text-[50px] lg:text-[54px] text-[#000000] font-[550] tracking-[-0.035em] text-center max-w-3xl leading-[1.1] m-0"
-          style={{ fontFamily: "'Switzer', sans-serif" }}
-        >
-          <span>Selected </span>
-          <span className="text-[#6b7280]">projects</span>
-          <br />
-          <span>crafted with purpose</span>
-        </h2>
-
-        {/* Subtitle */}
-        <p
-          className="text-neutral-500 font-medium text-sm sm:text-base md:text-lg max-w-xl mx-auto mt-3 sm:mt-4 leading-relaxed text-center"
-          style={{ fontFamily: "'Switzer', sans-serif" }}
-        >
-          A showcase of thoughtfully designed products, websites, and brand experiences
-          built for modern, fast-growing teams.
-        </p>
-      </div>
-
-      {/* 2. Project Cards: Symmetrical max-w-[1240px] aligned with all sections */}
+      {/* 2. Full Landing Page Image with Top-Left and Bottom-Right Metadata Cards */}
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col gap-10 sm:gap-12 md:gap-14">
-        {PROJECTS.map((project, idx) => {
+        {displayedProjects.map((project, idx) => {
           const isDark = project.theme === "dark";
 
           return (
-            <div
+            <a
               key={project.id}
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               ref={(el) => {
                 cardRefs.current[idx] = el;
               }}
-              className="group flex flex-col w-full cursor-pointer isolate"
+              className="group flex flex-col w-full cursor-pointer isolate block no-underline text-inherit"
             >
-              {/* Top-Left: Small, Sleek Translucent Frosted Glass Card OUTSIDE the image at top-left */}
+              {/* Top-Left: Sleek Translucent Frosted Glass Card OUTSIDE the image at top-left */}
               <div className="self-start mb-2.5 sm:mb-3 transform-gpu transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
                 <div
                   className={`p-2.5 sm:p-3 md:p-3.5 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
@@ -196,7 +259,7 @@ export const OurProjectsSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Plain Landing Page Image: 100% clean and unobstructed with 0px corners */}
+              {/* Full Landing Page Image: 100% clean and unobstructed with 0px corners */}
               <div
                 className="relative w-full h-[320px] sm:h-[400px] md:h-[460px] lg:h-[480px] overflow-hidden border border-neutral-300/90 shadow-sm group-hover:shadow-lg transition-shadow duration-300"
                 style={{
@@ -208,15 +271,21 @@ export const OurProjectsSection: React.FC = () => {
                   src={project.landingImage}
                   alt={project.name}
                   decoding="async"
-                  loading="eager"
+                  loading={idx < 2 ? "eager" : "lazy"}
                   className="w-full h-full object-cover object-top select-none transition-transform duration-500 ease-out group-hover:scale-[1.015]"
                   style={{
                     borderRadius: "0px",
                   }}
                 />
+
+                {/* Floating Live Preview Pill on Hover */}
+                <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md text-white text-[12px] font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                  <span>Live Project</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-white/90" />
+                </div>
               </div>
 
-              {/* Bottom-Right: Small, Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
+              {/* Bottom-Right: Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
               <div className="self-end mt-2.5 sm:mt-3 transform-gpu transition-transform duration-500 ease-out group-hover:translate-y-1.5">
                 <div
                   className={`p-2 sm:p-2.5 md:p-3 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
@@ -275,7 +344,7 @@ export const OurProjectsSection: React.FC = () => {
                   </div>
 
                   {/* Row 3: Project Kickoff */}
-                  <div className="flex items-center justify-between pt-1">
+                  <div className="flex items-center justify-between py-1">
                     <span
                       className={`text-[9.5px] sm:text-[10.5px] font-[500] ${
                         isDark ? "text-neutral-400" : "text-neutral-500"
@@ -293,29 +362,61 @@ export const OurProjectsSection: React.FC = () => {
                       {project.kickoff}
                     </span>
                   </div>
+
+                  {/* Row 4: Live Website Working Link */}
+                  <div
+                    className={`flex items-center justify-between pt-1.5 mt-0.5 border-t ${
+                      isDark ? "border-white/12" : "border-neutral-200/80"
+                    }`}
+                  >
+                    <span
+                      className={`text-[9.5px] sm:text-[10.5px] font-[500] ${
+                        isDark ? "text-neutral-400" : "text-neutral-500"
+                      }`}
+                      style={{ fontFamily: "'Switzer', sans-serif" }}
+                    >
+                      Live Link
+                    </span>
+                    <span
+                      className={`inline-flex items-center gap-1 text-[9.5px] sm:text-[10.5px] font-[600] group-hover:underline ${
+                        isDark ? "text-white" : "text-neutral-950"
+                      }`}
+                      style={{ fontFamily: "'Switzer', sans-serif" }}
+                    >
+                      <span>Visit Site</span>
+                      <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           );
         })}
       </div>
 
-      {/* 3. PopButton to view more projects */}
-      <div className="w-full mt-10 sm:mt-14 md:mt-10 flex items-center justify-center">
-        <PopButton
-          color="black"
-          size="lg"
-          onClick={() => {
-            navigate("/projects");
-          }}
-          className="rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
-        >
-          <span>View more projects</span>
-          <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-            <ArrowRight className="w-3.5 h-3.5 text-white" />
-          </span>
-        </PopButton>
-      </div>
+      {/* 3. PopButton to view more projects (Redirects instantly to top of Projects page) */}
+      {showCta && (
+        <div className="w-full mt-10 sm:mt-12 md:mt-14 flex items-center justify-center">
+          <PopButton
+            color="black"
+            size="lg"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              const lenis = (window as unknown as { lenis?: any }).lenis;
+              lenis?.scrollTo(0, { immediate: true, force: true });
+              navigate("/projects");
+            }}
+            className="rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
+          >
+            <span>View more projects</span>
+            <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+              <ArrowRight className="w-3.5 h-3.5 text-white" />
+            </span>
+          </PopButton>
+        </div>
+      )}
     </section>
   );
 };
