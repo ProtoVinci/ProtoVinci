@@ -114,8 +114,19 @@ export const FaqSection: React.FC = () => {
     >
       {/* Symmetrical container with matching left/right padding and boundary alignment */}
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16">
-        {/* 1. Header (Exact from Image 1) */}
+        {/* 1. Header */}
         <div ref={headerRef} className="flex flex-col items-center text-center">
+          {/* Top Indicator: ▪ FAQ */}
+          <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
+            <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
+            <span
+              className="text-[11.5px] sm:text-[12px] uppercase font-[650] tracking-[0.22em] text-[#000000]"
+              style={{ fontFamily: "'Switzer', sans-serif" }}
+            >
+              FAQ
+            </span>
+          </div>
+
           <h2
             className="text-[34px] sm:text-[44px] md:text-[52px] lg:text-[58px] font-[550] text-[#000000] tracking-[-0.035em] leading-[1.1] m-0"
             style={{ fontFamily: "'Switzer', sans-serif" }}

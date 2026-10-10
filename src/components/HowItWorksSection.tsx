@@ -241,16 +241,15 @@ export const HowItWorksSection: React.FC = () => {
       />
 
       <div className="relative z-10 w-full max-w-[1240px] flex flex-col items-center">
-        {/* 1. Translucent Frosted Pill with Solid Dark Text: "HOW IT WORKS" */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-2.5 transition-transform hover:scale-105 select-none">
-          <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+        {/* Top Indicator: ▪ HOW IT WORKS */}
+        <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
+          <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
           <span
-            className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
-            style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+            className="text-[11.5px] sm:text-[12px] uppercase font-[650] tracking-[0.22em] text-[#000000]"
+            style={{ fontFamily: "'Switzer', sans-serif" }}
           >
             HOW IT WORKS
           </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
         </div>
 
         {/* Section Headline */}

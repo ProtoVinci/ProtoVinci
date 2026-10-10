@@ -104,19 +104,18 @@ export const ServicesIntro: React.FC = () => {
       }}
       aria-label="Services Introduction"
     >
-      {/* 1. Translucent Frosted Pill: "OUR SERVICES" (Matches HOW IT WORKS pill exactly) */}
+      {/* Top Indicator: ▪ SERVICES */}
       <div
         ref={badgeRef}
-        className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-6 transition-transform hover:scale-105 select-none"
+        className="flex items-center gap-2 mb-3.5 sm:mb-4 select-none"
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
         <span
-          className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
-          style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+          className="text-[11.5px] sm:text-[12px] uppercase font-[650] tracking-[0.22em] text-[#000000]"
+          style={{ fontFamily: "'Switzer', sans-serif" }}
         >
-          OUR SERVICES
+          SERVICES
         </span>
-        <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
       </div>
 
       {/* 2. Headline with Visual Depth and Blurry Slide-In Animation */}

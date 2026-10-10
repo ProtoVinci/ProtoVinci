@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { PopButton } from "@/components/ui/pop-button";
 import { OurProjectsSection } from "@/components/OurProjectsSection";
 import { FaqSection } from "@/components/FaqSection";
+import { Footer } from "@/components/Footer";
 
 export const ProjectsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -185,6 +186,9 @@ export const ProjectsPage: React.FC = () => {
 
       {/* 4. Frequently Asked Questions (FAQ) Section */}
       <FaqSection />
+
+      {/* 5. Footer Section with Looping Muted Video & Brand Links */}
+      <Footer />
     </div>
   );
 };

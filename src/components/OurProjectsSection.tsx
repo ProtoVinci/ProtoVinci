@@ -170,16 +170,15 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
       {/* 1. Header Area (Only displayed when showHeader is true) */}
       {showHeader && (
         <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
-          {/* Pill matching How It Works */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] mb-3 sm:mb-3.5 transition-transform hover:scale-105 select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+          {/* Top Indicator: ▪ PROJECTS */}
+          <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
+            <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
             <span
-              className="text-[12px] uppercase font-[600] tracking-[0.22em] text-[#000000]"
-              style={{ color: "#000000", fontFamily: "'Switzer', sans-serif" }}
+              className="text-[11.5px] sm:text-[12px] uppercase font-[650] tracking-[0.22em] text-[#000000]"
+              style={{ fontFamily: "'Switzer', sans-serif" }}
             >
-              OUR PROJECTS
+              PROJECTS
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
           </div>
 
           {/* Section Headline */}

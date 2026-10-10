@@ -13,11 +13,10 @@ export const Navbar: React.FC = () => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Process", href: "#process" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
+    { name: "Services", href: "#services" },
+    { name: "FAQs", href: "#faq" },
   ];
 
   const handleMouseEnter = () => {
@@ -37,6 +36,15 @@ export const Navbar: React.FC = () => {
     e.preventDefault();
     setMobileMenuOpen(false);
     setIsHovered(false);
+
+    if (href === "/") {
+      if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate("/");
+      }
+      return;
+    }
 
     if (href.startsWith("/")) {
       navigate(href);
