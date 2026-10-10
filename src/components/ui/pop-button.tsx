@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 type Color =
   | "default"
+  | "white"
   | "black"
   | "blue"
   | "purple"
@@ -46,11 +47,13 @@ const PopButton = React.forwardRef<HTMLButtonElement, PopButtonProps>(
     const Comp = asChild ? Slot : "button";
 
     const baseClasses =
-      "font-pop inline-flex select-none transition-all items-center justify-center whitespace-nowrap rounded-xl ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground active:border-b-2 active:scale-y-95 border-x-2 border-t-2 border-b-4 origin-bottom";
+      "font-pop inline-flex select-none transition-all items-center justify-center whitespace-nowrap rounded-xl ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:border-b-2 active:scale-y-95 border-x-2 border-t-2 border-b-4 origin-bottom";
 
     const colors: Record<Color, string> = {
       default:
-        "bg-white hover:bg-gray-50 border-neutral-300 text-neutral-900 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-100",
+        "bg-white hover:bg-gray-50 border-neutral-300 text-neutral-900",
+      white:
+        "bg-white hover:bg-neutral-100 border-neutral-300 text-black shadow-sm",
       black:
         "bg-neutral-950 hover:bg-neutral-900 border-neutral-800 text-white shadow-sm",
       blue: "bg-blue-500 hover:bg-blue-600 border-blue-800 text-white",

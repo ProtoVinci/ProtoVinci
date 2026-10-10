@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { PopButton } from "@/components/ui/pop-button";
 import { OurProjectsSection } from "@/components/OurProjectsSection";
 import { FaqSection } from "@/components/FaqSection";
+import { GetStartedSection } from "@/components/GetStartedSection";
 import { Footer } from "@/components/Footer";
 
 export const ProjectsPage: React.FC = () => {
@@ -187,7 +188,10 @@ export const ProjectsPage: React.FC = () => {
       {/* 4. Frequently Asked Questions (FAQ) Section */}
       <FaqSection />
 
-      {/* 5. Footer Section with Looping Muted Video & Brand Links */}
+      {/* 5. Get Started Section with Interactive Ripple Grid Background */}
+      <GetStartedSection />
+
+      {/* 6. Footer Section with Looping Muted Video & Brand Links */}
       <Footer />
     </div>
   );

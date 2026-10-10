@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
 import { Navbar } from "@/components/Navbar";
 import { FaqSection } from "@/components/FaqSection";
+import { GetStartedSection } from "@/components/GetStartedSection";
 import { Footer } from "@/components/Footer";
 import contactImgWebp from "@/assets/contact-img.webp";
 
@@ -476,6 +477,9 @@ export const ContactPage: React.FC = () => {
 
       {/* Frequently Asked Questions Section on Contact Page */}
       <FaqSection />
+
+      {/* Get Started Section with Interactive Ripple Grid Background */}
+      <GetStartedSection />
 
       {/* Footer Section with Looping Muted Video & Brand Links */}
       <Footer />

@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { OurProjectsSection } from "@/components/OurProjectsSection";
 import { FaqSection } from "@/components/FaqSection";
+import { GetStartedSection } from "@/components/GetStartedSection";
 import { Footer } from "@/components/Footer";
 
 export const HomePage: React.FC = () => {
@@ -37,7 +38,10 @@ export const HomePage: React.FC = () => {
       {/* 6. Frequently Asked Questions (FAQ) Section */}
       <FaqSection />
 
-      {/* 7. Footer Section with Looping Muted Video & Brand Links */}
+      {/* 7. Get Started Section with Interactive Ripple Grid Background */}
+      <GetStartedSection />
+
+      {/* 8. Footer Section with Looping Muted Video & Brand Links */}
       <Footer />
     </div>
   );

@@ -110,7 +110,7 @@ export const FaqSection: React.FC = () => {
       ref={sectionRef}
       id="faq"
       aria-label="Frequently Asked Questions"
-      className="relative w-full pt-16 sm:pt-20 md:pt-24 pb-24 sm:pb-32 md:pb-36 bg-[#f6f6f6] border-t border-[#cecece] font-['Switzer'] select-none overflow-hidden"
+      className="relative w-full pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 bg-[#f6f6f6] border-t border-[#cecece] font-['Switzer'] select-none overflow-hidden"
     >
       {/* Symmetrical container with matching left/right padding and boundary alignment */}
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16">
