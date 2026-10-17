@@ -175,9 +175,9 @@ export const ProjectsPage: React.FC = () => {
         </div>
       </header>
 
-      {/* 3. All 5 Projects Showcase with Full Landing Page Image & Top-Left / Bottom-Right Cards */}
+      {/* 3. All 6 Projects Showcase with Full Landing Page Image & Top-Left / Bottom-Right Cards */}
       <OurProjectsSection
-        limit={5}
+        limit={6}
         showHeader={false}
         showCta={false}
         showBorderTop={false}

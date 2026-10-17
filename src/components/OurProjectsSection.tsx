@@ -1,98 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
-
-import awarddockImg from "@/assets/landing-pages/awarddock.webp";
-import rkEnterprisesImg from "@/assets/landing-pages/rk-enterprises.webp";
-import socialxbrandImg from "@/assets/landing-pages/socialxbrand.webp";
-import wmcImg from "@/assets/landing-pages/wmc.webp";
-import gullycultureImg from "@/assets/landing-pages/gullyculture.webp";
+import { ALL_PROJECTS, type ProjectItem } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export interface ProjectItem {
-  id: string;
-  step: string;
-  name: string;
-  description: string;
-  timeline: string;
-  service: string;
-  kickoff: string;
-  landingImage: string;
-  theme: "light" | "dark";
-  liveUrl: string;
-}
-
-export const ALL_PROJECTS: ProjectItem[] = [
-  {
-    id: "socialxbrand",
-    step: "01",
-    name: "SocialX Brand",
-    description:
-      "A conversion-focused digital brand presence engineered to accelerate social momentum, elevate visual authority, and capture market share.",
-    timeline: "5 Weeks",
-    service: "Product Design",
-    kickoff: "Nov 04, 2024",
-    landingImage: socialxbrandImg,
-    theme: "light",
-    liveUrl: "https://socialxbrand.com",
-  },
-  {
-    id: "wmc",
-    step: "02",
-    name: "WMC Labs",
-    description:
-      "A high-craft design system and intuitive user interface created for next-generation web applications and collaborative workflows.",
-    timeline: "4 Weeks",
-    service: "UI/UX Design",
-    kickoff: "Feb 10, 2024",
-    landingImage: wmcImg,
-    theme: "dark",
-    liveUrl: "https://wmclabs.com",
-  },
-  {
-    id: "rk-enterprises",
-    step: "03",
-    name: "RK Enterprises",
-    description:
-      "A high-performance industrial equipment platform engineered with comprehensive machine catalogs, instant quotation flows, and precision responsive layout.",
-    timeline: "6 Weeks",
-    service: "Website Development",
-    kickoff: "Jan 15, 2024",
-    landingImage: rkEnterprisesImg,
-    theme: "dark",
-    liveUrl: "https://rkenterprises.in",
-  },
-  {
-    id: "gullyculture",
-    step: "04",
-    name: "Gully Culture",
-    description:
-      "An energetic, street-culture inspired e-commerce landing experience built with bold art direction, punchy typography, and fluid micro-interactions.",
-    timeline: "3 Weeks",
-    service: "Landing Page",
-    kickoff: "Apr 18, 2024",
-    landingImage: gullycultureImg,
-    theme: "light",
-    liveUrl: "https://gullyculture.com",
-  },
-  {
-    id: "awarddock",
-    step: "05",
-    name: "AwardDock",
-    description:
-      "A certificate automation infrastructure structured to generate, verify, and deliver high-volume credentials with zero friction.",
-    timeline: "4 Weeks",
-    service: "Automation",
-    kickoff: "Mar 12, 2024",
-    landingImage: awarddockImg,
-    theme: "light",
-    liveUrl: "https://awarddock.com",
-  },
-];
+export { ALL_PROJECTS, type ProjectItem };
 
 export interface OurProjectsSectionProps {
   limit?: number;
@@ -209,11 +125,9 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
           const isDark = project.theme === "dark";
 
           return (
-            <a
+            <Link
               key={project.id}
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              to={`/projects/${project.id}`}
               ref={(el) => {
                 cardRefs.current[idx] = el;
               }}
@@ -229,41 +143,44 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                   }`}
                   style={{ borderRadius: "0px", maxWidth: "280px" }}
                 >
-                  <div className="flex items-baseline gap-1.5 mb-1 sm:mb-1.5">
-                    <span
-                      className={`text-[11px] sm:text-[12px] font-[550] ${
-                        isDark ? "text-neutral-400" : "text-neutral-500"
-                      }`}
-                      style={{ fontFamily: "'Switzer', sans-serif" }}
-                    >
+                  {/* Status Capsule Pill matching Reference Image */}
+                  <div className="inline-flex items-center gap-2 p-0.5 pr-2.5 rounded-full bg-white border border-[#e2e2e2] shadow-[0_1px_4px_rgba(0,0,0,0.04)] mb-2 select-none">
+                    <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-[700] shrink-0">
                       {project.step}
+                    </div>
+                    <span className="text-[11px] font-[550] text-[#1f2937] tracking-tight">
+                      {project.tag}
                     </span>
-                    <h3
-                      className={`text-[15px] sm:text-[17px] md:text-[18px] font-[650] tracking-[-0.02em] m-0 ${
-                        isDark ? "text-white" : "text-neutral-950"
-                      }`}
-                      style={{ fontFamily: "'Switzer', sans-serif" }}
-                    >
-                      {project.name}
-                    </h3>
                   </div>
+
+                  <h3
+                    className={`text-[15px] sm:text-[17px] md:text-[18px] font-[650] tracking-[-0.02em] m-0 mb-1 ${
+                      isDark ? "text-white" : "text-neutral-950"
+                    }`}
+                    style={{ fontFamily: "'Switzer', sans-serif" }}
+                  >
+                    {project.name}
+                  </h3>
+
                   <p
                     className={`text-[10.5px] sm:text-[11.5px] leading-snug line-clamp-2 m-0 ${
                       isDark ? "text-neutral-300 font-normal" : "text-neutral-700 font-medium"
                     }`}
                     style={{ fontFamily: "'Switzer', sans-serif" }}
                   >
-                    {project.description}
+                    {project.shortDescription}
                   </p>
                 </div>
               </div>
 
-              {/* Full Landing Page Image: 100% clean and unobstructed with 0px corners */}
+              {/* Full Landing Page Image: Whole image visible without cutting, 3px linear-gradient border #d8d8d8, soft shadow */}
               <div
-                className="relative w-full h-[320px] sm:h-[400px] md:h-[460px] lg:h-[480px] overflow-hidden border border-neutral-300/90 shadow-sm group-hover:shadow-lg transition-shadow duration-300"
+                className="relative w-full overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] group-hover:shadow-[0_16px_44px_rgba(0,0,0,0.1)] transition-all duration-300"
                 style={{
                   borderRadius: "0px",
                   backgroundColor: isDark ? "#070b14" : "#ffffff",
+                  border: "3px solid #d8d8d8",
+                  borderImage: "linear-gradient(to right, #d8d8d8 0%, #d8d8d8 100%) 1",
                 }}
               >
                 <img
@@ -271,17 +188,11 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                   alt={project.name}
                   decoding="async"
                   loading={idx < 2 ? "eager" : "lazy"}
-                  className="w-full h-full object-cover object-top select-none transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+                  className="w-full h-auto block select-none transition-transform duration-500 ease-out group-hover:scale-[1.012]"
                   style={{
                     borderRadius: "0px",
                   }}
                 />
-
-                {/* Floating Live Preview Pill on Hover */}
-                <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md text-white text-[12px] font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
-                  <span>Live Project</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-white/90" />
-                </div>
               </div>
 
               {/* Bottom-Right: Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
@@ -362,7 +273,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                     </span>
                   </div>
 
-                  {/* Row 4: Live Website Working Link */}
+                  {/* Row 4: View Project Detail Link */}
                   <div
                     className={`flex items-center justify-between pt-1.5 mt-0.5 border-t ${
                       isDark ? "border-white/12" : "border-neutral-200/80"
@@ -374,7 +285,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                       }`}
                       style={{ fontFamily: "'Switzer', sans-serif" }}
                     >
-                      Live Link
+                      Project Detail
                     </span>
                     <span
                       className={`inline-flex items-center gap-1 text-[9.5px] sm:text-[10.5px] font-[600] group-hover:underline ${
@@ -382,13 +293,13 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                       }`}
                       style={{ fontFamily: "'Switzer', sans-serif" }}
                     >
-                      <span>Visit Site</span>
-                      <ArrowUpRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <span>View Project</span>
+                      <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>
