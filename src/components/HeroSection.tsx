@@ -133,7 +133,7 @@ export const HeroSection: React.FC = () => {
               {line.map((item, index) => (
                 <span
                   key={index}
-                  className={`hero-word inline-block mr-[0.24em] last:mr-0 ${
+                  className={`hero-word inline-block mr-[0.15em] last:mr-0 ${
                     item.highlight
                       ? "text-[#555555] font-[500] italic [text-shadow:_0_1px_3px_rgba(0,0,0,0.08)]"
                       : "text-[#000000]"

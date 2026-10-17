@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsHovered(false);
-    }, 220);
+    }, 300);
   };
 
   const isExpanded = isHovered || mobileMenuOpen;
@@ -87,7 +87,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-      {/* Animated Pop-out Capsule matching animated-search-demo spring physics */}
+      {/* Weighted, ultra-smooth animated pop-out capsule */}
       <motion.div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -95,17 +95,18 @@ export const Navbar: React.FC = () => {
           if (!isExpanded) setIsHovered(true);
         }}
         animate={{
-          width: isExpanded ? 760 : 56,
+          width: isExpanded ? 760 : 54,
           maxWidth: "calc(100vw - 32px)",
+          paddingLeft: isExpanded ? 14 : 6,
+          paddingRight: isExpanded ? 14 : 6,
         }}
         transition={{
           type: "spring",
-          stiffness: 340,
-          damping: 26,
+          stiffness: 145,
+          damping: 20,
+          mass: 1.12,
         }}
-        className={`pointer-events-auto h-[54px] rounded-full flex items-center justify-between cursor-pointer relative overflow-hidden transition-colors duration-200 bg-white/95 backdrop-blur-xl border border-neutral-300/80 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,1)] ${
-          isExpanded ? "px-3.5 sm:px-6" : "px-1.5 justify-center"
-        }`}
+        className="pointer-events-auto h-[54px] rounded-full flex items-center justify-between cursor-pointer relative overflow-hidden transition-colors duration-300 bg-white/95 backdrop-blur-xl border border-neutral-300/80 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,1)]"
       >
         {/* Left: ProtoVinci Logo (Always visible as the anchor) */}
         <div
@@ -127,11 +128,11 @@ export const Navbar: React.FC = () => {
           <AnimatePresence>
             {isExpanded && (
               <motion.span
-                initial={{ opacity: 0, x: -8 }}
+                initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -8 }}
-                transition={{ duration: 0.2 }}
-                className="font-['Switzer'] font-[650] text-[18px] sm:text-[20px] text-[#000000] tracking-[-0.02em] hidden sm:inline-block hover:opacity-80 transition-opacity"
+                exit={{ opacity: 0, x: -6 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="font-['Switzer'] font-[650] text-[18px] sm:text-[20px] text-[#000000] tracking-[-0.02em] hidden sm:inline-block hover:opacity-80 transition-opacity whitespace-nowrap"
               >
                 ProtoVinci
               </motion.span>
@@ -143,11 +144,11 @@ export const Navbar: React.FC = () => {
         <AnimatePresence>
           {isExpanded && (
             <motion.nav
-              initial={{ opacity: 0, y: -4 }}
+              initial={{ opacity: 0, y: -2 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.22, delay: 0.05 }}
-              className="hidden md:flex items-center gap-6 lg:gap-8 mx-auto"
+              exit={{ opacity: 0, y: -2 }}
+              transition={{ duration: 0.28, ease: "easeOut", delay: 0.04 }}
+              className="hidden md:flex items-center gap-6 lg:gap-8 mx-auto whitespace-nowrap"
             >
               {navLinks.map((link) => (
                 <a
@@ -167,11 +168,11 @@ export const Navbar: React.FC = () => {
         <AnimatePresence>
           {isExpanded && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2, delay: 0.08 }}
-              className="flex items-center gap-2 shrink-0"
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.25, ease: "easeOut", delay: 0.05 }}
+              className="flex items-center gap-2 shrink-0 pr-1 sm:pr-1.5"
             >
               <PopButton
                 color="black"

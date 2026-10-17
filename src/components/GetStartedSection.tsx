@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
-import { RippleGrid } from "@/components/ui/ripple-grid";
+import { LiquidCursorGradient } from "@/components/ui/liquid-cursor-gradient";
 
 export const GetStartedSection: React.FC = () => {
   const navigate = useNavigate();
@@ -13,38 +13,15 @@ export const GetStartedSection: React.FC = () => {
       className="relative w-full pt-2 sm:pt-4 md:pt-6 pb-16 sm:pb-20 md:pb-24 px-6 sm:px-10 md:px-12 lg:px-16 bg-[#f6f6f6] select-none font-['Switzer']"
     >
       {/* Symmetrical container with matching left/right padding, boundary alignment and sharp 0px corners */}
-      <div
-        className="w-full max-w-[1240px] mx-auto relative rounded-none overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(2,11,29,0.18)]"
-        style={{
-          background: "linear-gradient(135deg, #020612 0%, #020b1d 50%, #010612 100%)",
-        }}
-      >
-        {/* 1. Ambient Cosmic Blue Beam & Gradients matching Reference */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 opacity-80"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 55% at 80% 25%, rgba(1, 120, 192, 0.25) 0%, transparent 65%), radial-gradient(ellipse 65% 55% at 15% 75%, rgba(2, 48, 101, 0.45) 0%, transparent 70%), linear-gradient(60deg, transparent 25%, rgba(2, 48, 101, 0.22) 42%, rgba(1, 120, 192, 0.18) 55%, transparent 72%)",
-          }}
-          aria-hidden="true"
+      <div className="w-full max-w-[1240px] mx-auto relative rounded-none overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(2,11,29,0.18)] bg-[#020612]">
+        {/* RewampUI Liquid Cursor Gradient Background */}
+        <LiquidCursorGradient
+          orb1Color="#023065"
+          orb2Color="#0178c0"
+          cursorOrbColor="#0284c7"
         />
 
-        {/* 2. Interactive Ripple Grid Canvas Background (Base #023065, Ripple #0178c0) */}
-        <RippleGrid
-          baseColor="#023065"
-          hoverColor="#0178c0"
-          spacing={28}
-          baseRadius={1.35}
-          interactionRadius={140}
-        />
-
-        {/* 3. Subtle Vignette / Edge Softening */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(1,6,18,0.75)_100%)]"
-          aria-hidden="true"
-        />
-
-        {/* 4. Section Content - Symmetrical Standard Layout Container */}
+        {/* Section Content - Symmetrical Standard Layout Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 md:px-14 py-20 sm:py-24 md:py-28 flex flex-col items-center text-center">
           {/* Top Indicator: ▪ GET STARTED */}
           <div className="flex items-center gap-2 mb-3.5 sm:mb-4 select-none">

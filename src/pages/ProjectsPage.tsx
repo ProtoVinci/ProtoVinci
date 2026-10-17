@@ -127,12 +127,12 @@ export const ProjectsPage: React.FC = () => {
           style={{ fontFamily: "'Switzer', sans-serif" }}
         >
           <span className="block">
-            <span className="project-word inline-block mr-[0.22em] text-[#000000]">High-impact</span>{" "}
+            <span className="project-word inline-block mr-[0.01em] text-[#000000]">High-impact</span>{" "}
             <span className="project-word inline-block text-[#6b7280]">projects</span>
           </span>
           <span className="block">
-            <span className="project-word inline-block mr-[0.22em] text-[#000000]">designed</span>{" "}
-            <span className="project-word inline-block mr-[0.22em] text-[#000000]">for</span>{" "}
+            <span className="project-word inline-block mr-[0.01em] text-[#000000]">designed</span>{" "}
+            <span className="project-word inline-block mr-[0.01em] text-[#000000]">for</span>{" "}
             <span className="project-word inline-block text-[#000000]">growth</span>
           </span>
         </h1>
