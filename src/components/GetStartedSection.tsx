@@ -1,10 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useGoToContactForm } from "@/lib/useContactNav";
 import { PopButton } from "@/components/ui/pop-button";
 import { LiquidCursorGradient } from "@/components/ui/liquid-cursor-gradient";
 
 export const GetStartedSection: React.FC = () => {
-  const navigate = useNavigate();
+  const goToContactForm = useGoToContactForm();
 
   return (
     <section
@@ -54,7 +54,7 @@ export const GetStartedSection: React.FC = () => {
             <PopButton
               color="white"
               size="lg"
-              onClick={() => navigate("/contact")}
+              onClick={goToContactForm}
               className="rounded-full px-7 sm:px-9 py-3.5 sm:py-4 font-['Switzer'] text-[15px] sm:text-[16px] font-[650] !bg-white hover:!bg-neutral-100 !text-black !border-neutral-300 !border-b-neutral-400 shadow-[0_8px_28px_rgba(0,0,0,0.35),0_0_24px_rgba(1,120,192,0.2)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.45),0_0_32px_rgba(1,120,192,0.35)] transition-all cursor-pointer gap-2"
             >
               <span className="text-[#000000]">Book a Strategy Call</span>

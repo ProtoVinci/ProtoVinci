@@ -26,15 +26,6 @@ export const ProjectDetailPage: React.FC = () => {
       ? ALL_PROJECTS[(projectIndex + 1) % ALL_PROJECTS.length]
       : ALL_PROJECTS[0];
 
-  // Guarantee instant scroll to top on mount or slug change
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    const lenis = (window as unknown as { lenis?: any }).lenis;
-    lenis?.scrollTo(0, { immediate: true, force: true });
-  }, [slug]);
-
   // Entrance animations strictly on heading and description
   useEffect(() => {
     if (!project) return;
@@ -113,13 +104,13 @@ export const ProjectDetailPage: React.FC = () => {
     <div
       ref={containerRef}
       id="project-detail-page"
-      className="relative min-h-screen w-full bg-[#f6f6f6] text-neutral-900 overflow-x-hidden selection:bg-neutral-900 selection:text-white font-['Switzer']"
+      className="relative min-h-screen w-full bg-[#f6f6f6] text-neutral-900 overflow-x-clip selection:bg-neutral-900 selection:text-white font-['Switzer']"
     >
       {/* 1. Expandable Pop-out Navbar */}
       <Navbar />
 
       {/* 2. Header Area: Tag, Project Title & Full Description */}
-      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-28 sm:pt-32 md:pt-36 pb-8 sm:pb-12 flex flex-col items-center text-center">
         {/* Project Status Capsule Pill matching Reference Image */}
         <div className="inline-flex items-center gap-2.5 p-1 pr-4 rounded-full bg-white border border-[#e2e2e2] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-5 select-none">
           <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-[12px] sm:text-[13px] font-[700] shrink-0">
@@ -133,7 +124,7 @@ export const ProjectDetailPage: React.FC = () => {
         {/* Big Editorial Headline */}
         <h1
           ref={headlineRef}
-          className="text-center text-[40px] sm:text-[54px] md:text-[68px] lg:text-[76px] font-[600] leading-[1.05] tracking-[-0.038em] text-[#000000] max-w-4xl mx-auto select-none m-0"
+          className="text-center text-[clamp(32px,10vw,40px)] sm:text-[54px] md:text-[68px] lg:text-[76px] font-[600] leading-[1.05] tracking-[-0.038em] text-[#000000] max-w-4xl mx-auto select-none m-0"
           style={{ fontFamily: "'Switzer', sans-serif" }}
         >
           {titleWords.map((word, wIdx) => (
@@ -167,8 +158,10 @@ export const ProjectDetailPage: React.FC = () => {
           <img
             src={project.landingImage}
             alt={`${project.name} Landing Page Hero`}
+            width={1600}
+            height={800}
             decoding="async"
-            loading="eager"
+            fetchPriority="high"
             className="w-full h-auto block select-none"
           />
         </div>
@@ -176,7 +169,7 @@ export const ProjectDetailPage: React.FC = () => {
 
       {/* 4. Two-Column Split: Overview / Process / Result on Left, Metadata Card on Right */}
       <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-16 sm:mb-20 md:mb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Project Overview, Project Process, Final Result */}
           <div className="lg:col-span-7 xl:col-span-8 flex flex-col">
             {/* Section A: Project Overview */}
@@ -235,7 +228,7 @@ export const ProjectDetailPage: React.FC = () => {
           </div>
 
           {/* Right Column: Metadata Card matching Reference Image */}
-          <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24">
+          <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-28">
             <div className="bg-[#f0f0f2] border border-neutral-300/80 p-6 sm:p-7 shadow-sm flex flex-col">
               {/* Row 1: Client Name (Highlighted & Bold with Subtitle) */}
               <div className="py-4 border-b border-neutral-300/80 flex items-start justify-between gap-4 first:pt-1">
@@ -344,7 +337,10 @@ export const ProjectDetailPage: React.FC = () => {
                 <img
                   src={imgSrc}
                   alt={`${project.name} mobile screen ${gIdx + 1}`}
+                  width={755}
+                  height={1600}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-auto block select-none"
                 />
               </div>
@@ -365,7 +361,10 @@ export const ProjectDetailPage: React.FC = () => {
                 <img
                   src={imgSrc}
                   alt={`${project.name} showcase image ${gIdx + 1}`}
+                  width={1600}
+                  height={760}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-auto block select-none transition-transform duration-500 ease-out hover:scale-[1.015]"
                 />
               </div>

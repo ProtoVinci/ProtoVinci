@@ -16,15 +16,6 @@ export const ProjectsPage: React.FC = () => {
   const descRef = useRef<HTMLParagraphElement>(null);
   const ctaButtonsRef = useRef<HTMLDivElement>(null);
 
-  // Guarantee instant scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    const lenis = (window as unknown as { lenis?: any }).lenis;
-    lenis?.scrollTo(0, { immediate: true, force: true });
-  }, []);
-
   // Entrance animations matching HeroSection and Framer reference
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -102,13 +93,13 @@ export const ProjectsPage: React.FC = () => {
     <div
       ref={containerRef}
       id="projects-page"
-      className="relative min-h-screen w-full bg-[#f6f6f6] text-neutral-900 overflow-x-hidden selection:bg-neutral-900 selection:text-white font-['Switzer']"
+      className="relative min-h-screen w-full bg-[#f6f6f6] text-neutral-900 overflow-x-clip selection:bg-neutral-900 selection:text-white font-['Switzer']"
     >
       {/* 1. Expandable Pop-out Navbar */}
       <Navbar />
 
       {/* 2. Hero Header Section: Tight, balanced vertical rhythm matching reference */}
-      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-28 sm:pt-32 md:pt-36 pb-4 sm:pb-6 flex flex-col items-center text-center">
         {/* Top Indicator: ▪ PROJECTS */}
         <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -123,7 +114,7 @@ export const ProjectsPage: React.FC = () => {
         {/* Big Editorial Heading */}
         <h1
           ref={headlineRef}
-          className="text-center text-[38px] sm:text-[50px] md:text-[62px] lg:text-[70px] font-[600] leading-[1.05] tracking-[-0.038em] text-[#000000] max-w-4xl mx-auto select-none m-0"
+          className="text-center text-[clamp(32px,9.6vw,38px)] sm:text-[50px] md:text-[62px] lg:text-[70px] font-[600] leading-[1.05] tracking-[-0.038em] text-[#000000] max-w-4xl mx-auto select-none m-0"
           style={{ fontFamily: "'Switzer', sans-serif" }}
         >
           <span className="block">

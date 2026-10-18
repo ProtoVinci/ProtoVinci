@@ -1,35 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useInView, useMediaQuery } from "@/lib/hooks";
+import { scrollToTarget } from "@/lib/scroll";
+import { CONTACT } from "@/lib/contact";
 import vinciFooterWebm from "@/assets/vinci-footer.webm";
 import vinciFooterMp4 from "@/assets/vinci-footer.mp4";
-import logoImg from "@/assets/Logo.png";
+import logoImg from "@/assets/logo.webp";
 import { PopButton } from "@/components/ui/pop-button";
 
 export const Footer: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const footerRef = useRef<HTMLElement>(null);
+
+  // The video only shows on lg+ screens. Mount it there, and only once the footer is close
+  // to the viewport, so phones and first paint never download it.
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const nearViewport = useInView(footerRef, { rootMargin: "600px", once: true });
+  const showVideo = isDesktop && nearViewport;
 
   const handleHashClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
-    if (href.startsWith("/")) {
-      navigate(href);
-      return;
-    }
-
-    if (location.pathname !== "/") {
-      navigate(`/${href}`);
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        el?.scrollIntoView({ behavior: "smooth" });
-      }, 150);
-    } else {
-      const el = document.querySelector(href);
-      el?.scrollIntoView({ behavior: "smooth" });
-    }
+    if (location.pathname !== "/") navigate(`/${href}`);
+    else scrollToTarget(href);
   };
 
   return (
     <footer
+      ref={footerRef}
       id="footer"
       className="relative w-full border-t border-black/15 select-none font-['Switzer'] overflow-hidden"
       style={{
@@ -49,6 +47,9 @@ export const Footer: React.FC = () => {
                   <img
                     src={logoImg}
                     alt="ProtoVinci Logo"
+                    width={40}
+                    height={40}
+                    loading="lazy"
                     className="w-full h-full object-cover rounded-full scale-110"
                   />
                 </div>
@@ -126,7 +127,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Middle Columns: Quick Links + Other Information shifted left, strictly z-30 isolate */}
-            <div className="flex gap-7 sm:gap-8 md:gap-10 shrink-0 relative z-30 isolate">
+            <div className="flex flex-wrap gap-x-10 gap-y-8 sm:gap-8 md:gap-10 shrink-0 relative z-30 isolate">
               {/* Quick links Column */}
               <div className="flex flex-col min-w-[100px]">
                 <h3 className="font-['Switzer'] font-[750] text-[15px] sm:text-[16px] text-[#000000] mb-3.5 tracking-tight">
@@ -186,15 +187,15 @@ export const Footer: React.FC = () => {
                 <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
                   <li>
                     <a
-                      href="mailto:protovincistudio@gmail.com"
-                      className="font-['Switzer'] text-[14px] text-[#000000] hover:text-neutral-700 transition-colors font-[600] no-underline block"
+                      href={`mailto:${CONTACT.email}`}
+                      className="font-['Switzer'] text-[14px] text-[#000000] hover:text-neutral-700 transition-colors font-[600] no-underline block break-all"
                     >
-                      protovincistudio@gmail.com
+                      {CONTACT.email}
                     </a>
                   </li>
                   <li>
                     <span className="font-['Switzer'] text-[14px] text-[#000000] font-[600] block whitespace-nowrap">
-                      Mumbai, India
+                      {CONTACT.location}
                     </span>
                   </li>
                 </ul>
@@ -211,26 +212,29 @@ export const Footer: React.FC = () => {
             aria-hidden="true"
           />
 
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="w-full h-full object-cover object-center block"
-            style={{
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 70px, black 100%)",
-              maskImage: "linear-gradient(to right, transparent 0%, black 70px, black 100%)",
-            }}
-          >
-            <source src={vinciFooterWebm} type="video/webm" />
-            <source src={vinciFooterMp4} type="video/mp4" />
-          </video>
+          {showVideo && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center block"
+              style={{
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 70px, black 100%)",
+                maskImage: "linear-gradient(to right, transparent 0%, black 70px, black 100%)",
+              }}
+            >
+              <source src={vinciFooterWebm} type="video/webm" />
+              <source src={vinciFooterMp4} type="video/mp4" />
+            </video>
+          )}
         </div>
       </div>
 
       {/* Bottom Bar: Seam line & Copyright aligned with left boundary */}
-      <div className="w-full border-t border-black/15 py-6 sm:py-7 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-[max(1.5rem,calc((100vw-1300px)/2+1.5rem))] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left relative z-30 isolate">
+      <div className="w-full border-t border-black/15 py-6 sm:py-7 pb-[max(1.5rem,env(safe-area-inset-bottom))] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-[max(1.5rem,calc((100vw-1300px)/2+1.5rem))] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left relative z-30 isolate">
         <p className="font-['Switzer'] text-[13px] text-[#000000] font-[600] m-0">
           © 2026 ProtoVinci. All rights reserved.
         </p>

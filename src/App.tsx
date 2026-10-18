@@ -1,102 +1,99 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { BrowserRouter, Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
-import { Agentation } from "agentation";
+import { LazyMotion, domAnimation } from "framer-motion";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { HomePage } from "@/pages/HomePage";
-import { ContactPage } from "@/pages/ContactPage";
-import { ProjectsPage } from "@/pages/ProjectsPage";
-import { ProjectDetailPage } from "@/pages/ProjectDetailPage";
+import { scrollToTarget, scrollToTop } from "@/lib/scroll";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
+// Mobile address bars resize the viewport while scrolling; re-measuring every pin on each
+// show/hide causes visible jumps in the pinned sections.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
-// Helper component to handle scroll reset and hash scrolling with Lenis
-function ScrollToTop() {
+// Home is the landing route, so it ships in the main bundle. Everything else is split
+// into its own chunk and only downloaded when visited.
+const ContactPage = lazy(() => import("@/pages/ContactPage"));
+const ProjectsPage = lazy(() => import("@/pages/ProjectsPage"));
+const ProjectDetailPage = lazy(() => import("@/pages/ProjectDetailPage"));
+
+// Dev-only visual feedback toolbar (~700 KB). import.meta.env.DEV is statically false in
+// production builds, so the bundler drops this import entirely.
+const Agentation = import.meta.env.DEV
+  ? lazy(() => import("agentation").then((m) => ({ default: m.Agentation })))
+  : null;
+
+// Scroll reset on route change + hash scrolling (#services, #faq) that also works when the
+// target page is a lazy chunk that hasn't rendered yet.
+function ScrollManager() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+    if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    const lenis = (window as unknown as { lenis?: Lenis }).lenis;
-    if (hash) {
-      const timer = setTimeout(() => {
-        const el = document.querySelector(hash);
-        if (el) {
-          if (lenis) {
-            lenis.scrollTo(el as HTMLElement, { offset: -60, duration: 1.2 });
-          } else {
-            el.scrollIntoView({ behavior: "smooth" });
-          }
-        }
-      }, 120);
-      return () => clearTimeout(timer);
-    } else {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      lenis?.scrollTo(0, { immediate: true, force: true });
+    if (hash === "#contact") return; // handled by the redirect route below
 
-      const timer = setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        lenis?.scrollTo(0, { immediate: true, force: true });
-        ScrollTrigger.refresh();
-      }, 30);
-      return () => clearTimeout(timer);
+    if (!hash) {
+      scrollToTop();
+      const t = setTimeout(() => ScrollTrigger.refresh(), 60);
+      return () => clearTimeout(t);
     }
+
+    // Poll for up to ~3s for the target to mount (lazy page + layout), then glide to it.
+    // setTimeout rather than rAF: rAF is paused in background tabs, so a link opened in a
+    // new tab would otherwise never reach its section.
+    let timer = 0;
+    let tries = 0;
+    const seek = () => {
+      const el = document.querySelector<HTMLElement>(hash);
+      if (el) {
+        ScrollTrigger.refresh();
+        scrollToTarget(el);
+      } else if (tries++ < 100) {
+        timer = window.setTimeout(seek, 30);
+      }
+    };
+    timer = window.setTimeout(seek, 0);
+    return () => clearTimeout(timer);
   }, [pathname, hash]);
 
   return null;
 }
 
-// Redirect hash #contact to dedicated /contact route for consistent experience
-function HashRedirect() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash === "#contact") {
-      navigate("/contact", { replace: true });
-    }
-  }, [location, navigate]);
-
-  return null;
+function HashContactRedirect() {
+  const { hash } = useLocation();
+  return hash === "#contact" ? <Navigate to="/contact" replace /> : null;
 }
 
 export function App() {
   useEffect(() => {
-    // 1. Initialize Lenis for luxurious buttery-smooth weighted scrolling
+    // Respect OS-level "reduce motion": skip inertial scrolling entirely.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1.8,
       wheelMultiplier: 1.0,
-      autoRaf: false, // Driven strictly via GSAP ticker for frame-locked sync
+      autoRaf: false, // Driven by the GSAP ticker for frame-locked sync with ScrollTrigger
     });
 
-    // 2. Synchronize Lenis with GSAP ScrollTrigger & expose globally
     (window as unknown as { lenis?: Lenis }).lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
+    const updateTicker = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(500, 33);
 
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 250);
+    // Re-measure pinned sections once fonts have swapped in (line heights change).
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
     return () => {
-      clearTimeout(timer);
       gsap.ticker.remove(updateTicker);
       (window as unknown as { lenis?: Lenis }).lenis = undefined;
       lenis.destroy();
@@ -105,21 +102,27 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <HashRedirect />
-      <div className="w-full min-h-screen bg-[#e1e1e1] selection:bg-neutral-900 selection:text-white">
-        {/* Visual Feedback Toolbar for AI Agents */}
-        <Agentation />
+      <LazyMotion features={domAnimation} strict>
+        <ScrollManager />
+        <HashContactRedirect />
+        <div className="w-full min-h-screen bg-[#e1e1e1] selection:bg-neutral-900 selection:text-white">
+          {Agentation && (
+            <Suspense fallback={null}>
+              <Agentation />
+            </Suspense>
+          )}
 
-        {/* Application Routes */}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+          <Suspense fallback={<div className="min-h-screen w-full bg-[#f6f6f6]" />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </div>
+      </LazyMotion>
     </BrowserRouter>
   );
 }

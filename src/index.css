@@ -1,28 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Medium.woff2') format('woff2');
-  font-weight: 100 500;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Semibold.woff2') format('woff2');
-  font-weight: 501 650;
-  font-style: normal;
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/Switzer-Bold.woff2') format('woff2');
-  font-weight: 651 900;
-  font-style: normal;
-  font-display: block;
-}
+/* @font-face declarations live inline in index.html so fonts start downloading before this CSS parses */
 
 @layer base {
   :root {
@@ -40,9 +18,12 @@
     font-family: 'Switzer', sans-serif;
     background-color: #e1e1e1;
     color: #000000;
-    overflow-x: hidden;
+    /* clip (not hidden) so position: sticky keeps working inside the page */
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
   }
 
   #root {
@@ -53,122 +34,139 @@
     border: none;
     font-family: 'Switzer', sans-serif;
   }
+
+  img, video {
+    max-width: 100%;
+  }
 }
 
-.font-pop {
-  font-family: 'Switzer', sans-serif;
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-/* User Defined Font Hierarchy System (Switzer) */
-.font-h1 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 66px;
-  line-height: 1.08;
-  color: #000000;
-  font-weight: 550;
-  letter-spacing: -0.035em;
-}
+/*
+ * Design-system type scale. Kept in the components layer so responsive
+ * Tailwind utilities (text-[40px] sm:text-[54px] …) can override the
+ * desktop defaults — unlayered CSS would always win over utilities.
+ */
+@layer components {
+  .font-pop {
+    font-family: 'Switzer', sans-serif;
+  }
 
-.font-h2 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 54px;
-  line-height: 1.12;
-  color: #000000;
-  font-weight: 550;
-  letter-spacing: -0.03em;
-}
+  .font-h1 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 66px;
+    line-height: 1.08;
+    color: #000000;
+    font-weight: 550;
+    letter-spacing: -0.035em;
+  }
 
-.font-h3 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 44px;
-  line-height: 1.15;
-  color: #000000;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
+  .font-h2 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 54px;
+    line-height: 1.12;
+    color: #000000;
+    font-weight: 550;
+    letter-spacing: -0.03em;
+  }
 
-.font-h4 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 40px;
-  line-height: 1.18;
-  color: #000000;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
+  .font-h3 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 44px;
+    line-height: 1.15;
+    color: #000000;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
 
-.font-h5 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 32px;
-  line-height: 1.2;
-  color: #000000;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-}
+  .font-h4 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 40px;
+    line-height: 1.18;
+    color: #000000;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
 
-.font-text-28 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 28px;
-  line-height: 1.25;
-  color: #ffffff;
-  font-weight: 500;
-}
+  .font-h5 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #000000;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
 
-.font-text-22 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 22px;
-  line-height: 1.35;
-  color: #101011;
-  font-weight: 550;
-}
+  .font-text-28 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 28px;
+    line-height: 1.25;
+    color: #ffffff;
+    font-weight: 500;
+  }
 
-.font-text-20 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 20px;
-  line-height: 1.4;
-  color: #ffffff;
-  font-weight: 500;
-}
+  .font-text-22 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 22px;
+    line-height: 1.35;
+    color: #101011;
+    font-weight: 550;
+  }
 
-.font-text-18 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 18px;
-  line-height: 1.5;
-  color: #7D7D7D;
-  font-weight: 500;
-}
+  .font-text-20 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #ffffff;
+    font-weight: 500;
+  }
 
-.font-text-16 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #7D7D7D;
-  font-weight: 500;
-}
+  .font-text-18 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #7D7D7D;
+    font-weight: 500;
+  }
 
-.font-text-15 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 15px;
-  line-height: 1.45;
-  color: #000000;
-  font-weight: 500;
-}
+  .font-text-16 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #7D7D7D;
+    font-weight: 500;
+  }
 
-.font-text-14 {
-  font-family: 'Switzer', sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #000000;
-  font-weight: 500;
-}
+  .font-text-15 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #000000;
+    font-weight: 500;
+  }
 
-.font-text-14-upper {
-  font-family: 'Switzer', sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #ffffff;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  .font-text-14 {
+    font-family: 'Switzer', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000000;
+    font-weight: 500;
+  }
+
+  .font-text-14-upper {
+    font-family: 'Switzer', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
 }
 
 /* Services Section Specific Styles */
@@ -181,7 +179,7 @@
 .service-item {
   position: relative;
   width: 100%;
-  height: calc(100vh + 160px);
+  height: calc(100vh + 140px);
   overflow: hidden;
   clip-path: inset(0 0 0 0);
   display: block;
@@ -189,32 +187,22 @@
 
 @media (max-width: 768px) {
   .service-item {
-    height: 85vh;
+    /* svh = stable height that ignores the collapsing mobile address bar */
+    height: 78vh;
+    height: 78svh;
   }
 }
 
 .service-bg-img {
-  --parallax-bleed: 18vh;
   position: absolute;
-  top: calc(var(--parallax-bleed) * -1);
   left: 0;
   width: 100%;
-  height: calc(100% + var(--parallax-bleed) * 2);
   object-fit: cover;
   object-position: center;
-  will-change: transform;
-}
-
-@media (max-width: 768px) {
-  .service-bg-img {
-    --parallax-bleed: 10vh;
-  }
 }
 
 .service-content {
   position: fixed;
-  bottom: clamp(48px, 8vh, 84px);
-  left: clamp(24px, 5.5vw, 80px);
   z-index: 2;
   color: #ffffff;
   pointer-events: none;
@@ -223,13 +211,30 @@
   gap: 12px;
 }
 
-.service-content h3 {
-  font-family: 'Switzer', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 500;
-  line-height: 1.15;
-  color: #ffffff;
-  margin: 0;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+/* Paused while off-screen (see useInView) so looping CSS animations don't burn frames */
+[data-paused="true"] * {
+  animation-play-state: paused !important;
 }
 
+@keyframes pv-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25% { transform: translate3d(50px, -50px, 0) scale(1.25); }
+  50% { transform: translate3d(0, 50px, 0) scale(0.95); }
+  75% { transform: translate3d(-50px, -20px, 0) scale(1.15); }
+}
+
+@keyframes pv-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25% { transform: translate3d(-60px, 40px, 0) scale(0.85); }
+  50% { transform: translate3d(20px, -40px, 0) scale(1.3); }
+  75% { transform: translate3d(40px, 30px, 0) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

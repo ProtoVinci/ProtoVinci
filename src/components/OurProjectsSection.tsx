@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
+import { scrollToTop } from "@/lib/scroll";
 import { ALL_PROJECTS, type ProjectItem } from "@/data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -136,7 +137,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
               {/* Top-Left: Sleek Translucent Frosted Glass Card OUTSIDE the image at top-left */}
               <div className="self-start mb-2.5 sm:mb-3 transform-gpu transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
                 <div
-                  className={`p-2.5 sm:p-3 md:p-3.5 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
+                  className={`p-2.5 sm:p-3 md:p-3.5 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
                       ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
                       : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
@@ -186,8 +187,10 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                 <img
                   src={project.landingImage}
                   alt={project.name}
+                  width={1600}
+                  height={800}
                   decoding="async"
-                  loading={idx < 2 ? "eager" : "lazy"}
+                  loading={idx < 1 ? "eager" : "lazy"}
                   className="w-full h-auto block select-none transition-transform duration-500 ease-out group-hover:scale-[1.012]"
                   style={{
                     borderRadius: "0px",
@@ -198,12 +201,12 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
               {/* Bottom-Right: Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
               <div className="self-end mt-2.5 sm:mt-3 transform-gpu transition-transform duration-500 ease-out group-hover:translate-y-1.5">
                 <div
-                  className={`p-2 sm:p-2.5 md:p-3 backdrop-blur-sm border transition-all duration-300 shadow-sm group-hover:shadow-md ${
+                  className={`p-2 sm:p-2.5 md:p-3 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
                       ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
                       : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
                   }`}
-                  style={{ borderRadius: "0px", minWidth: "190px" }}
+                  style={{ borderRadius: "0px", minWidth: "min(190px, 70vw)" }}
                 >
                   {/* Row 1: Timeline */}
                   <div
@@ -311,11 +314,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
             color="black"
             size="lg"
             onClick={() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-              document.documentElement.scrollTop = 0;
-              document.body.scrollTop = 0;
-              const lenis = (window as unknown as { lenis?: any }).lenis;
-              lenis?.scrollTo(0, { immediate: true, force: true });
+              scrollToTop();
               navigate("/projects");
             }}
             className="rounded-full px-8 sm:px-10 py-3.5 sm:py-4 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"

@@ -2,12 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>ProtoVinci — High-End Design Agency</title>
+    <meta name="description" content="ProtoVinci is a Mumbai-based design agency crafting brand identities, websites, digital marketing and social media content for fast-growing teams." />
+    <meta name="theme-color" content="#e1e1e1" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ProtoVinci — High-End Design Agency" />
+    <meta property="og:description" content="Premium design with endless solutions. Brand identity, web design & development, marketing and social content." />
+    <meta property="og:image" content="/apple-touch-icon.png" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Only the two weights used above the fold; Bold loads on demand -->
     <link rel="preload" href="/fonts/Switzer-Medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Switzer-Semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/Switzer-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/fonts/fonts.css" />
-    <title>ProtoVinci — High-End Design Agency</title>
+    <style>
+      @font-face { font-family: 'Switzer'; src: url('/fonts/Switzer-Medium.woff2') format('woff2'); font-weight: 100 500; font-style: normal; font-display: swap; }
+      @font-face { font-family: 'Switzer'; src: url('/fonts/Switzer-Semibold.woff2') format('woff2'); font-weight: 501 650; font-style: normal; font-display: swap; }
+      @font-face { font-family: 'Switzer'; src: url('/fonts/Switzer-Bold.woff2') format('woff2'); font-weight: 651 900; font-style: normal; font-display: swap; }
+      html, body, #root, button, input, textarea, select {
+        font-family: 'Switzer', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+      }
+      html, body { margin: 0; background: #e1e1e1; }
+    </style>
   </head>
   <body>
     <div id="root"></div>

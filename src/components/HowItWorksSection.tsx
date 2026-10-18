@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2 } from "lucide-react";
+import { useMediaQuery } from "@/lib/hooks";
+import { getLenis } from "@/lib/scroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -154,8 +156,12 @@ export const HowItWorksSection: React.FC = () => {
   const triggerRef = useRef<ScrollTrigger | null>(null);
 
   const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const activeIndexRef = useRef<number>(0);
+  // On phones the 1000-unit viewBox shrinks ~3x, so labels/nodes are drawn larger to stay legible.
+  const compact = useMediaQuery("(max-width: 767px)");
+  const label = compact
+    ? { title: 34, step: 24, titleGap: 30, stepGap: 62, node: 14, nodeActive: 18 }
+    : { title: 14, step: 10, titleGap: 18, stepGap: 34, node: 8.5, nodeActive: 11.5 };
 
   // Initialize and run the pinned scroll animation
   useEffect(() => {
@@ -179,7 +185,11 @@ export const HowItWorksSection: React.FC = () => {
         anticipatePin: 1,
         onUpdate: (self) => {
           const s = Math.min(Math.max(self.progress, 0), 1);
-          setScrollProgress(s);
+          // Written straight to the DOM: a React state update here would re-render the
+          // whole section on every scroll frame.
+          if (areaRef.current) {
+            areaRef.current.style.opacity = String(Math.max(s * 1.2, 0.2));
+          }
 
           // Compute exact physical trajectory along the cubic bezier
           const { curveProgress, stageIndex } = calculateTrajectory(s);
@@ -216,10 +226,9 @@ export const HowItWorksSection: React.FC = () => {
     if (!trigger) return;
     const targetScrolls = [0.04, 0.32, 0.58, 0.86];
     const targetY = trigger.start + targetScrolls[idx] * (trigger.end - trigger.start);
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth",
-    });
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(targetY, { duration: 1.2 });
+    else window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
   return (
@@ -227,7 +236,7 @@ export const HowItWorksSection: React.FC = () => {
       ref={sectionRef}
       id="how-it-works"
       aria-label="How It Works Methodology"
-      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-4 sm:px-6 md:px-8 lg:px-10 select-none"
+      className="relative w-full h-screen h-[100svh] flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-4 sm:px-6 md:px-8 lg:px-10 select-none"
       style={{
         background: "#eeeef0",
       }}
@@ -236,7 +245,7 @@ export const HowItWorksSection: React.FC = () => {
 
       {/* Subtle Ambient Depth Radial Glow */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] rounded-full blur-[140px] opacity-35 bg-gradient-to-tr from-neutral-200 via-white to-neutral-300"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(850px,100%)] h-[450px] rounded-full opacity-35 bg-[radial-gradient(closest-side,#ffffff,transparent)]"
         aria-hidden="true"
       />
 
@@ -254,23 +263,23 @@ export const HowItWorksSection: React.FC = () => {
 
         {/* Section Headline */}
         <h2
-          className="text-xl sm:text-2xl md:text-[28px] text-[#000000] font-[550] tracking-[-0.03em] text-center max-w-2xl leading-[1.18] m-0 mb-3.5"
+          className="text-[22px] sm:text-2xl md:text-[28px] text-[#000000] font-[550] tracking-[-0.03em] text-center max-w-2xl leading-[1.18] m-0 mb-4 sm:mb-3.5 text-balance"
           style={{ fontFamily: "'Switzer', sans-serif" }}
         >
           A disciplined trajectory from discovery to compounding impact.
         </h2>
 
         {/* 2. Frosted Neomorphic Elevating Graph Card */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 bg-white/75 backdrop-blur-2xl border border-white/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.06),0_10px_20px_-5px_rgba(0,0,0,0.03),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-2px_4px_rgba(0,0,0,0.02)] overflow-hidden">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl px-2 py-4 sm:p-6 md:p-7 bg-white/80 border border-white/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.06),0_10px_20px_-5px_rgba(0,0,0,0.03),inset_0_2px_4px_rgba(255,255,255,0.95),inset_0_-2px_4px_rgba(0,0,0,0.02)] overflow-hidden">
           {/* Subtle Vertical Guides */}
           <div className="absolute inset-0 pointer-events-none opacity-30">
             <div className="w-full h-full grid grid-cols-4 divide-x divide-neutral-200/50" />
           </div>
 
           {/* SVG Graph View */}
-          <div className="relative w-full aspect-[1000/210] min-h-[160px] sm:min-h-[185px] md:min-h-[205px]">
+          <div className="relative w-full aspect-[1000/260] md:aspect-[1000/210] md:min-h-[205px]">
             <svg
-              viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
+              viewBox={compact ? `0 -50 ${SVG_WIDTH} ${SVG_HEIGHT + 50}` : `0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
               className="w-full h-full overflow-visible"
             >
               <defs>
@@ -324,7 +333,7 @@ export const HowItWorksSection: React.FC = () => {
                 d={CURVE_PATH}
                 fill="none"
                 stroke="#e4e6ea"
-                strokeWidth="3.5"
+                strokeWidth={compact ? 6 : 3.5}
                 strokeDasharray="6 8"
                 strokeLinecap="round"
               />
@@ -334,7 +343,7 @@ export const HowItWorksSection: React.FC = () => {
                 ref={areaRef}
                 d={AREA_PATH}
                 fill="url(#areaGradient)"
-                style={{ opacity: Math.max(scrollProgress * 1.2, 0.2) }}
+                style={{ opacity: 0.2 }}
               />
 
               {/* 3. Elevating Dynamic Stroke (Scrubbed with exact trajectory) */}
@@ -343,7 +352,7 @@ export const HowItWorksSection: React.FC = () => {
                 d={CURVE_PATH}
                 fill="none"
                 stroke="url(#elevateGradient)"
-                strokeWidth="4"
+                strokeWidth={compact ? 7 : 4}
                 strokeLinecap="round"
               />
 
@@ -352,19 +361,21 @@ export const HowItWorksSection: React.FC = () => {
                 ref={beaconRef}
                 transform={`translate(${STAGES[0].x}, ${STAGES[0].y})`}
               >
-                <circle
-                  r="16"
-                  fill="rgba(16, 16, 17, 0.12)"
-                  className="animate-ping"
-                />
-                <circle
-                  r="9"
-                  fill="#ffffff"
-                  stroke="#101011"
-                  strokeWidth="3"
-                  filter="url(#nodeShadow)"
-                />
-                <circle r="3.5" fill="#101011" />
+                <g transform={compact ? "scale(1.8)" : undefined}>
+                  <circle
+                    r="16"
+                    fill="rgba(16, 16, 17, 0.12)"
+                    className="animate-ping"
+                  />
+                  <circle
+                    r="9"
+                    fill="#ffffff"
+                    stroke="#101011"
+                    strokeWidth="3"
+                    filter="url(#nodeShadow)"
+                  />
+                  <circle r="3.5" fill="#101011" />
+                </g>
               </g>
 
               {/* 5. Four Anchor Nodes & Titles: Understand, Shape, Create, Elevate */}
@@ -383,7 +394,7 @@ export const HowItWorksSection: React.FC = () => {
                       <circle
                         cx={stage.x}
                         cy={stage.y}
-                        r="18"
+                        r={compact ? 30 : 18}
                         fill="rgba(16, 16, 17, 0.08)"
                         className="animate-pulse pointer-events-none"
                       />
@@ -406,10 +417,10 @@ export const HowItWorksSection: React.FC = () => {
                     <circle
                       cx={stage.x}
                       cy={stage.y}
-                      r={isActive ? "11.5" : "8.5"}
+                      r={isActive ? label.nodeActive : label.node}
                       fill="#ffffff"
                       stroke={isPassed ? "#101011" : "#d1d5db"}
-                      strokeWidth={isActive ? "3.5" : "2"}
+                      strokeWidth={(isActive ? 3.5 : 2) * (compact ? 1.5 : 1)}
                       filter="url(#nodeShadow)"
                       style={{
                         transition:
@@ -421,7 +432,7 @@ export const HowItWorksSection: React.FC = () => {
                     <circle
                       cx={stage.x}
                       cy={stage.y}
-                      r={isActive ? "4.5" : "3"}
+                      r={(isActive ? 4.5 : 3) * (compact ? 1.6 : 1)}
                       fill={isPassed ? "#101011" : "#9ca3af"}
                       style={{ transition: "r 0.3s ease, fill 0.3s ease" }}
                     />
@@ -429,11 +440,11 @@ export const HowItWorksSection: React.FC = () => {
                     {/* Stage Title Text on Graph - Fixed Font Weight & Size to prevent any FOUT flash */}
                     <text
                       x={stage.x}
-                      y={stage.y - 18}
+                      y={stage.y - label.titleGap}
                       textAnchor="middle"
                       style={{
                         fontFamily: "'Switzer', sans-serif",
-                        fontSize: "14px",
+                        fontSize: `${label.title}px`,
                         fontWeight: 600,
                         letterSpacing: "-0.02em",
                         transition: "fill 0.35s ease, opacity 0.35s ease",
@@ -448,11 +459,11 @@ export const HowItWorksSection: React.FC = () => {
                     {/* Step Index Badge */}
                     <text
                       x={stage.x}
-                      y={stage.y - 34}
+                      y={stage.y - label.stepGap}
                       textAnchor="middle"
                       style={{
                         fontFamily: "'Switzer', sans-serif",
-                        fontSize: "10px",
+                        fontSize: `${label.step}px`,
                         fontWeight: 600,
                         letterSpacing: "0.12em",
                         transition: "fill 0.35s ease, opacity 0.35s ease",
@@ -471,7 +482,7 @@ export const HowItWorksSection: React.FC = () => {
         </div>
 
         {/* 3. Description Area with Buttery Smooth Crossfade Directly on Plain Background (Card Container Removed) */}
-        <div className="w-full max-w-4xl mt-4 sm:mt-5 px-3 sm:px-6 relative min-h-[160px] sm:min-h-[145px] flex items-center justify-center">
+        <div className="w-full max-w-4xl mt-5 px-1 sm:px-6 relative min-h-[250px] sm:min-h-[160px] md:min-h-[145px] flex items-center justify-center">
           {STAGES.map((stage, idx) => {
             const isActive = idx === activeStageIndex;
             const isPast = idx < activeStageIndex;
@@ -495,7 +506,7 @@ export const HowItWorksSection: React.FC = () => {
                 }}
               >
                 {/* Stage Indicator Pill - Strictly horizontal */}
-                <div className="flex flex-row flex-nowrap items-center justify-center gap-2 mb-2 shrink-0 whitespace-nowrap">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 mb-2.5 sm:mb-2 shrink-0">
                   <span
                     className="text-[11px] uppercase tracking-[0.2em] font-[600] px-2.5 py-0.5 rounded-full bg-neutral-900 text-white shadow-xs shrink-0 whitespace-nowrap"
                     style={{ fontFamily: "'Switzer', sans-serif" }}
@@ -503,7 +514,7 @@ export const HowItWorksSection: React.FC = () => {
                     PHASE {stage.step}
                   </span>
                   <span
-                    className="text-neutral-500 font-[500] text-xs sm:text-[13.5px] tracking-[-0.01em] shrink-0 whitespace-nowrap"
+                    className="text-neutral-500 font-[500] text-[12.5px] sm:text-[13.5px] tracking-[-0.01em]"
                     style={{ fontFamily: "'Switzer', sans-serif" }}
                   >
                     {stage.subtitle}
@@ -512,18 +523,18 @@ export const HowItWorksSection: React.FC = () => {
 
                 {/* Stage Primary Description directly on plain background */}
                 <p
-                  className="text-[#1a1a1d] font-[500] leading-relaxed max-w-2xl mx-auto m-0 text-sm sm:text-[16px] md:text-[17px] tracking-[-0.01em]"
+                  className="text-[#1a1a1d] font-[500] leading-relaxed max-w-2xl mx-auto m-0 text-[14.5px] sm:text-[16px] md:text-[17px] tracking-[-0.01em]"
                   style={{ fontFamily: "'Switzer', sans-serif" }}
                 >
                   {stage.description}
                 </p>
 
                 {/* Deliverables Badges Strictly Horizontal Row - never stacks up for all phases */}
-                <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-2.5 mt-3 pt-3 border-t border-neutral-300/60 w-full max-w-4xl overflow-x-auto sm:overflow-visible no-scrollbar">
+                <div className="flex flex-row flex-wrap md:flex-nowrap items-center justify-center gap-1.5 sm:gap-2.5 mt-3 pt-3 border-t border-neutral-300/60 w-full max-w-4xl">
                   {stage.deliverables.map((item, dIdx) => (
                     <div
                       key={dIdx}
-                      className="flex flex-row flex-nowrap items-center gap-1.5 px-3 py-1 rounded-full bg-white/85 backdrop-blur-md border border-neutral-300/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] shrink-0 whitespace-nowrap flex-none"
+                      className="flex flex-row flex-nowrap items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/90 border border-neutral-300/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] shrink-0 whitespace-nowrap flex-none"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-neutral-900 shrink-0" />
                       <span

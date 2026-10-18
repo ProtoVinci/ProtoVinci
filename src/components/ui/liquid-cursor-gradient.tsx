@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import gsap from "gsap";
+import { useInView } from "@/lib/hooks";
 
 export interface LiquidCursorGradientProps {
   className?: string;
@@ -8,6 +9,19 @@ export interface LiquidCursorGradientProps {
   cursorOrbColor?: string;
 }
 
+// Soft-edged orb: a radial gradient looks the same as a solid circle under a heavy blur,
+// but costs nothing to composite. The previous version ran `backdrop-filter: blur(90px)`
+// over animating layers, which forced a full-section re-blur on every frame.
+//
+// `closest-side` makes the gradient reach full transparency *inside* its box. The default
+// (farthest-corner) runs past the box edges, where the browser clips it into hard seams.
+// The many stops trace an ease-out curve so no ring is visible where the falloff ends.
+const orb = (color: string) =>
+  `radial-gradient(ellipse closest-side at center, ${color} 0%, ${color}e6 12%, ${color}b3 28%, ${color}73 45%, ${color}3d 62%, ${color}17 78%, ${color}05 90%, ${color}00 100%)`;
+
+const NOISE =
+  'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")';
+
 export const LiquidCursorGradient: React.FC<LiquidCursorGradientProps> = ({
   className = "",
   orb1Color = "#023065", // Deep rich navy
@@ -15,93 +29,66 @@ export const LiquidCursorGradient: React.FC<LiquidCursorGradientProps> = ({
   cursorOrbColor = "#0284c7", // Cursor tracking luminous cyan orb
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const cursorOrbRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, { rootMargin: "100px" });
 
-  // Buttery smooth liquid spring tracking (rewampui liquid-cursor-gradient physics)
-  const springX = useSpring(mouseX, { stiffness: 40, damping: 20, mass: 0.8 });
-  const springY = useSpring(mouseY, { stiffness: 40, damping: 20, mass: 0.8 });
-
+  // Cursor-following orb: only on devices with a real hover pointer, only while in view.
   useEffect(() => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      mouseX.set(rect.width / 2);
-      mouseY.set(rect.height / 2);
-    }
-  }, [mouseX, mouseY]);
+    const container = containerRef.current;
+    const orbEl = cursorOrbRef.current;
+    const parent = container?.parentElement;
+    if (!container || !orbEl || !parent || !inView) return;
 
-  useEffect(() => {
-    const parent = containerRef.current?.parentElement;
-    if (!parent) return;
+    const { width, height } = container.getBoundingClientRect();
+    gsap.set(orbEl, { x: width / 2, y: height / 2, xPercent: -50, yPercent: -50 });
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const xTo = gsap.quickTo(orbEl, "x", { duration: 1.4, ease: "power3.out" });
+    const yTo = gsap.quickTo(orbEl, "y", { duration: 1.4, ease: "power3.out" });
+
+    const onMove = (e: MouseEvent) => {
       const rect = parent.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left);
-      mouseY.set(e.clientY - rect.top);
+      xTo(e.clientX - rect.left);
+      yTo(e.clientY - rect.top);
     };
-
-    parent.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      parent.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [mouseX, mouseY]);
+    parent.addEventListener("mousemove", onMove, { passive: true });
+    return () => parent.removeEventListener("mousemove", onMove);
+  }, [inView]);
 
   return (
     <div
       ref={containerRef}
+      data-paused={!inView}
       className={`absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none bg-[#020612] ${className}`}
       style={{ zIndex: 0 }}
       aria-hidden="true"
     >
-      {/* The Colored Orbs Layer */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Static / Floating Ambient Orb 1 */}
-        <motion.div
-          animate={{
-            x: [0, 50, 0, -50, 0],
-            y: [0, -50, 50, -20, 0],
-            scale: [1, 1.25, 0.95, 1.15, 1],
-          }}
-          transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-15%] left-[-15%] w-[70%] h-[70%] rounded-full mix-blend-screen opacity-90"
-          style={{ backgroundColor: orb1Color }}
-        />
+      {/* Ambient Orb 1 */}
+      <div
+        className="absolute top-[-45%] left-[-35%] w-[115%] h-[150%] mix-blend-screen opacity-90 will-change-transform"
+        style={{ background: orb(orb1Color), animation: "pv-orb-a 16s linear infinite" }}
+      />
 
-        {/* Static / Floating Ambient Orb 2 */}
-        <motion.div
-          animate={{
-            x: [0, -60, 20, 40, 0],
-            y: [0, 40, -40, 30, 0],
-            scale: [1, 0.85, 1.3, 0.9, 1],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-15%] right-[-15%] w-[65%] h-[70%] rounded-full mix-blend-screen opacity-85"
-          style={{ backgroundColor: orb2Color }}
-        />
+      {/* Ambient Orb 2 */}
+      <div
+        className="absolute bottom-[-45%] right-[-35%] w-[110%] h-[150%] mix-blend-screen opacity-85 will-change-transform"
+        style={{ background: orb(orb2Color), animation: "pv-orb-b 18s linear infinite" }}
+      />
 
-        {/* The Mouse Tracking Liquid Orb */}
-        <motion.div
-          className="absolute w-[420px] h-[420px] rounded-full mix-blend-screen opacity-80"
-          style={{
-            backgroundColor: cursorOrbColor,
-            x: springX,
-            y: springY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-        />
-      </div>
+      {/* Mouse-tracking orb (starts centered; GSAP moves it on hover devices) */}
+      <div
+        ref={cursorOrbRef}
+        className="absolute top-0 left-0 w-[760px] h-[760px] mix-blend-screen opacity-60 will-change-transform"
+        style={{ background: orb(cursorOrbColor) }}
+      />
 
-      {/* The Heavy Blur Glass Layer (The Magic) */}
-      <div className="absolute inset-0 z-10 backdrop-blur-[90px] bg-black/15" />
+      {/* Tint */}
+      <div className="absolute inset-0 bg-black/15" />
 
       {/* Subtle Noise Texture */}
       <div
-        className="absolute inset-0 z-10 opacity-20 pointer-events-none mix-blend-overlay"
-        style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
-        }}
+        className="absolute inset-0 opacity-20 mix-blend-overlay"
+        style={{ backgroundImage: NOISE }}
       />
     </div>
   );

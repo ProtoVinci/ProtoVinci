@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useGoToContactForm } from "@/lib/useContactNav";
 import { PopButton } from "@/components/ui/pop-button";
-import contactImgWebp from "@/assets/contact-img.webp";
+import contactImgWebp from "@/assets/contact-avatar.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,7 +49,7 @@ const FAQ_ITEMS: FaqItem[] = [
 ];
 
 export const FaqSection: React.FC = () => {
-  const navigate = useNavigate();
+  const goToContactForm = useGoToContactForm();
   // 2nd question open by default matching reference image
   const [openIndex, setOpenIndex] = useState<number | null>(1);
 
@@ -156,8 +156,11 @@ export const FaqSection: React.FC = () => {
               <img
                 src={contactImgWebp}
                 alt="Creative Director Profile"
+                width={56}
+                height={56}
                 className="w-full h-full object-cover object-top select-none"
                 loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -179,7 +182,7 @@ export const FaqSection: React.FC = () => {
             <PopButton
               color="default"
               size="default"
-              onClick={() => navigate("/contact")}
+              onClick={goToContactForm}
               className="w-full rounded-full py-2.5 px-6 bg-white hover:bg-neutral-100 text-neutral-950 font-['Switzer'] font-[600] text-[14px] shadow-sm transition-all cursor-pointer"
             >
               <span>Get started</span>
@@ -198,8 +201,17 @@ export const FaqSection: React.FC = () => {
                 <div
                   key={item.id}
                   onClick={() => toggleQuestion(idx)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggleQuestion(idx);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isOpen}
                   style={{ borderRadius: "0px" }}
-                  className="bg-white px-6 sm:px-8 py-5 sm:py-6 cursor-pointer select-none transition-colors duration-200 hover:bg-[#fafafa]"
+                  className="bg-white px-5 sm:px-8 py-5 sm:py-6 cursor-pointer select-none transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-black focus-visible:-outline-offset-2"
                 >
                   {/* Question Header Row */}
                   <div className="flex items-center justify-between gap-4 w-full">
@@ -211,20 +223,20 @@ export const FaqSection: React.FC = () => {
                     </span>
 
                     {/* Small Animated Circular + / × button */}
-                    <motion.div
+                    <m.div
                       animate={{ rotate: isOpen ? 45 : 0 }}
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                       className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xs"
-                      aria-label={isOpen ? "Collapse answer" : "Expand answer"}
+                      aria-hidden="true"
                     >
                       <Plus className="w-3.5 h-3.5 text-white stroke-[2.5]" />
-                    </motion.div>
+                    </m.div>
                   </div>
 
                   {/* Heavy, Buttery-Smooth Top-to-Bottom Unfolding Animation with Slide-up Text */}
                   <AnimatePresence initial={false}>
                     {isOpen && (
-                      <motion.div
+                      <m.div
                         key="faq-answer-dropdown"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{
@@ -258,7 +270,7 @@ export const FaqSection: React.FC = () => {
                         style={{ transformOrigin: "top" }}
                         className="overflow-hidden will-change-[height,opacity]"
                       >
-                        <motion.p
+                        <m.p
                           initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
@@ -271,8 +283,8 @@ export const FaqSection: React.FC = () => {
                           style={{ fontFamily: "'Switzer', sans-serif" }}
                         >
                           {item.answer}
-                        </motion.p>
-                      </motion.div>
+                        </m.p>
+                      </m.div>
                     )}
                   </AnimatePresence>
                 </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, X, Sparkles, CheckCircle2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useGoToContactForm } from "@/lib/useContactNav";
 
 import visualIdentityImg from "@/assets/project-section/visual-identity.webp";
 import webDesignImg from "@/assets/project-section/web-design.webp";
@@ -124,7 +124,7 @@ const SERVICES_DATA: ServiceItemData[] = [
 ];
 
 export const ServicesSection: React.FC = () => {
-  const navigate = useNavigate();
+  const goToContactForm = useGoToContactForm();
   const containerRef = useRef<HTMLDivElement>(null);
   const serviceItemRefs = useRef<(HTMLElement | null)[]>([]);
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
@@ -208,10 +208,11 @@ export const ServicesSection: React.FC = () => {
     };
   }, []);
 
-  // 2. Interactive Magnetic Floating Cursor Card on Hover
+  // 2. Interactive Magnetic Floating Cursor Card — only tracks while the pointer is over the
+  // section, and never on touch devices (where the pill is hidden anyway).
   useEffect(() => {
     const cursor = cursorRef.current;
-    if (!cursor) return;
+    if (!cursor || !isHovering) return;
 
     const xTo = gsap.quickTo(cursor, "x", { duration: 0.45, ease: "power3.out" });
     const yTo = gsap.quickTo(cursor, "y", { duration: 0.45, ease: "power3.out" });
@@ -225,7 +226,7 @@ export const ServicesSection: React.FC = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [isHovering]);
 
   // Keyboard accessibility: ESC key dismisses modal
   useEffect(() => {
@@ -263,8 +264,8 @@ export const ServicesSection: React.FC = () => {
       style={{
         background: "#f6f6f6",
       }}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onPointerEnter={(e) => e.pointerType === "mouse" && setIsHovering(true)}
+      onPointerLeave={() => setIsHovering(false)}
     >
       {/* Interactive Floating Hover Pill (Desktop only) */}
       <div
@@ -289,7 +290,7 @@ export const ServicesSection: React.FC = () => {
           ref={(el) => {
             serviceItemRefs.current[idx] = el;
           }}
-          className="service-item relative w-full h-[calc(100vh+140px)] overflow-hidden block select-none cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-black"
+          className="service-item select-none cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white"
           tabIndex={0}
           role="button"
           aria-haspopup="dialog"
@@ -364,18 +365,18 @@ export const ServicesSection: React.FC = () => {
           aria-modal="true"
           aria-labelledby="modal-service-title"
           data-lenis-prevent="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/70 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+          className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6 md:p-10 bg-black/70 backdrop-blur-sm"
           onClick={() => setSelectedService(null)}
         >
           <div
             data-lenis-prevent="true"
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain bg-white rounded-2xl shadow-2xl border border-neutral-200 p-6 sm:p-10 flex flex-col gap-8 cursor-default"
+            className="relative w-full max-w-4xl max-h-[88svh] sm:max-h-[90vh] overflow-y-auto overscroll-contain bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-neutral-200 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-10 flex flex-col gap-6 sm:gap-8 cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4 border-b border-neutral-100 pb-6">
+            <div className="flex items-start justify-between gap-4 border-b border-neutral-100 pb-5 sm:pb-6">
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-center gap-2.5">
+                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                   <span className="font-text-14-upper text-xs px-2.5 py-0.5 rounded bg-neutral-900 text-white font-semibold">
                     Service {selectedService.number}
                   </span>
@@ -396,19 +397,20 @@ export const ServicesSection: React.FC = () => {
                 type="button"
                 onClick={() => setSelectedService(null)}
                 aria-label="Close modal"
-                className="p-2 rounded-full hover:bg-neutral-100 transition-colors text-neutral-500 hover:text-neutral-900 cursor-pointer"
+                className="p-2 -mr-2 -mt-1 rounded-full hover:bg-neutral-100 transition-colors text-neutral-500 hover:text-neutral-900 cursor-pointer shrink-0"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
             {/* Modal Body Preview & Summary */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start">
               {/* Image Thumbnail */}
               <div className="md:col-span-5 rounded-xl overflow-hidden shadow-md border border-neutral-200 aspect-[4/3] bg-neutral-100">
                 <img
                   src={selectedService.image}
                   alt={selectedService.alt}
+                  decoding="async"
                   className="w-full h-full object-cover"
                   style={{
                     objectPosition: selectedService.objectPosition,
@@ -418,7 +420,7 @@ export const ServicesSection: React.FC = () => {
 
               {/* Text Summary & Capabilities */}
               <div className="md:col-span-7 flex flex-col gap-5">
-                <p className="font-text-18 text-neutral-700 leading-relaxed m-0">
+                <p className="font-text-18 text-[15px] sm:text-[18px] text-neutral-700 leading-relaxed m-0">
                   {selectedService.summary}
                 </p>
 
@@ -441,7 +443,7 @@ export const ServicesSection: React.FC = () => {
             </div>
 
             {/* Deliverables List */}
-            <div className="flex flex-col gap-4 bg-neutral-50 rounded-xl p-6 border border-neutral-200">
+            <div className="flex flex-col gap-4 bg-neutral-50 rounded-xl p-4 sm:p-6 border border-neutral-200">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-neutral-800" />
                 <h4 className="font-text-16 font-semibold text-neutral-900 m-0">
@@ -461,7 +463,7 @@ export const ServicesSection: React.FC = () => {
 
             {/* Modal Footer / Action CTA */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-neutral-100">
-              <span className="font-text-14 text-neutral-500">
+              <span className="font-text-14 text-neutral-500 hidden sm:inline">
                 Ready to elevate your agency presence?
               </span>
 
@@ -477,7 +479,7 @@ export const ServicesSection: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setSelectedService(null);
-                    navigate("/contact");
+                    goToContactForm();
                   }}
                   style={{ color: "#ffffff", backgroundColor: "#0a0a0a" }}
                   className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-text-15 font-semibold bg-neutral-950 hover:bg-neutral-800 !text-white transition-all shadow-md hover:shadow-lg cursor-pointer w-full sm:w-auto"

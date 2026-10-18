@@ -3,38 +3,38 @@ import rkEnterprisesImg from "@/assets/landing-pages/rk-enterprises.webp";
 import socialxbrandImg from "@/assets/landing-pages/socialxbrand.webp";
 import wmcImg from "@/assets/landing-pages/wmc.webp";
 import gullycultureImg from "@/assets/landing-pages/gullyculture.webp";
-import firdoshImg from "@/assets/landing-pages/firdosh.png";
+import firdoshImg from "@/assets/landing-pages/firdosh.webp";
 
 // Gallery image imports
-import rk1 from "@/assets/rk/rk-1.png";
-import rk2 from "@/assets/rk/rk-2.png";
-import rk3 from "@/assets/rk/rk-3.png";
-import rk4 from "@/assets/rk/rk-4.png";
+import rk1 from "@/assets/rk/rk-1.webp";
+import rk2 from "@/assets/rk/rk-2.webp";
+import rk3 from "@/assets/rk/rk-3.webp";
+import rk4 from "@/assets/rk/rk-4.webp";
 
-import firdosh1 from "@/assets/firdosh/firdosh-1.png";
-import firdosh2 from "@/assets/firdosh/firdosh-2.png";
-import firdosh3 from "@/assets/firdosh/firdosh-3.png";
-import firdosh4 from "@/assets/firdosh/firdosh-4.png";
+import firdosh1 from "@/assets/firdosh/firdosh-1.webp";
+import firdosh2 from "@/assets/firdosh/firdosh-2.webp";
+import firdosh3 from "@/assets/firdosh/firdosh-3.webp";
+import firdosh4 from "@/assets/firdosh/firdosh-4.webp";
 
-import gc1 from "@/assets/gullyculture/gullyculture-1.png";
-import gc2 from "@/assets/gullyculture/gullyculture-2.png";
-import gc3 from "@/assets/gullyculture/gullyculture-3.png";
-import gc4 from "@/assets/gullyculture/gullyculture-4.png";
+import gc1 from "@/assets/gullyculture/gullyculture-1.webp";
+import gc2 from "@/assets/gullyculture/gullyculture-2.webp";
+import gc3 from "@/assets/gullyculture/gullyculture-3.webp";
+import gc4 from "@/assets/gullyculture/gullyculture-4.webp";
 
-import sxb1 from "@/assets/socialxbrand/socialxbrand-1.png";
-import sxb2 from "@/assets/socialxbrand/socialxbrand-2.png";
-import sxb3 from "@/assets/socialxbrand/socialxbrand-3.png";
-import sxb4 from "@/assets/socialxbrand/socialxbrand-4.png";
+import sxb1 from "@/assets/socialxbrand/socialxbrand-1.webp";
+import sxb2 from "@/assets/socialxbrand/socialxbrand-2.webp";
+import sxb3 from "@/assets/socialxbrand/socialxbrand-3.webp";
+import sxb4 from "@/assets/socialxbrand/socialxbrand-4.webp";
 
-import wmc1 from "@/assets/wmc/wmc-1.png";
-import wmc2 from "@/assets/wmc/wmc-2.png";
-import wmc3 from "@/assets/wmc/wmc-3.png";
-import wmc4 from "@/assets/wmc/wmc-4.png";
+import wmc1 from "@/assets/wmc/wmc-1.webp";
+import wmc2 from "@/assets/wmc/wmc-2.webp";
+import wmc3 from "@/assets/wmc/wmc-3.webp";
+import wmc4 from "@/assets/wmc/wmc-4.webp";
 
-import dock1 from "@/assets/awarddock/dock-1.png";
-import dock2 from "@/assets/awarddock/dock-2.png";
-import dock3 from "@/assets/awarddock/dock-3.png";
-import dock4 from "@/assets/awarddock/dock-4.png";
+import dock1 from "@/assets/awarddock/dock-1.webp";
+import dock2 from "@/assets/awarddock/dock-2.webp";
+import dock3 from "@/assets/awarddock/dock-3.webp";
+import dock4 from "@/assets/awarddock/dock-4.webp";
 
 export interface ProjectItem {
   id: string;

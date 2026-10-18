@@ -97,7 +97,7 @@ export const HeroSection: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between bg-[#e1e1e1] font-['Switzer']"
+      className="relative min-h-screen min-h-[100svh] w-full overflow-hidden flex flex-col justify-between bg-[#e1e1e1] font-['Switzer']"
     >
       {/* 1. Live WebGL Cloud Shader Background (Reference Image 2) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -118,7 +118,7 @@ export const HeroSection: React.FC = () => {
       <Navbar />
 
       {/* 3. Hero Main Content Area (Badge removed per user request) */}
-      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-28 sm:pt-32 md:pt-36 flex flex-col items-center text-center">
+      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-24 sm:pt-32 md:pt-36 flex flex-col items-center text-center">
         {/* Large Headline: 
             Get premium design
             with endless solutions.
@@ -126,7 +126,7 @@ export const HeroSection: React.FC = () => {
         */}
         <h1
           ref={headlineRef}
-          className="font-h1 text-[40px] sm:text-[54px] md:text-[66px] font-[550] leading-[1.1] tracking-[-0.035em] text-[#000000] max-w-4xl mx-auto [text-shadow:_0_2px_4px_rgba(0,0,0,0.08),_0_8px_24px_rgba(0,0,0,0.05),_0_1px_2px_rgba(0,0,0,0.12)] select-none"
+          className="font-h1 text-[clamp(34px,10.4vw,44px)] sm:text-[54px] md:text-[66px] font-[550] leading-[1.1] tracking-[-0.035em] text-[#000000] max-w-4xl mx-auto [text-shadow:_0_2px_4px_rgba(0,0,0,0.08),_0_8px_24px_rgba(0,0,0,0.05),_0_1px_2px_rgba(0,0,0,0.12)] select-none"
         >
           {headlineLines.map((line, lIdx) => (
             <span key={lIdx} className="block">
@@ -153,23 +153,23 @@ export const HeroSection: React.FC = () => {
         */}
         <p
           ref={descRef}
-          className="mt-5 sm:mt-6 font-['Switzer'] text-[16px] sm:text-[18px] text-[#4d4d4d] font-[500] max-w-2xl mx-auto leading-relaxed [text-shadow:_0_1px_2px_rgba(255,255,255,0.7),_0_1px_3px_rgba(0,0,0,0.06)]"
+          className="mt-4 sm:mt-6 font-['Switzer'] text-[15px] sm:text-[18px] text-[#4d4d4d] font-[500] max-w-2xl mx-auto leading-relaxed [text-shadow:_0_1px_2px_rgba(255,255,255,0.7),_0_1px_3px_rgba(0,0,0,0.06)]"
         >
-          <span className="block sm:inline">Our agency delivers unlimited, high-quality design services to help</span>{" "}
-          <span className="block sm:inline">your brand stand out and grow stronger effortlessly.</span>
+          Our agency delivers unlimited, high-quality design services to help{" "}
+          <span className="md:block">your brand stand out and grow stronger effortlessly.</span>
         </p>
 
         {/* Action PopButtons (Reference Image 3) */}
         <div
           ref={buttonsRef}
-          className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4"
+          className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
         >
           {/* Primary PopButton: "Explore projects" */}
           <PopButton
             color="black"
             size="lg"
             onClick={() => navigate("/projects")}
-            className="rounded-full px-6 sm:px-7 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
+            className="rounded-full h-12 sm:h-14 px-5 sm:px-7 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
           >
             <span>Explore projects</span>
             <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
@@ -182,7 +182,7 @@ export const HeroSection: React.FC = () => {
             color="default"
             size="lg"
             onClick={() => navigate("/contact")}
-            className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all cursor-pointer"
+            className="rounded-full h-12 sm:h-14 px-6 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all cursor-pointer"
           >
             <span>Contact Us</span>
           </PopButton>

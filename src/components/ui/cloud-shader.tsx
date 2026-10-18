@@ -241,13 +241,10 @@ export const CloudShader = ({
     skyBottomColor,
   });
 
-  paramsRef.current = {
-    speed,
-    count,
-    cloudColor,
-    skyTopColor,
-    skyBottomColor,
-  };
+  // Keep the render loop reading the latest props without restarting the GL context.
+  useEffect(() => {
+    paramsRef.current = { speed, count, cloudColor, skyTopColor, skyBottomColor };
+  }, [speed, count, cloudColor, skyTopColor, skyBottomColor]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -293,17 +290,20 @@ export const CloudShader = ({
     };
 
     let frame = 0;
-    let running = true;
+    let visible = true;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
+    // Clouds are soft, low-frequency noise, so rendering at half CSS resolution and letting
+    // the browser upscale is visually identical — and ~16x fewer fragments than DPR 2.
+    const RENDER_SCALE = 0.5;
+    // Drift is slow; 30fps is indistinguishable from 60 here and halves GPU work.
+    const FRAME_INTERVAL = 1000 / 30;
+
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      const w = Math.max(1, Math.floor(width * dpr));
-      const h = Math.max(1, Math.floor(height * dpr));
+      const w = Math.max(1, Math.floor(canvas.clientWidth * RENDER_SCALE));
+      const h = Math.max(1, Math.floor(canvas.clientHeight * RENDER_SCALE));
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
@@ -317,8 +317,8 @@ export const CloudShader = ({
     resize();
 
     const start = performance.now();
-    const draw = (now: number) => {
-      if (!running) return;
+    let last = -Infinity;
+    const render = (now: number) => {
       const p = paramsRef.current;
       const elapsed = reduceMotion ? 0 : ((now - start) / 1000) * p.speed;
       const cloud = parseHex(p.cloudColor);
@@ -331,14 +331,39 @@ export const CloudShader = ({
       gl.uniform3f(loc.skyTop, skyTop[0], skyTop[1], skyTop[2]);
       gl.uniform3f(loc.skyBottom, skyBottom[0], skyBottom[1], skyBottom[2]);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      frame = requestAnimationFrame(draw);
     };
 
-    frame = requestAnimationFrame(draw);
+    const loop = (now: number) => {
+      frame = 0;
+      if (!visible || document.hidden) return; // resumed by the observers below
+      if (now - last >= FRAME_INTERVAL) {
+        last = now;
+        render(now);
+      }
+      frame = requestAnimationFrame(loop);
+    };
+    const resume = () => {
+      if (!frame && visible && !document.hidden && !reduceMotion) {
+        frame = requestAnimationFrame(loop);
+      }
+    };
+
+    // Stop drawing entirely once the hero scrolls out of view or the tab is backgrounded.
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      resume();
+    });
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", resume);
+
+    render(start); // first paint immediately, even with reduced motion
+    resume();
 
     return () => {
-      running = false;
+      visible = false;
       cancelAnimationFrame(frame);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", resume);
       observer.disconnect();
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
