@@ -113,7 +113,7 @@ export const FaqSection: React.FC = () => {
       className="relative w-full pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 bg-[#f6f6f6] border-t border-[#cecece] font-['Switzer'] select-none overflow-hidden"
     >
       {/* Symmetrical container with matching left/right padding and boundary alignment */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         {/* 1. Header */}
         <div ref={headerRef} className="flex flex-col items-center text-center">
           {/* Top Indicator: ▪ FAQ */}

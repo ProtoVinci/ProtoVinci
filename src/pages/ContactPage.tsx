@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ArrowRight, Mail, Phone, MapPin, ChevronDown, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Mail, MapPin, ChevronDown, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PopButton } from "@/components/ui/pop-button";
 import { Navbar } from "@/components/Navbar";
@@ -111,7 +111,25 @@ export const ContactPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Interface created per user request: "Where to deliver this from i will let you know next time. Just craete the interface."
+
+    // Draft email automatically to protovincistudio@gmail.com with formatted project details
+    const subject = encodeURIComponent(
+      `Project Request from ${formData.name || "Client"}`
+    );
+    const body = encodeURIComponent(
+      `Hello ProtoVinci Team,\n\n` +
+      `I would like to submit a project request with the following details:\n\n` +
+      `• Name: ${formData.name}\n` +
+      `• Email: ${formData.email}\n` +
+      `• Alternative Contact (WhatsApp/LinkedIn/Discord): ${formData.alternativeContact || "Not provided"}\n` +
+      `• Budget (INR): ${formData.budget || "Not specified"}\n\n` +
+      `Project Description:\n${formData.description || "N/A"}\n\n` +
+      `Best regards,\n${formData.name}`
+    );
+
+    const mailtoUrl = `mailto:protovincistudio@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = mailtoUrl;
+
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -122,7 +140,7 @@ export const ContactPage: React.FC = () => {
         budget: "",
         description: "",
       });
-    }, 4500);
+    }, 5000);
   };
 
   // Heading lines with muted "toward" matching Image 1
@@ -150,7 +168,7 @@ export const ContactPage: React.FC = () => {
       <Navbar />
 
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-32 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col items-center">
+      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-32 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col items-center">
         {/* Top Indicator: ▪ CONTACT US (Exact from Image 1) */}
         <div className="flex items-center gap-2 mb-4 sm:mb-5 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -173,7 +191,7 @@ export const ContactPage: React.FC = () => {
               {line.map((item, index) => (
                 <span
                   key={index}
-                  className={`contact-word inline-block mr-[0.24em] last:mr-0 ${
+                  className={`contact-word inline-block mr-[0.15em] last:mr-0 ${
                     item.highlight ? "text-[#757575] font-[500]" : "text-[#000000]"
                   }`}
                 >
@@ -242,11 +260,10 @@ export const ContactPage: React.FC = () => {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-[650] text-neutral-900 m-0">
-                    Project Request Received!
+                    Project Request Drafted!
                   </h3>
                   <p className="text-neutral-600 text-sm sm:text-base max-w-md mt-2">
-                    Thank you for reaching out. We will review your details and get back to
-                    you shortly with our proposal.
+                    Your email draft to <strong>protovincistudio@gmail.com</strong> has been opened with your project details. We look forward to collaborating!
                   </p>
                 </div>
               ) : (
@@ -400,12 +417,12 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Row 2: 3 Bottom Bento Information Cards (Decreased gap) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-3.5 md:gap-4">
+          {/* Row 2: 2 Bottom Bento Information Cards (Email & Location) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-3.5 md:gap-4">
             {/* Card 1: Email Address */}
             <a
-              href="mailto:Pixello@gmail.com"
-              className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-2.5 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer"
+              href="mailto:protovincistudio@gmail.com"
+              className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-6 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer no-underline"
             >
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 group-hover:bg-neutral-200/70 transition-colors">
@@ -415,8 +432,8 @@ export const ContactPage: React.FC = () => {
                   <span className="text-[14.5px] sm:text-[15.5px] font-[650] text-neutral-950 tracking-tight leading-tight">
                     Email Address
                   </span>
-                  <span className="text-[12.5px] sm:text-[13.5px] text-neutral-500 font-normal truncate mt-0.5">
-                    Pixello@gmail.com
+                  <span className="text-[13px] sm:text-[14px] text-neutral-500 font-normal truncate mt-0.5">
+                    protovincistudio@gmail.com
                   </span>
                 </div>
               </div>
@@ -426,33 +443,8 @@ export const ContactPage: React.FC = () => {
               </div>
             </a>
 
-            {/* Card 2: Phone Number */}
-            <a
-              href="tel:+12345678900"
-              className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-2.5 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer"
-            >
-              <div className="flex items-center gap-3.5 min-w-0">
-                <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 group-hover:bg-neutral-200/70 transition-colors">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="text-[14.5px] sm:text-[15.5px] font-[650] text-neutral-950 tracking-tight leading-tight">
-                    Phone Number
-                  </span>
-                  <span className="text-[12.5px] sm:text-[13.5px] text-neutral-500 font-normal truncate mt-0.5">
-                    +123 456 789 00
-                  </span>
-                </div>
-              </div>
-
-              <div className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center shrink-0 text-neutral-400 group-hover:text-black group-hover:border-neutral-400 group-hover:translate-x-0.5 transition-all">
-                <ArrowRight className="w-3.5 h-3.5" />
-              </div>
-            </a>
-
-            {/* Card 3: Location (Mumbai, India) */}
-            {/* "and location put mumbai india" */}
-            <div className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-2.5 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4">
+            {/* Card 2: Location (Mumbai, India) */}
+            <div className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-6 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 group-hover:bg-neutral-200/70 transition-colors">
                   <MapPin className="w-5 h-5" />
@@ -461,7 +453,7 @@ export const ContactPage: React.FC = () => {
                   <span className="text-[14.5px] sm:text-[15.5px] font-[650] text-neutral-950 tracking-tight leading-tight">
                     Location
                   </span>
-                  <span className="text-[12.5px] sm:text-[13.5px] text-neutral-500 font-normal truncate mt-0.5">
+                  <span className="text-[13px] sm:text-[14px] text-neutral-500 font-normal truncate mt-0.5">
                     Mumbai, India
                   </span>
                 </div>

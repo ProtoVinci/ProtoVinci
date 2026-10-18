@@ -227,7 +227,7 @@ export const HowItWorksSection: React.FC = () => {
       ref={sectionRef}
       id="how-it-works"
       aria-label="How It Works Methodology"
-      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-6 sm:px-10 md:px-12 lg:px-16 select-none"
+      className="relative w-full h-screen max-h-screen flex flex-col items-center justify-center overflow-hidden py-4 sm:py-6 px-4 sm:px-6 md:px-8 lg:px-10 select-none"
       style={{
         background: "#eeeef0",
       }}
@@ -240,7 +240,7 @@ export const HowItWorksSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 w-full max-w-[1240px] flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1300px] flex flex-col items-center">
         {/* Top Indicator: ▪ HOW IT WORKS */}
         <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />

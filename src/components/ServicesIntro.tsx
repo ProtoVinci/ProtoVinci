@@ -98,7 +98,7 @@ export const ServicesIntro: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-28 sm:py-36 md:py-44 px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center justify-center text-center overflow-hidden"
+      className="relative w-full py-28 sm:py-36 md:py-44 px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col items-center justify-center text-center overflow-hidden"
       style={{
         background: "#e1e1e1",
       }}
@@ -128,7 +128,7 @@ export const ServicesIntro: React.FC = () => {
             {line.map((word, wordIdx) => (
               <span
                 key={wordIdx}
-                className="intro-word inline-block mr-[0.28em] will-change-transform"
+                className="intro-word inline-block mr-[0.15em] will-change-transform"
               >
                 {word}
               </span>

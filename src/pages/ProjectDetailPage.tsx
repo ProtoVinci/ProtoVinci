@@ -119,7 +119,7 @@ export const ProjectDetailPage: React.FC = () => {
       <Navbar />
 
       {/* 2. Header Area: Tag, Project Title & Full Description */}
-      <header className="relative z-10 w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 flex flex-col items-center text-center">
         {/* Project Status Capsule Pill matching Reference Image */}
         <div className="inline-flex items-center gap-2.5 p-1 pr-4 rounded-full bg-white border border-[#e2e2e2] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-5 select-none">
           <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-[12px] sm:text-[13px] font-[700] shrink-0">
@@ -156,7 +156,7 @@ export const ProjectDetailPage: React.FC = () => {
       </header>
 
       {/* 3. Hero Landing Page Image (Whole image visible, 3px linear-gradient border #d8d8d8, soft shadow) */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 mb-14 sm:mb-18 md:mb-22">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-14 sm:mb-18 md:mb-22">
         <div
           className="relative w-full shadow-[0_12px_36px_rgba(0,0,0,0.08)] bg-white overflow-hidden"
           style={{
@@ -175,7 +175,7 @@ export const ProjectDetailPage: React.FC = () => {
       </div>
 
       {/* 4. Two-Column Split: Overview / Process / Result on Left, Metadata Card on Right */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 mb-16 sm:mb-20 md:mb-24">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-16 sm:mb-20 md:mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Project Overview, Project Process, Final Result */}
           <div className="lg:col-span-7 xl:col-span-8 flex flex-col">
@@ -328,7 +328,7 @@ export const ProjectDetailPage: React.FC = () => {
       </div>
 
       {/* 5. Project Images Showcase (Full image visible, 3px linear-gradient border #d8d8d8, soft shadow) */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 mb-16 sm:mb-20">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-16 sm:mb-20">
         {project.isMobileGallery ? (
           /* WMC Mobile Showcase: Fixed blank white space with items-start, each card tightly hugging its image, gap-3 */
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-start">
@@ -375,7 +375,7 @@ export const ProjectDetailPage: React.FC = () => {
       </div>
 
       {/* 6. Next Project Navigation Link matching Reference Image */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-4 pb-14 sm:pb-20 flex justify-start">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-4 pb-14 sm:pb-20 flex justify-start">
         <Link
           to={`/projects/${nextProject.id}`}
           className="inline-flex items-center gap-2 text-[15px] sm:text-[16px] font-[600] text-[#000000] hover:text-neutral-600 transition-colors no-underline group select-none"

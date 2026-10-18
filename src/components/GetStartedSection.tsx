@@ -10,10 +10,10 @@ export const GetStartedSection: React.FC = () => {
     <section
       id="get-started"
       aria-label="Get Started"
-      className="relative w-full pt-2 sm:pt-4 md:pt-6 pb-16 sm:pb-20 md:pb-24 px-6 sm:px-10 md:px-12 lg:px-16 bg-[#f6f6f6] select-none font-['Switzer']"
+      className="relative w-full pt-2 sm:pt-4 md:pt-6 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-10 bg-[#f6f6f6] select-none font-['Switzer']"
     >
       {/* Symmetrical container with matching left/right padding, boundary alignment and sharp 0px corners */}
-      <div className="w-full max-w-[1240px] mx-auto relative rounded-none overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(2,11,29,0.18)] bg-[#020612]">
+      <div className="w-full max-w-[1300px] mx-auto relative rounded-none overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(2,11,29,0.18)] bg-[#020612]">
         {/* RewampUI Liquid Cursor Gradient Background */}
         <LiquidCursorGradient
           orb1Color="#023065"

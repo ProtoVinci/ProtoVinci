@@ -108,7 +108,7 @@ export const ProjectsPage: React.FC = () => {
       <Navbar />
 
       {/* 2. Hero Header Section: Tight, balanced vertical rhythm matching reference */}
-      <header className="relative z-10 w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-24 sm:pt-28 md:pt-30 pb-4 sm:pb-6 flex flex-col items-center text-center">
         {/* Top Indicator: ▪ PROJECTS */}
         <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />

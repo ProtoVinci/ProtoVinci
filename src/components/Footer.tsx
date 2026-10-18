@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
       {/* Main Split: Left content aligned with layout, Right video extends BIG edge-to-edge */}
       <div className="w-full flex flex-col lg:flex-row items-stretch justify-between relative">
         {/* Left Side: Brand + Quick Links + Other Information (Strictly elevated to z-30 isolate above any video fade) */}
-        <div className="w-full lg:w-auto lg:max-w-[54%] xl:max-w-[50%] flex flex-col justify-between pt-14 sm:pt-16 md:pt-20 pb-12 sm:pb-14 pl-6 sm:pl-10 md:pl-12 lg:pl-16 xl:pl-[max(2.5rem,calc((100vw-1240px)/2+2.5rem))] pr-6 lg:pr-10 relative z-30 isolate shrink-0">
+        <div className="w-full lg:w-auto lg:max-w-[54%] xl:max-w-[50%] flex flex-col justify-between pt-14 sm:pt-16 md:pt-20 pb-12 sm:pb-14 pl-4 sm:pl-6 md:pl-8 lg:pl-10 xl:pl-[max(1.5rem,calc((100vw-1300px)/2+1.5rem))] pr-4 lg:pr-8 relative z-30 isolate shrink-0">
           <div className="flex flex-col sm:flex-row items-start gap-8 sm:gap-8 md:gap-10 lg:gap-11">
             {/* 1. Brand Block: Identical logo capsule to Navbar + description + PopButtons */}
             <div className="flex flex-col items-start w-full sm:w-[210px] md:w-[220px] shrink-0">
@@ -62,64 +62,65 @@ export const Footer: React.FC = () => {
                 A premium design agency engineered to scale modern brands and products.
               </p>
 
-              {/* PopButtons for Social Links */}
-              {/* Note: Update these links with your custom URLs */}
+              {/* PopButtons for Social Links: X, LinkedIn, Instagram */}
               <div className="flex items-center gap-2.5">
-                {/* X / Twitter */}
+                {/* 1. X */}
                 <PopButton
+                  asChild
                   color="black"
                   size="sm"
-                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white"
-                  onClick={() => window.open("https://x.com", "_blank")}
-                  aria-label="X (Twitter)"
+                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white no-underline"
                 >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
+                  <a
+                    href="https://x.com/protovincistdio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X (Twitter)"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </a>
                 </PopButton>
 
-                {/* Instagram / Facebook */}
+                {/* 2. LinkedIn */}
                 <PopButton
+                  asChild
                   color="black"
                   size="sm"
-                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white"
-                  onClick={() => window.open("https://instagram.com", "_blank")}
-                  aria-label="Instagram"
+                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white no-underline"
                 >
-                  <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                  </svg>
+                  <a
+                    href="https://www.linkedin.com/company/protovinci/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                  </a>
                 </PopButton>
 
-                {/* Dribbble / Web */}
+                {/* 3. Instagram */}
                 <PopButton
+                  asChild
                   color="black"
                   size="sm"
-                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white"
-                  onClick={() => window.open("https://dribbble.com", "_blank")}
-                  aria-label="Dribbble"
+                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white no-underline"
                 >
-                  <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-                    <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-                    <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72" />
-                  </svg>
-                </PopButton>
-
-                {/* YouTube */}
-                <PopButton
-                  color="black"
-                  size="sm"
-                  className="w-9 h-9 rounded-full p-0 flex items-center justify-center cursor-pointer shadow-sm text-white"
-                  onClick={() => window.open("https://youtube.com", "_blank")}
-                  aria-label="YouTube"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
+                  <a
+                    href="https://www.instagram.com/protovinci?psln=MTdwNTc5OXI0cnVhNA=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                  </a>
                 </PopButton>
               </div>
             </div>
@@ -185,23 +186,15 @@ export const Footer: React.FC = () => {
                 <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
                   <li>
                     <a
-                      href="tel:+12345678900"
-                      className="font-['Switzer'] text-[14px] text-[#000000] hover:text-neutral-700 transition-colors font-[600] no-underline block whitespace-nowrap"
-                    >
-                      +123 456 789 00
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="mailto:Pixello@gmail.com"
+                      href="mailto:protovincistudio@gmail.com"
                       className="font-['Switzer'] text-[14px] text-[#000000] hover:text-neutral-700 transition-colors font-[600] no-underline block"
                     >
-                      Pixello@gmail.com
+                      protovincistudio@gmail.com
                     </a>
                   </li>
                   <li>
                     <span className="font-['Switzer'] text-[14px] text-[#000000] font-[600] block whitespace-nowrap">
-                      California, USA
+                      Mumbai, India
                     </span>
                   </li>
                 </ul>
@@ -237,7 +230,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Bottom Bar: Seam line & Copyright aligned with left boundary */}
-      <div className="w-full border-t border-black/15 py-6 sm:py-7 px-6 sm:px-10 md:px-12 lg:px-16 xl:px-[max(2.5rem,calc((100vw-1240px)/2+2.5rem))] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left relative z-30 isolate">
+      <div className="w-full border-t border-black/15 py-6 sm:py-7 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-[max(1.5rem,calc((100vw-1300px)/2+1.5rem))] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left relative z-30 isolate">
         <p className="font-['Switzer'] text-[13px] text-[#000000] font-[600] m-0">
           © 2026 ProtoVinci. All rights reserved.
         </p>

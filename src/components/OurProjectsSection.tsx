@@ -85,7 +85,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
     >
       {/* 1. Header Area (Only displayed when showHeader is true) */}
       {showHeader && (
-        <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
+        <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col items-center text-center mb-10 sm:mb-12 md:mb-14">
           {/* Top Indicator: ▪ PROJECTS */}
           <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
             <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -120,7 +120,7 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
       )}
 
       {/* 2. Full Landing Page Image with Top-Left and Bottom-Right Metadata Cards */}
-      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 flex flex-col gap-10 sm:gap-12 md:gap-14">
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col gap-10 sm:gap-12 md:gap-14">
         {displayedProjects.map((project, idx) => {
           const isDark = project.theme === "dark";
 
