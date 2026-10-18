@@ -18,6 +18,7 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const ProjectsPage = lazy(() => import("@/pages/ProjectsPage"));
 const ProjectDetailPage = lazy(() => import("@/pages/ProjectDetailPage"));
+const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
 
 // Dev-only visual feedback toolbar (~700 KB). import.meta.env.DEV is statically false in
 // production builds, so the bundler drops this import entirely.
@@ -116,6 +117,7 @@ export function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/services" element={<ServicesPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:slug" element={<ProjectDetailPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />

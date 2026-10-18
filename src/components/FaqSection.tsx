@@ -141,15 +141,14 @@ export const FaqSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 2. Bento Layout (0px Corners, compact fit, grey borders between questions) */}
+        {/* 2. Bento Layout (20px corners like the site's other cards, grey borders between questions) */}
         <div
           ref={contentRef}
           className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 md:gap-5 items-start"
         >
-          {/* Left Column Card: "Book an Intro Call" (Compact, tightly fitted, 0px corners) */}
+          {/* Left Column Card: "Book an Intro Call" (Compact, tightly fitted) */}
           <div
-            style={{ borderRadius: "0px" }}
-            className="lg:col-span-4 bg-gradient-to-b from-neutral-900 via-neutral-950 to-black text-white p-6 sm:p-7 flex flex-col h-fit self-start border border-neutral-800 shadow-sm"
+            className="lg:col-span-4 rounded-[20px] bg-gradient-to-b from-neutral-900 via-neutral-950 to-black text-white p-6 sm:p-7 flex flex-col h-fit self-start border border-neutral-800 shadow-sm"
           >
             {/* Top: Avatar */}
             <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-white/20 shadow-sm mb-4.5 bg-neutral-800">
@@ -189,10 +188,10 @@ export const FaqSection: React.FC = () => {
             </PopButton>
           </div>
 
-          {/* Right Column: Stacked Questions with 0px Corners and 3.5px Grey Separators */}
+          {/* Right Column: Stacked Questions with 3.5px Grey Separators.
+              Inner radius = 20px minus the 3.5px inset, so the corners stay concentric */}
           <div
-            style={{ borderRadius: "0px" }}
-            className="lg:col-span-8 flex flex-col gap-[3.5px] bg-[#dedede] border border-[#cecece] p-[3.5px] shadow-xs"
+            className="lg:col-span-8 rounded-[20px] overflow-hidden flex flex-col gap-[3.5px] bg-[#dedede] border border-[#cecece] p-[3.5px] shadow-xs"
           >
             {FAQ_ITEMS.map((item, idx) => {
               const isOpen = openIndex === idx;
@@ -210,8 +209,7 @@ export const FaqSection: React.FC = () => {
                   role="button"
                   tabIndex={0}
                   aria-expanded={isOpen}
-                  style={{ borderRadius: "0px" }}
-                  className="bg-white px-5 sm:px-8 py-5 sm:py-6 cursor-pointer select-none transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-black focus-visible:-outline-offset-2"
+                  className="rounded-[16.5px] bg-white px-5 sm:px-8 py-5 sm:py-6 cursor-pointer select-none transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-black focus-visible:-outline-offset-2"
                 >
                   {/* Question Header Row */}
                   <div className="flex items-center justify-between gap-4 w-full">

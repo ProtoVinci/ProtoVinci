@@ -110,7 +110,7 @@ export const ProjectDetailPage: React.FC = () => {
       <Navbar />
 
       {/* 2. Header Area: Tag, Project Title & Full Description */}
-      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-28 sm:pt-32 md:pt-36 pb-8 sm:pb-12 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-8 sm:pb-12 flex flex-col items-center text-center">
         {/* Project Status Capsule Pill matching Reference Image */}
         <div className="inline-flex items-center gap-2.5 p-1 pr-4 rounded-full bg-white border border-[#e2e2e2] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-5 select-none">
           <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-[12px] sm:text-[13px] font-[700] shrink-0">
@@ -149,10 +149,10 @@ export const ProjectDetailPage: React.FC = () => {
       {/* 3. Hero Landing Page Image (Whole image visible, 3px linear-gradient border #d8d8d8, soft shadow) */}
       <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-14 sm:mb-18 md:mb-22">
         <div
-          className="relative w-full shadow-[0_12px_36px_rgba(0,0,0,0.08)] bg-white overflow-hidden"
+          className="relative w-full rounded-[20px] shadow-[0_12px_36px_rgba(0,0,0,0.08)] bg-white overflow-hidden"
           style={{
+            // Plain border: a border-image would stop the radius from rounding it
             border: "3px solid #d8d8d8",
-            borderImage: "linear-gradient(to right, #d8d8d8 0%, #d8d8d8 100%) 1",
           }}
         >
           <img
@@ -229,7 +229,7 @@ export const ProjectDetailPage: React.FC = () => {
 
           {/* Right Column: Metadata Card matching Reference Image */}
           <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-28">
-            <div className="bg-[#f0f0f2] border border-neutral-300/80 p-6 sm:p-7 shadow-sm flex flex-col">
+            <div className="rounded-[20px] bg-[#f0f0f2] border border-neutral-300/80 p-6 sm:p-7 shadow-sm flex flex-col">
               {/* Row 1: Client Name (Highlighted & Bold with Subtitle) */}
               <div className="py-4 border-b border-neutral-300/80 flex items-start justify-between gap-4 first:pt-1">
                 <div className="flex flex-col">
@@ -328,10 +328,9 @@ export const ProjectDetailPage: React.FC = () => {
             {project.galleryImages.map((imgSrc, gIdx) => (
               <div
                 key={gIdx}
-                className="w-full h-fit self-start overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.07)] transition-all duration-300 hover:shadow-[0_14px_40px_rgba(0,0,0,0.12)] hover:scale-[1.015]"
+                className="w-full h-fit self-start overflow-hidden rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.07)] transition-all duration-300 hover:shadow-[0_14px_40px_rgba(0,0,0,0.12)] hover:scale-[1.015]"
                 style={{
                   border: "3px solid #d8d8d8",
-                  borderImage: "linear-gradient(to right, #d8d8d8 0%, #d8d8d8 100%) 1",
                 }}
               >
                 <img
@@ -352,10 +351,9 @@ export const ProjectDetailPage: React.FC = () => {
             {project.galleryImages.map((imgSrc, gIdx) => (
               <div
                 key={gIdx}
-                className="w-full shadow-[0_10px_30px_rgba(0,0,0,0.07)] bg-white overflow-hidden transition-all duration-300 hover:shadow-[0_14px_40px_rgba(0,0,0,0.11)]"
+                className="w-full rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.07)] bg-white overflow-hidden transition-all duration-300 hover:shadow-[0_14px_40px_rgba(0,0,0,0.11)]"
                 style={{
                   border: "3px solid #d8d8d8",
-                  borderImage: "linear-gradient(to right, #d8d8d8 0%, #d8d8d8 100%) 1",
                 }}
               >
                 <img

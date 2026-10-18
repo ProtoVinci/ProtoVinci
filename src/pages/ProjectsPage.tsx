@@ -99,7 +99,7 @@ export const ProjectsPage: React.FC = () => {
       <Navbar />
 
       {/* 2. Hero Header Section: Tight, balanced vertical rhythm matching reference */}
-      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-28 sm:pt-32 md:pt-36 pb-4 sm:pb-6 flex flex-col items-center text-center">
+      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-4 sm:pb-6 flex flex-col items-center text-center">
         {/* Top Indicator: ▪ PROJECTS */}
         <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -145,7 +145,7 @@ export const ProjectsPage: React.FC = () => {
           <PopButton
             color="black"
             size="lg"
-            onClick={() => navigate("/#services")}
+            onClick={() => navigate("/services")}
             className="rounded-full px-6 sm:px-7 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[500] text-[#ffffff] gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
           >
             <span>Explore services</span>

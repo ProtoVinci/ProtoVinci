@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
 
               {/* Short Brand Description */}
               <p className="mt-3.5 mb-5 font-['Switzer'] text-[14px] sm:text-[14.5px] text-[#000000] font-[500] leading-relaxed max-w-[240px] m-0">
-                A premium design agency engineered to scale modern brands and products.
+                A full-service technology and digital solutions agency helping businesses build, automate and grow.
               </p>
 
               {/* PopButtons for Social Links: X, LinkedIn, Instagram */}
@@ -151,13 +151,12 @@ export const Footer: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <a
-                      href="#services"
-                      onClick={(e) => handleHashClick(e, "#services")}
+                    <Link
+                      to="/services"
                       className="font-['Switzer'] text-[14px] text-[#000000] hover:text-neutral-700 transition-colors font-[600] no-underline block"
                     >
                       Services
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <Link

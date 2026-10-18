@@ -2,6 +2,11 @@
 
 /* @font-face declarations live inline in index.html so fonts start downloading before this CSS parses */
 
+/* Space between the floating navbar and the first content on every page */
+@utility pt-page {
+  padding-top: clamp(104px, 13svh, 128px);
+}
+
 @layer base {
   :root {
     --font-sans: 'Switzer', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -169,48 +174,6 @@
   }
 }
 
-/* Services Section Specific Styles */
-.services-section {
-  width: 100%;
-  position: relative;
-  background: #e1e1e1;
-}
-
-.service-item {
-  position: relative;
-  width: 100%;
-  height: calc(100vh + 140px);
-  overflow: hidden;
-  clip-path: inset(0 0 0 0);
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .service-item {
-    /* svh = stable height that ignores the collapsing mobile address bar */
-    height: 78vh;
-    height: 78svh;
-  }
-}
-
-.service-bg-img {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.service-content {
-  position: fixed;
-  z-index: 2;
-  color: #ffffff;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 /* Paused while off-screen (see useInView) so looping CSS animations don't burn frames */
 [data-paused="true"] * {
   animation-play-state: paused !important;
@@ -228,6 +191,147 @@
   25% { transform: translate3d(-60px, 40px, 0) scale(0.85); }
   50% { transform: translate3d(20px, -40px, 0) scale(1.3); }
   75% { transform: translate3d(40px, 30px, 0) scale(0.9); }
+}
+
+/* ---------- Hero (Zolo-style): tag ticker, rolling CTA, skewed card ticker ---------- */
+.hero-mono {
+  font-family: "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  letter-spacing: -0.01em;
+}
+
+@keyframes hero-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.hero-tags {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.hero-tags-track {
+  display: flex;
+  width: max-content;
+  animation: hero-marquee 26s linear infinite;
+}
+
+.hero-tags-set {
+  display: flex;
+  gap: 12px;
+  padding-right: 12px;
+  margin: 0;
+  list-style: none;
+}
+
+.hero-roll-letter {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-cta-button:hover .hero-roll-letter,
+.hero-cta-button:focus-visible .hero-roll-letter {
+  transform: translateY(-100%);
+}
+
+@keyframes hero-hand-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+.hero-hand {
+  animation: hero-hand-nudge 1.6s ease-in-out infinite;
+}
+
+.hero-cta:hover .hero-hand {
+  animation-play-state: paused;
+}
+
+.hero-ticker {
+  --card-w: clamp(280px, 40vw, 600px);
+  /* Negative: each card tucks slightly under the next one */
+  --card-overlap: calc(var(--card-w) * -0.06);
+  width: 100%;
+}
+
+/* Position is written every frame by the JS loop in HeroShowcase (one clock for motion and slow-down) */
+.hero-ticker-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.hero-ticker-set {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Every item (including the last) carries the same overlap, so both sets stay identical and the loop is seamless */
+.hero-ticker-item {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  width: var(--card-w);
+  /* ~2:1 like the project screenshots, so object-cover barely crops them */
+  height: calc(var(--card-w) * 0.52);
+  margin-right: var(--card-overlap);
+}
+
+/* Discrete stacking (no animated z-index): spotlight > card settling back > the rest */
+.hero-ticker-item.is-leaving { z-index: 10; }
+.hero-ticker-item.is-active,
+.hero-ticker-item:focus-within { z-index: 20; }
+
+.hero-card {
+  --hero-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  pointer-events: none;
+  transform: translate3d(0px, 0px, 0) skewX(10deg) skewY(10deg) scale(1);
+  transition: transform 0.8s var(--hero-ease);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.hero-card::before,
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Static resting shadow; the left cast separates each card from the one it overlaps */
+.hero-card::before {
+  box-shadow: -14px 0 32px -14px rgba(0, 0, 0, 0.28), 0 24px 48px -24px rgba(0, 0, 0, 0.25);
+}
+
+/* Spotlight shadow fades in on its own compositor layer, so the fade never repaints the card */
+.hero-card::after {
+  box-shadow: 0 40px 80px -28px rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  transition: opacity 0.8s var(--hero-ease);
+  will-change: opacity;
+}
+
+/* Spotlight: the active card (chosen in HeroShowcase) glides to the horizontal centre, rises, straightens and grows.
+   All four move in one transform, so they stay in sync. */
+.hero-ticker-item.is-active .hero-card {
+  /* Hit-testable while centred, so it can be clicked and keeps the hover where it now sits */
+  pointer-events: auto;
+  transform: translate3d(var(--hero-dx, 0px), var(--hero-dy, 0px), 0) skewX(0deg) skewY(0deg) scale(var(--hero-scale, 1.4));
+}
+
+.hero-ticker-item.is-active .hero-card::after { opacity: 1; }
+
+/* Keyboard focus straightens and lifts in place, plus a ring */
+.hero-card-hit:focus-visible .hero-card {
+  transform: translate3d(0px, -8%, 0) skewX(0deg) skewY(0deg) scale(1.15);
+  outline: 2px solid #09090b;
+  outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {

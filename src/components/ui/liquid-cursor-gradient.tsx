@@ -7,6 +7,7 @@ export interface LiquidCursorGradientProps {
   orb1Color?: string;
   orb2Color?: string;
   cursorOrbColor?: string;
+  baseColor?: string;
 }
 
 // Soft-edged orb: a radial gradient looks the same as a solid circle under a heavy blur,
@@ -24,9 +25,10 @@ const NOISE =
 
 export const LiquidCursorGradient: React.FC<LiquidCursorGradientProps> = ({
   className = "",
-  orb1Color = "#023065", // Deep rich navy
-  orb2Color = "#0178c0", // Vibrant electric cyan/blue
-  cursorOrbColor = "#0284c7", // Cursor tracking luminous cyan orb
+  orb1Color = "#27272a", // Graphite
+  orb2Color = "#3f3f46", // Steel
+  cursorOrbColor = "#52525b", // Soft silver light that follows the cursor
+  baseColor = "#09090b", // Ink, same as the site's text colour
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cursorOrbRef = useRef<HTMLDivElement>(null);
@@ -59,8 +61,8 @@ export const LiquidCursorGradient: React.FC<LiquidCursorGradientProps> = ({
     <div
       ref={containerRef}
       data-paused={!inView}
-      className={`absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none bg-[#020612] ${className}`}
-      style={{ zIndex: 0 }}
+      className={`absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none ${className}`}
+      style={{ zIndex: 0, backgroundColor: baseColor }}
       aria-hidden="true"
     >
       {/* Ambient Orb 1 */}

@@ -151,7 +151,7 @@ export const ALL_PROJECTS: ProjectItem[] = [
   {
     id: "socialxbrand",
     step: "04",
-    name: "SocialX Brand",
+    name: "SocialxBrand Pilot",
     tag: "Agency Website",
     shortDescription:
       "A conversion-focused digital brand presence engineered to accelerate social momentum, elevate visual authority, and capture market share.",
@@ -164,7 +164,7 @@ export const ALL_PROJECTS: ProjectItem[] = [
     galleryImages: [sxb1, sxb2, sxb3, sxb4],
     isMobileGallery: false,
     liveUrl: "https://www.socialxbrandpilot.com/",
-    siteLabel: "SocialX Brand",
+    siteLabel: "SocialxBrand Pilot",
     theme: "light",
     overview:
       "We developed a digital presence for SOCIALxBRAND PILOT to communicate its marketing capabilities, showcase its work, and establish a professional first impression for prospective clients. The website was designed to turn the agency's services and creative expertise into a clear online experience.",

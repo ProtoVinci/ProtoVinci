@@ -134,7 +134,7 @@ export const ContactPage: React.FC = () => {
     ],
     [
       { text: "better", highlight: false },
-      { text: "design", highlight: false },
+      { text: "solutions", highlight: false },
       { text: "today.", highlight: false },
     ],
   ];
@@ -149,7 +149,7 @@ export const ContactPage: React.FC = () => {
       <Navbar />
 
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-32 sm:pt-36 md:pt-40 pb-20 sm:pb-28 flex flex-col items-center">
+      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-20 sm:pb-28 flex flex-col items-center">
         {/* Top Indicator: ▪ CONTACT US (Exact from Image 1) */}
         <div className="flex items-center gap-2 mb-4 sm:mb-5 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -189,8 +189,8 @@ export const ContactPage: React.FC = () => {
           className="mt-4 sm:mt-5 md:mt-6 text-center text-[16px] sm:text-[18px] md:text-[19px] text-[#555555] font-[450] max-w-2xl mx-auto leading-relaxed select-none"
           style={{ fontFamily: "'Switzer', sans-serif" }}
         >
-          Transform your workflow by connecting with an elite group of designers focused on
-          your long term success.
+          Share your idea, system or process. Our developers, designers and automation specialists will take it
+          from concept to execution.
         </p>
 
         {/* CTA PopButtons: "Explore projects" & "Our services" (Exact from Image 1) */}
@@ -215,7 +215,7 @@ export const ContactPage: React.FC = () => {
           <PopButton
             color="default"
             size="lg"
-            onClick={() => navigate("/#services")}
+            onClick={() => navigate("/services")}
             className="rounded-full px-7 sm:px-8 py-3 font-['Switzer'] text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-900 shadow-sm transition-all cursor-pointer"
           >
             <span>Our services</span>

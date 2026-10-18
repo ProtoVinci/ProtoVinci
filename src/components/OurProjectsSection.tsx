@@ -137,12 +137,12 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
               {/* Top-Left: Sleek Translucent Frosted Glass Card OUTSIDE the image at top-left */}
               <div className="self-start mb-2.5 sm:mb-3 transform-gpu transition-transform duration-500 ease-out group-hover:-translate-y-1.5">
                 <div
-                  className={`p-2.5 sm:p-3 md:p-3.5 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
+                  className={`rounded-[14px] p-2.5 sm:p-3 md:p-3.5 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
                       ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
                       : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
                   }`}
-                  style={{ borderRadius: "0px", maxWidth: "280px" }}
+                  style={{ maxWidth: "280px" }}
                 >
                   {/* Status Capsule Pill matching Reference Image */}
                   <div className="inline-flex items-center gap-2 p-0.5 pr-2.5 rounded-full bg-white border border-[#e2e2e2] shadow-[0_1px_4px_rgba(0,0,0,0.04)] mb-2 select-none">
@@ -176,12 +176,11 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
 
               {/* Full Landing Page Image: Whole image visible without cutting, 3px linear-gradient border #d8d8d8, soft shadow */}
               <div
-                className="relative w-full overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] group-hover:shadow-[0_16px_44px_rgba(0,0,0,0.1)] transition-all duration-300"
+                className="relative w-full overflow-hidden rounded-[20px] shadow-[0_10px_30px_rgba(0,0,0,0.06)] group-hover:shadow-[0_16px_44px_rgba(0,0,0,0.1)] transition-all duration-300"
                 style={{
-                  borderRadius: "0px",
                   backgroundColor: isDark ? "#070b14" : "#ffffff",
+                  // Plain border: a border-image would stop the radius from rounding it
                   border: "3px solid #d8d8d8",
-                  borderImage: "linear-gradient(to right, #d8d8d8 0%, #d8d8d8 100%) 1",
                 }}
               >
                 <img
@@ -192,21 +191,18 @@ export const OurProjectsSection: React.FC<OurProjectsSectionProps> = ({
                   decoding="async"
                   loading={idx < 1 ? "eager" : "lazy"}
                   className="w-full h-auto block select-none transition-transform duration-500 ease-out group-hover:scale-[1.012]"
-                  style={{
-                    borderRadius: "0px",
-                  }}
                 />
               </div>
 
               {/* Bottom-Right: Sleek Translucent Frosted Glass Card OUTSIDE the image at bottom-right */}
               <div className="self-end mt-2.5 sm:mt-3 transform-gpu transition-transform duration-500 ease-out group-hover:translate-y-1.5">
                 <div
-                  className={`p-2 sm:p-2.5 md:p-3 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
+                  className={`rounded-[14px] p-2 sm:p-2.5 md:p-3 border transition-all duration-300 shadow-sm group-hover:shadow-md ${
                     isDark
                       ? "bg-neutral-950/90 border-white/20 text-white shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
                       : "bg-white/95 border-neutral-300/90 text-neutral-900 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
                   }`}
-                  style={{ borderRadius: "0px", minWidth: "min(190px, 70vw)" }}
+                  style={{ minWidth: "min(190px, 70vw)" }}
                 >
                   {/* Row 1: Timeline */}
                   <div

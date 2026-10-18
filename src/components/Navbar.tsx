@@ -9,7 +9,7 @@ import { getLenis, scrollToTarget } from "@/lib/scroll";
 const NAV_LINKS = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  { name: "Services", href: "#services" },
+  { name: "Services", href: "/services" },
   { name: "FAQs", href: "#faq" },
 ];
 
