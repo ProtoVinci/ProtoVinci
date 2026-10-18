@@ -8,7 +8,15 @@ import { FaqSection } from "@/components/FaqSection";
 import { GetStartedSection } from "@/components/GetStartedSection";
 import { Footer } from "@/components/Footer";
 import contactImgWebp from "@/assets/contact-img-800.webp";
-import { CONTACT, buildEnquiryText, sendEnquiry, whatsappUrl, type EnquiryForm, type SendResult } from "@/lib/contact";
+import {
+  BUDGET_OPTIONS,
+  CONTACT,
+  buildEnquiryText,
+  sendEnquiry,
+  whatsappUrl,
+  type EnquiryForm,
+  type SendResult,
+} from "@/lib/contact";
 
 export const ContactPage: React.FC = () => {
   const navigate = useNavigate();
@@ -353,7 +361,6 @@ export const ContactPage: React.FC = () => {
                     </div>
 
                     {/* Budget (INR) */}
-                    {/* "Budget will be in INR and options will be 1000-3000 , 3000-5000 , 5000-7000 , 7000-10000, 10000 above." */}
                     <div className="flex flex-col gap-1.5">
                       <label
                         htmlFor="contact-budget"
@@ -373,11 +380,11 @@ export const ContactPage: React.FC = () => {
                           <option value="" disabled className="text-neutral-400">
                             Please select...
                           </option>
-                          <option value="1000-3000">₹1,000 - ₹3,000</option>
-                          <option value="3000-5000">₹3,000 - ₹5,000</option>
-                          <option value="5000-7000">₹5,000 - ₹7,000</option>
-                          <option value="7000-10000">₹7,000 - ₹10,000</option>
-                          <option value="10000-above">₹10,000 above</option>
+                          {BUDGET_OPTIONS.map(({ value, label }) => (
+                            <option key={value} value={value}>
+                              {label}
+                            </option>
+                          ))}
                         </select>
                         <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
                       </div>

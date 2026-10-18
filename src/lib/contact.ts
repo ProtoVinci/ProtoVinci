@@ -17,13 +17,18 @@ export interface EnquiryForm {
   description: string;
 }
 
-const BUDGET_LABELS: Record<string, string> = {
-  "1000-3000": "₹1,000 – ₹3,000",
-  "3000-5000": "₹3,000 – ₹5,000",
-  "5000-7000": "₹5,000 – ₹7,000",
-  "7000-10000": "₹7,000 – ₹10,000",
-  "10000-above": "₹10,000+",
-};
+/** Budget ranges (INR). The contact form's dropdown and the enquiry message both read from this list. */
+export const BUDGET_OPTIONS = [
+  { value: "5000-7000", label: "₹5,000 – ₹7,000" },
+  { value: "7000-10000", label: "₹7,000 – ₹10,000" },
+  { value: "10000-15000", label: "₹10,000 – ₹15,000" },
+  { value: "15000-20000", label: "₹15,000 – ₹20,000" },
+  { value: "20000-above", label: "₹20,000+" },
+] as const;
+
+const BUDGET_LABELS: Record<string, string> = Object.fromEntries(
+  BUDGET_OPTIONS.map(({ value, label }) => [value, label]),
+);
 
 /** Plain-text enquiry, shared by both channels so the team sees identical details. */
 export function buildEnquiryText(form: EnquiryForm): string {
