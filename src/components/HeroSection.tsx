@@ -113,7 +113,9 @@ export const HeroSection: React.FC = () => {
     <section
       ref={containerRef}
       data-paused={!inView}
-      className="relative w-full overflow-hidden bg-[linear-gradient(to_bottom,#f4f4f5_0%,#f4f4f5_60%,#e1e1e1_100%)]"
+      // At least one full screen tall (svh = with the browser bars showing), so on phones the next section
+      // doesn't peek in below the hero; the card row takes up any extra height
+      className="relative w-full min-h-[100svh] flex flex-col overflow-hidden bg-[linear-gradient(to_bottom,#f4f4f5_0%,#f4f4f5_60%,#e1e1e1_100%)]"
     >
       <Navbar />
 
@@ -162,7 +164,10 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Above the copy (z-10) so a raised spotlight card is never drawn under the CTA */}
-      <div ref={showcaseRef} className="relative z-20 mt-16 sm:mt-20 md:mt-[100px] pb-[clamp(56px,9vw,96px)]">
+      <div
+        ref={showcaseRef}
+        className="relative z-20 flex-1 flex flex-col justify-center mt-16 sm:mt-20 md:mt-[100px] pb-[clamp(56px,9vw,96px)]"
+      >
         <HeroShowcase ceilingRef={ctaRef} />
       </div>
     </section>
