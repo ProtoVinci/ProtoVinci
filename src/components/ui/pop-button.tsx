@@ -37,17 +37,71 @@ export interface PopButtonProps
   size?: SizeVariant;
   children: React.ReactNode;
   asChild?: boolean;
+  /** Whether to roll string text up letter-by-letter on hover (default true) */
+  roll?: boolean;
+}
+
+/** Standalone component for letter-by-letter roll effect on hover */
+export const RollingText: React.FC<{ text: string; className?: string }> = ({
+  text,
+  className = "",
+}) => (
+  <span className={cn("inline-flex items-center", className)}>
+    <span className="sr-only">{text}</span>
+    <span className="relative inline-flex overflow-hidden" aria-hidden="true">
+      {Array.from(text).map((char, i) => (
+        <span
+          key={i}
+          className="hero-roll-letter relative inline-block whitespace-pre"
+          style={{ transitionDelay: `${i * 18}ms` }}
+        >
+          <span className="block">{char}</span>
+          <span className="absolute left-0 top-full block">{char}</span>
+        </span>
+      ))}
+    </span>
+  </span>
+);
+
+function transformRollChildren(node: React.ReactNode): React.ReactNode {
+  if (typeof node === "string") {
+    if (!node.trim()) return node;
+    return <RollingText text={node} />;
+  }
+  if (Array.isArray(node)) {
+    return node.map((child, i) => (
+      <React.Fragment key={i}>{transformRollChildren(child)}</React.Fragment>
+    ));
+  }
+  if (React.isValidElement(node)) {
+    const props = node.props as { children?: React.ReactNode; className?: string };
+    if (typeof props?.children === "string" && !props.className?.includes("no-roll")) {
+      return React.cloneElement(node, {
+        ...props,
+        children: <RollingText text={props.children} />,
+      } as any);
+    }
+  }
+  return node;
 }
 
 const PopButton = React.forwardRef<HTMLButtonElement, PopButtonProps>(
   (
-    { className, color = "default", size = "default", children, asChild = false, ...props },
+    {
+      className,
+      color = "default",
+      size = "default",
+      children,
+      asChild = false,
+      roll = true,
+      ...props
+    },
     ref,
   ) => {
     const Comp = asChild ? Slot : "button";
 
     const baseClasses =
-      "font-pop inline-flex select-none transition-all items-center justify-center whitespace-nowrap rounded-xl ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:border-b-2 active:scale-y-95 border-x-2 border-t-2 border-b-4 origin-bottom";
+      "font-pop pop-button group inline-flex select-none transition-all items-center justify-center whitespace-nowrap rounded-xl ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:border-b-2 active:scale-y-95 border-x-2 border-t-2 border-b-4 origin-bottom";
 
     const colors: Record<Color, string> = {
       default:
@@ -89,6 +143,8 @@ const PopButton = React.forwardRef<HTMLButtonElement, PopButtonProps>(
       lg: "h-14 px-8 py-3 text-lg",
     };
 
+    const content = asChild || !roll ? children : transformRollChildren(children);
+
     return (
       <Comp
         ref={ref}
@@ -100,7 +156,7 @@ const PopButton = React.forwardRef<HTMLButtonElement, PopButtonProps>(
         )}
         {...props}
       >
-        {children}
+        {content}
       </Comp>
     );
   },

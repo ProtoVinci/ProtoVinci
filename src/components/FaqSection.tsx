@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Plus } from "lucide-react";
 import { useGoToContactForm } from "@/lib/useContactNav";
 import { SectionLabel } from "@/components/ui/section-label";
+import { PopButton } from "@/components/ui/pop-button";
 import contactImgWebp from "@/assets/contact-avatar.webp";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -118,16 +119,17 @@ export const FaqSection: React.FC = () => {
               </p>
             </div>
           </div>
-          <button
-            type="button"
+          <PopButton
+            color="black"
+            size="default"
             onClick={goToContactForm}
-            className="group mt-5 inline-flex h-12 items-center gap-3 rounded-full bg-black pl-6 pr-2 text-[15px] font-[550] text-white transition-colors duration-200 hover:bg-neutral-800 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+            className="mt-5 rounded-full pl-6 pr-2 h-12 text-[15px] font-[550] text-white cursor-pointer shadow-md hover:shadow-lg gap-3"
           >
-            Book an intro call
-            <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center">
+            <span>Book an intro call</span>
+            <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shrink-0">
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </span>
-          </button>
+          </PopButton>
         </div>
 
         {/* Right: numbered accordion separated by hairlines */}

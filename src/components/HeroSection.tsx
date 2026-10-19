@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Pointer } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { PopButton } from "@/components/ui/pop-button";
 import { HeroShowcase } from "@/components/HeroShowcase";
 import { useInView } from "@/lib/hooks";
 import { useGoToContactForm } from "@/lib/useContactNav";
@@ -40,22 +41,6 @@ const TagList: React.FC<{ clone?: boolean }> = ({ clone = false }) => (
       </li>
     ))}
   </ul>
-);
-
-/** Each letter is stacked on a copy of itself; on hover the stack rolls up one line, letter by letter. */
-const RollingText: React.FC<{ text: string }> = ({ text }) => (
-  <span className="relative inline-flex overflow-hidden" aria-hidden="true">
-    {Array.from(text).map((char, i) => (
-      <span
-        key={i}
-        className="hero-roll-letter relative inline-block whitespace-pre"
-        style={{ transitionDelay: `${i * 18}ms` }}
-      >
-        <span className="block">{char}</span>
-        <span className="absolute left-0 top-full block">{char}</span>
-      </span>
-    ))}
-  </span>
 );
 
 export const HeroSection: React.FC = () => {
@@ -154,14 +139,14 @@ export const HeroSection: React.FC = () => {
             strokeWidth={1.6}
             aria-hidden="true"
           />
-          <button
-            type="button"
+          <PopButton
+            color="black"
+            size="lg"
             onClick={goToContactForm}
-            className="hero-cta-button group inline-flex h-[50px] items-center rounded-full bg-black px-6 text-[16px] font-[600] text-white shadow-[0_0.8px_0.8px_-0.6px_rgba(0,0,0,0.13),0_2.4px_2.4px_-1.25px_rgba(0,0,0,0.13),0_6.4px_6.4px_-1.9px_rgba(0,0,0,0.13),0_20px_20px_-2.5px_rgba(0,0,0,0.13)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 focus-visible:ring-offset-[#f4f4f5]"
+            className="hero-cta-button rounded-full px-7 h-[50px] text-[16px] font-[600] text-white cursor-pointer shadow-[0_0.8px_0.8px_-0.6px_rgba(0,0,0,0.13),0_2.4px_2.4px_-1.25px_rgba(0,0,0,0.13),0_6.4px_6.4px_-1.9px_rgba(0,0,0,0.13),0_20px_20px_-2.5px_rgba(0,0,0,0.13)]"
           >
-            <span className="sr-only">{CTA_LABEL}</span>
-            <RollingText text={CTA_LABEL} />
-          </button>
+            {CTA_LABEL}
+          </PopButton>
         </div>
       </div>
 

@@ -5,7 +5,6 @@ import { ChevronLeft, ChevronRight, Pause, Play, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SectionLabel } from "@/components/ui/section-label";
 import { TESTIMONIALS, type Testimonial } from "@/data/testimonials";
-import { useInView } from "@/lib/hooks";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,7 +97,6 @@ export const TestimonialsSection: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLUListElement>(null);
-  const inView = useInView(sectionRef, { rootMargin: "0px" });
 
   // Position state lives in refs: the row is moved by writing its transform directly, never by re-rendering
   const indexRef = useRef(0);
@@ -115,6 +113,11 @@ export const TestimonialsSection: React.FC = () => {
   const place = useCallback((target: number, animate: boolean, offset = 0) => {
     const track = trackRef.current;
     if (!track) return;
+    if (!stepRef.current) {
+      const card = track.querySelector("li");
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      stepRef.current = (card?.getBoundingClientRect().width || 0) + gap;
+    }
     track.style.transition = animate ? `transform ${SLIDE_MS}ms ${SLIDE_EASE}` : "none";
     track.style.transform = `translate3d(${-target * stepRef.current + offset}px, 0, 0)`;
     indexRef.current = target;
@@ -163,19 +166,17 @@ export const TestimonialsSection: React.FC = () => {
     return () => ro.disconnect();
   }, [place]);
 
-  // Autoplay: advance when the section is on screen and nobody is reading, hovering, focusing or swiping
+  // Autoplay: advance automatically when not paused and not hovered/dragging
   useEffect(() => {
-    if (reducedMotion || paused || !inView) return;
-    lastMoveRef.current = performance.now();
-    const id = window.setInterval(() => {
+    if (paused) return;
+    const interval = setInterval(() => {
       if (hoverRef.current || focusRef.current || dragRef.current || document.hidden) {
-        lastMoveRef.current = performance.now();
         return;
       }
-      if (performance.now() - lastMoveRef.current >= AUTOPLAY_MS) next();
-    }, 250);
-    return () => window.clearInterval(id);
-  }, [reducedMotion, paused, inView, next]);
+      next();
+    }, AUTOPLAY_MS);
+    return () => clearInterval(interval);
+  }, [paused, next]);
 
   // Entrance
   useEffect(() => {
@@ -259,16 +260,14 @@ export const TestimonialsSection: React.FC = () => {
         </div>
 
         <div className="mt-8 sm:mt-10 flex justify-end gap-2.5">
-          {!reducedMotion && (
-            <button
-              type="button"
-              className={controlClass}
-              onClick={() => setPaused((p) => !p)}
-              aria-label={paused ? "Play testimonials" : "Pause testimonials"}
-            >
-              {paused ? <Play className="w-4 h-4" strokeWidth={2} /> : <Pause className="w-4 h-4" strokeWidth={2} />}
-            </button>
-          )}
+          <button
+            type="button"
+            className={controlClass}
+            onClick={() => setPaused((p) => !p)}
+            aria-label={paused ? "Play testimonials" : "Pause testimonials"}
+          >
+            {paused ? <Play className="w-4 h-4" strokeWidth={2} /> : <Pause className="w-4 h-4" strokeWidth={2} />}
+          </button>
           <button type="button" className={controlClass} onClick={prev} aria-label="Previous testimonial">
             <ChevronLeft className="w-4.5 h-4.5" strokeWidth={2} />
           </button>
@@ -284,8 +283,18 @@ export const TestimonialsSection: React.FC = () => {
           aria-roledescription="carousel"
           aria-label="Client testimonials"
           className="-mt-2 -mb-6 py-6 overflow-hidden touch-pan-y select-none"
-          onPointerEnter={(e) => e.pointerType === "mouse" && (hoverRef.current = true)}
-          onPointerLeave={(e) => e.pointerType === "mouse" && (hoverRef.current = false)}
+          onMouseEnter={() => {
+            hoverRef.current = true;
+          }}
+          onMouseLeave={() => {
+            hoverRef.current = false;
+          }}
+          onPointerEnter={() => {
+            hoverRef.current = true;
+          }}
+          onPointerLeave={() => {
+            hoverRef.current = false;
+          }}
           onFocus={() => (focusRef.current = true)}
           onBlur={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget as Node | null)) focusRef.current = false;

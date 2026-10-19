@@ -35,7 +35,7 @@ export const SERVICE_PILLARS: ServicePillar[] = [
     title: "Technology & Development",
     label: "Build",
     summary:
-      "Websites, web applications, custom software and mobile apps built to be fast, reliable and ready to grow, plus the cloud setup and ongoing care that keep them running.",
+      "Fast, scalable websites, apps and custom software engineered for performance, backed by cloud setup and ongoing maintenance.",
     image: webDesignImg,
     objectPosition: "center 42%",
     alt: "Website development by ProtoVinci",

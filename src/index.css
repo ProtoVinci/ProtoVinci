@@ -228,7 +228,15 @@
 }
 
 .hero-cta-button:hover .hero-roll-letter,
-.hero-cta-button:focus-visible .hero-roll-letter {
+.hero-cta-button:focus-visible .hero-roll-letter,
+.font-pop:hover .hero-roll-letter,
+.font-pop:focus-visible .hero-roll-letter,
+.pop-button:hover .hero-roll-letter,
+.pop-button:focus-visible .hero-roll-letter,
+button:hover .hero-roll-letter,
+button:focus-visible .hero-roll-letter,
+a:hover .hero-roll-letter,
+a:focus-visible .hero-roll-letter {
   transform: translateY(-100%);
 }
 

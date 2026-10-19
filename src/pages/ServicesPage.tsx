@@ -141,11 +141,11 @@ const PillarChapter: React.FC<{ pillar: ServicePillar; first: boolean; onStart: 
         </div>
         <h2
           id={`${pillarAnchor(pillar.id)}-title`}
-          className="m-0 mt-4 text-[32px] sm:text-[40px] md:text-[44px] font-[600] leading-[1.06] tracking-[-0.035em] text-black"
+          className="m-0 mt-3 sm:mt-3.5 text-[30px] sm:text-[36px] md:text-[40px] font-[600] leading-[1.08] tracking-[-0.035em] text-black"
         >
           {pillar.title}
         </h2>
-        <p className="m-0 mt-4 text-[15.5px] sm:text-[16.5px] font-[450] leading-[1.6] text-[#4b5563] max-w-[480px]">
+        <p className="m-0 mt-3 text-[15px] sm:text-[16px] font-[450] leading-[1.55] text-[#4b5563] max-w-[460px]">
           {pillar.summary}
         </p>
 
