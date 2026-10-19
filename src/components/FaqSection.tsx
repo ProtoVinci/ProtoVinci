@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Plus } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import { useGoToContactForm } from "@/lib/useContactNav";
-import { PopButton } from "@/components/ui/pop-button";
+import { SectionLabel } from "@/components/ui/section-label";
 import contactImgWebp from "@/assets/contact-avatar.webp";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -48,248 +48,169 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 export const FaqSection: React.FC = () => {
   const goToContactForm = useGoToContactForm();
-  // 2nd question open by default matching reference image
-  const [openIndex, setOpenIndex] = useState<number | null>(1);
-
+  const reduceMotion = useReducedMotion();
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header entrance animation
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current,
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
-      }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // Content entrance animation
-      if (contentRef.current) {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>("[data-faq-reveal]").forEach((el) => {
         gsap.fromTo(
-          contentRef.current,
-          { opacity: 0, y: 30 },
+          el,
+          { opacity: 0, y: 28 },
           {
             opacity: 1,
             y: 0,
             duration: 0.8,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: contentRef.current,
-              start: "top 86%",
-              once: true,
-            },
+            scrollTrigger: { trigger: el, start: "top 88%", once: true },
           }
         );
-      }
+      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const toggleQuestion = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
-
   return (
     <section
       ref={sectionRef}
       id="faq"
-      aria-label="Frequently Asked Questions"
-      className="relative w-full pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20 bg-[#f6f6f6] border-t border-[#cecece] font-['Switzer'] select-none overflow-hidden"
+      aria-labelledby="faq-heading"
+      className="relative w-full py-20 sm:py-24 md:py-32 bg-[#f6f6f6] border-t border-[#d9d9d9] font-['Switzer']"
     >
-      {/* Symmetrical container with matching left/right padding and boundary alignment */}
-      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
-        {/* 1. Header */}
-        <div ref={headerRef} className="flex flex-col items-center text-center">
-          {/* Top Indicator: ▪ FAQ */}
-          <div className="flex items-center gap-2 mb-2.5 sm:mb-3 select-none">
-            <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
-            <span
-              className="text-[11.5px] sm:text-[12px] uppercase font-[650] tracking-[0.22em] text-[#000000]"
-              style={{ fontFamily: "'Switzer', sans-serif" }}
-            >
-              FAQ
-            </span>
-          </div>
-
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-16">
+        {/* Left: heading and contact prompt, sticky on desktop */}
+        <div className="lg:col-span-5 lg:sticky lg:top-[112px] self-start" data-faq-reveal>
+          <SectionLabel>FAQ</SectionLabel>
           <h2
-            className="text-[34px] sm:text-[44px] md:text-[52px] lg:text-[58px] font-[550] text-[#000000] tracking-[-0.035em] leading-[1.1] m-0"
-            style={{ fontFamily: "'Switzer', sans-serif" }}
+            id="faq-heading"
+            className="m-0 mt-5 text-[40px] sm:text-[52px] lg:text-[60px] font-[600] leading-[1] tracking-[-0.045em] text-black"
           >
-            Frequently Asked Questions
+            Questions,
+            <br />
+            <span className="text-neutral-400">answered.</span>
           </h2>
-          <p
-            className="mt-3 sm:mt-3.5 text-[15px] sm:text-[17px] md:text-[18px] text-[#555555] font-[450] max-w-xl mx-auto leading-relaxed"
-            style={{ fontFamily: "'Switzer', sans-serif" }}
-          >
-            Here are some of the most common questions we get.
+          <p className="m-0 mt-5 text-[16px] sm:text-[17px] leading-[1.55] font-[450] text-neutral-600 max-w-[400px]">
+            Everything you need to know about working with us — timelines, revisions, communication and support.
           </p>
+
+          <div className="mt-10 pt-6 border-t border-neutral-300 flex items-center gap-4 max-w-[400px]">
+            <img
+              src={contactImgWebp}
+              alt=""
+              width={48}
+              height={48}
+              loading="lazy"
+              decoding="async"
+              className="w-12 h-12 rounded-full object-cover object-top bg-neutral-200 shrink-0"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="m-0 text-[15px] font-[600] text-black leading-tight">Still have questions?</p>
+              <p className="m-0 mt-1 text-[14px] font-[450] text-neutral-500 leading-snug">
+                Book a free discovery call with our team.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={goToContactForm}
+            className="group mt-5 inline-flex h-12 items-center gap-3 rounded-full bg-black pl-6 pr-2 text-[15px] font-[550] text-white transition-colors duration-200 hover:bg-neutral-800 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+          >
+            Book an intro call
+            <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </span>
+          </button>
         </div>
 
-        {/* 2. Bento Layout (20px corners like the site's other cards, grey borders between questions) */}
-        <div
-          ref={contentRef}
-          className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 md:gap-5 items-start"
-        >
-          {/* Left Column Card: "Book an Intro Call" (Compact, tightly fitted) */}
-          <div
-            className="lg:col-span-4 rounded-[20px] bg-gradient-to-b from-neutral-900 via-neutral-950 to-black text-white p-6 sm:p-7 flex flex-col h-fit self-start border border-neutral-800 shadow-sm"
-          >
-            {/* Top: Avatar */}
-            <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-white/20 shadow-sm mb-4.5 bg-neutral-800">
-              <img
-                src={contactImgWebp}
-                alt="Creative Director Profile"
-                width={56}
-                height={56}
-                className="w-full h-full object-cover object-top select-none"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+        {/* Right: numbered accordion separated by hairlines */}
+        <ul className="lg:col-span-7 m-0 p-0 list-none border-t border-neutral-300" data-faq-reveal>
+          {FAQ_ITEMS.map((item, idx) => {
+            const isOpen = openIndex === idx;
+            const panelId = `faq-panel-${item.id}`;
+            const buttonId = `faq-button-${item.id}`;
 
-            {/* Title & Description */}
-            <h3
-              className="text-[21px] sm:text-[23px] font-[600] text-white tracking-[-0.02em] leading-tight m-0"
-              style={{ fontFamily: "'Switzer', sans-serif" }}
-            >
-              Book an Intro Call
-            </h3>
-            <p
-              className="mt-2 text-[13px] sm:text-[13.5px] text-neutral-400 font-[450] leading-relaxed m-0 mb-5"
-              style={{ fontFamily: "'Switzer', sans-serif" }}
-            >
-              Book a free discovery call to explore our unique creative process.
-            </p>
-
-            {/* Bottom: PopButton "Get started" */}
-            <PopButton
-              color="default"
-              size="default"
-              onClick={goToContactForm}
-              className="w-full rounded-full py-2.5 px-6 bg-white hover:bg-neutral-100 text-neutral-950 font-['Switzer'] font-[600] text-[14px] shadow-sm transition-all cursor-pointer"
-            >
-              <span>Get started</span>
-            </PopButton>
-          </div>
-
-          {/* Right Column: Stacked Questions with 3.5px Grey Separators.
-              Inner radius = 20px minus the 3.5px inset, so the corners stay concentric */}
-          <div
-            className="lg:col-span-8 rounded-[20px] overflow-hidden flex flex-col gap-[3.5px] bg-[#dedede] border border-[#cecece] p-[3.5px] shadow-xs"
-          >
-            {FAQ_ITEMS.map((item, idx) => {
-              const isOpen = openIndex === idx;
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => toggleQuestion(idx)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      toggleQuestion(idx);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isOpen}
-                  className="rounded-[16.5px] bg-white px-5 sm:px-8 py-5 sm:py-6 cursor-pointer select-none transition-colors duration-200 hover:bg-[#fafafa] focus-visible:outline-2 focus-visible:outline-black focus-visible:-outline-offset-2"
-                >
-                  {/* Question Header Row */}
-                  <div className="flex items-center justify-between gap-4 w-full">
+            return (
+              <li key={item.id} className="border-b border-neutral-300">
+                <h3 className="m-0">
+                  <button
+                    id={buttonId}
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenIndex(isOpen ? null : idx)}
+                    className="group w-full flex items-start gap-4 sm:gap-6 py-6 sm:py-7 text-left font-['Switzer'] cursor-pointer bg-transparent border-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
                     <span
-                      className="text-[16px] sm:text-[17px] md:text-[18px] font-[600] text-[#111111] tracking-[-0.015em] leading-snug"
-                      style={{ fontFamily: "'Switzer', sans-serif" }}
+                      className="pt-[5px] w-6 shrink-0 text-[13px] font-[600] tabular-nums text-neutral-400"
+                      aria-hidden="true"
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`flex-1 text-[18px] sm:text-[21px] font-[550] leading-[1.3] tracking-[-0.02em] transition-colors duration-200 ${
+                        isOpen ? "text-black" : "text-neutral-800 group-hover:text-black"
+                      }`}
                     >
                       {item.question}
                     </span>
-
-                    {/* Small Animated Circular + / × button */}
-                    <m.div
-                      animate={{ rotate: isOpen ? 45 : 0 }}
-                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                      className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xs"
+                    <span
+                      className={`shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-colors duration-300 ${
+                        isOpen
+                          ? "bg-black border-black text-white"
+                          : "bg-white border-neutral-300 text-black group-hover:border-black"
+                      }`}
                       aria-hidden="true"
                     >
-                      <Plus className="w-3.5 h-3.5 text-white stroke-[2.5]" />
-                    </m.div>
-                  </div>
+                      <Plus
+                        className={`w-4 h-4 stroke-[2.25] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                          isOpen ? "rotate-45" : ""
+                        }`}
+                      />
+                    </span>
+                  </button>
+                </h3>
 
-                  {/* Heavy, Buttery-Smooth Top-to-Bottom Unfolding Animation with Slide-up Text */}
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <m.div
-                        key="faq-answer-dropdown"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{
-                          height: "auto",
-                          opacity: 1,
-                          transition: {
-                            height: {
-                              duration: 0.52,
-                              ease: [0.16, 1, 0.3, 1], // Slow, heavy, buttery smooth downward unfold
-                            },
-                            opacity: {
-                              duration: 0.42,
-                              ease: "easeOut",
-                            },
-                          },
-                        }}
-                        exit={{
-                          height: 0,
-                          opacity: 0,
-                          transition: {
-                            height: {
-                              duration: 0.4,
-                              ease: [0.16, 1, 0.3, 1], // Smooth bottom-to-up fold
-                            },
-                            opacity: {
-                              duration: 0.22,
-                              ease: "easeIn",
-                            },
-                          },
-                        }}
-                        style={{ transformOrigin: "top" }}
-                        className="overflow-hidden will-change-[height,opacity]"
-                      >
-                        <m.p
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={{
-                            duration: 0.46,
-                            ease: [0.16, 1, 0.3, 1],
-                            delay: 0.06,
-                          }}
-                          className="mt-3.5 sm:mt-4 text-[13.5px] sm:text-[14.5px] leading-relaxed text-[#555555] font-[450] m-0 select-none"
-                          style={{ fontFamily: "'Switzer', sans-serif" }}
-                        >
-                          {item.answer}
-                        </m.p>
-                      </m.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <m.div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                        transition: { height: { duration: 0.5, ease: EASE }, opacity: { duration: 0.35 } },
+                      }}
+                      exit={
+                        reduceMotion
+                          ? { opacity: 0, transition: { duration: 0 } }
+                          : {
+                              height: 0,
+                              opacity: 0,
+                              transition: { height: { duration: 0.38, ease: EASE }, opacity: { duration: 0.2 } },
+                            }
+                      }
+                      className="overflow-hidden"
+                    >
+                      <p className="m-0 pb-7 pl-10 sm:pl-12 pr-12 sm:pr-16 text-[15px] sm:text-[16px] leading-[1.65] font-[450] text-neutral-600 max-w-[640px]">
+                        {item.answer}
+                      </p>
+                    </m.div>
+                  )}
+                </AnimatePresence>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
