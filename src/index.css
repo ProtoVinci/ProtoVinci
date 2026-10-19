@@ -246,7 +246,8 @@
 }
 
 .hero-ticker {
-  --card-w: clamp(280px, 40vw, 600px);
+  /* --hero-card-w is set on the hero section (larger on phones), so the section can size itself around the cards */
+  --card-w: var(--hero-card-w, clamp(280px, 40vw, 600px));
   /* Negative: each card tucks slightly under the next one */
   --card-overlap: calc(var(--card-w) * -0.06);
   width: 100%;

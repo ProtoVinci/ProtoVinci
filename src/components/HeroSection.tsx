@@ -113,13 +113,15 @@ export const HeroSection: React.FC = () => {
     <section
       ref={containerRef}
       data-paused={!inView}
-      // At least one full screen tall (svh = with the browser bars showing), so on phones the next section
-      // doesn't peek in below the hero; the card row takes up any extra height
-      className="relative w-full min-h-[100svh] flex flex-col overflow-hidden bg-[linear-gradient(to_bottom,#f4f4f5_0%,#f4f4f5_60%,#e1e1e1_100%)]"
+      // At least one full screen tall (svh = with the browser bars showing), so the next section never peeks in.
+      // Phones (< 640px): larger cards, and the hero extends just past the screen with the cards anchored to its
+      // bottom, so only their top ~60% shows above the fold, like on desktop. Card height = 0.52 × card width.
+      className="relative w-full flex flex-col overflow-hidden bg-[linear-gradient(to_bottom,#f4f4f5_0%,#f4f4f5_60%,#e1e1e1_100%)] [--hero-card-w:clamp(260px,76vw,600px)] sm:[--hero-card-w:clamp(280px,40vw,600px)] min-h-[calc(100svh_+_var(--hero-card-w)_*_0.21_+_56px)] sm:min-h-[100svh]"
     >
       <Navbar />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1300px] flex-col items-center px-4 pt-page text-center sm:px-6">
+      {/* Phones: this block takes the free height and centres the copy above the cards; sm+: natural height */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1300px] flex-1 flex-col items-center justify-center px-4 pt-page text-center sm:flex-none sm:justify-start sm:px-6">
         {/* Service tags ticker, faded at both ends */}
         <div ref={tagsRef} className="hero-tags w-[260px] max-w-full sm:w-[300px]">
           <span className="sr-only">Services: {TAGS.join(", ")}</span>
@@ -166,7 +168,7 @@ export const HeroSection: React.FC = () => {
       {/* Above the copy (z-10) so a raised spotlight card is never drawn under the CTA */}
       <div
         ref={showcaseRef}
-        className="relative z-20 flex-1 flex flex-col justify-center mt-16 sm:mt-20 md:mt-[100px] pb-[clamp(56px,9vw,96px)]"
+        className="relative z-20 flex-none sm:flex-1 flex flex-col sm:justify-center mt-12 sm:mt-20 md:mt-[100px] pb-[56px] sm:pb-[clamp(56px,9vw,96px)]"
       >
         <HeroShowcase ceilingRef={ctaRef} />
       </div>
