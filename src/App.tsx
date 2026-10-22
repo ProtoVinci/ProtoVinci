@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LazyMotion, domAnimation } from "framer-motion";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { HomePage } from "@/pages/HomePage";
 import { scrollToTarget, scrollToTop } from "@/lib/scroll";
 import "lenis/dist/lenis.css";
@@ -124,6 +125,7 @@ export function App() {
             </Routes>
           </Suspense>
         </div>
+        <Analytics />
       </LazyMotion>
     </BrowserRouter>
   );
