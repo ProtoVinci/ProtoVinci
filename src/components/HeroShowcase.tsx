@@ -102,7 +102,7 @@ export const HeroShowcase: React.FC<{ ceilingRef?: React.RefObject<HTMLElement |
 
   /**
    * Vertical lift and scale. Priority: the enlarged card is fully inside the viewport, then it stays clear
-   * of the element above (the CTA) — shrinking toward MIN_ACTIVE_SCALE on short screens to make room —
+   * of the element above (the CTA) - shrinking toward MIN_ACTIVE_SCALE on short screens to make room -
    * then it rises by LIFT.
    */
   const lift = (item: HTMLElement) => {

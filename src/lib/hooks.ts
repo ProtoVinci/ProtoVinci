@@ -1,6 +1,6 @@
 import { useEffect, useState, useSyncExternalStore, type RefObject } from "react";
 
-/** Reactive matchMedia — re-renders only when the query result flips. */
+/** Reactive matchMedia - re-renders only when the query result flips. */
 export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
     (onChange) => {

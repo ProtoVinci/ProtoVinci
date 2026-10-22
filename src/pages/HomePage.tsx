@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { HeroSection } from "@/components/HeroSection";
 import { FaqSection } from "@/components/FaqSection";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { GetStartedSection } from "@/components/GetStartedSection";
 import { Footer } from "@/components/Footer";
@@ -134,7 +135,7 @@ const SelectedWork: React.FC = () => (
               to={`/projects/${project.id}`}
               className="group block no-underline text-black rounded-[18px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
             >
-              <div className="aspect-[16/10] overflow-hidden rounded-[18px] border border-[#e1e1e1] bg-[#e4e4e7]">
+              <div className="overflow-hidden rounded-[18px] border border-[#e1e1e1] bg-[#e4e4e7] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-[box-shadow] duration-500 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.1)]">
                 <img
                   src={project.landingImage}
                   alt={`${project.name} website`}
@@ -142,7 +143,7 @@ const SelectedWork: React.FC = () => (
                   height={800}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                  className="w-full h-auto block object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.025]"
                 />
               </div>
               <div className="mt-4 flex items-start justify-between gap-4">
@@ -200,6 +201,10 @@ export const HomePage: React.FC = () => {
       <div ref={contentRef}>
         <ServicesOverview />
         <SelectedWork />
+      </div>
+
+      <div className="border-t border-[#cecece] bg-[#eeeef0]">
+        <HowItWorksSection />
       </div>
 
       <FaqSection />

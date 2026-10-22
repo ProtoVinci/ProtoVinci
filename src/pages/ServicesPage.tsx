@@ -22,8 +22,8 @@ const CONTAINER = "w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10";
 // Terms quoted from the FAQ, so this page never promises more than the rest of the site
 const WORKING_TERMS = [
   {
-    title: "2–6 weeks",
-    body: "Most projects wrap up within 2–6 weeks. After our first call you get a clear timeline with milestones.",
+    title: "2-6 weeks",
+    body: "Most projects wrap up within 2-6 weeks. After our first call you get a clear timeline with milestones.",
   },
   {
     title: "Unlimited revisions",

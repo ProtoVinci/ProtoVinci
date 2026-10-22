@@ -157,7 +157,7 @@ export const ContactPage: React.FC = () => {
       <Navbar />
 
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-20 sm:pb-28 flex flex-col items-center">
+      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-3 md:px-8 lg:px-10 pt-page pb-20 sm:pb-28 flex flex-col items-center">
         {/* Top Indicator: ▪ CONTACT US (Exact from Image 1) */}
         <div className="flex items-center gap-2 mb-4 sm:mb-5 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />
@@ -247,9 +247,9 @@ export const ContactPage: React.FC = () => {
                   </h3>
                   <p className="text-neutral-600 text-sm sm:text-base max-w-md mt-2">
                     {status === "sent" ? (
-                      <>Thanks {formData.name.split(" ")[0]} — your project details are with us. We'll reply to <strong className="break-all">{formData.email}</strong> within 24 hours.</>
+                      <>Thanks {formData.name.split(" ")[0]} - your project details are with us. We'll reply to <strong className="break-all">{formData.email}</strong> within 24 hours.</>
                     ) : (
-                      <>Your email app has opened a draft to <strong className="break-all">{CONTACT.email}</strong> with your project details — just hit <strong>send</strong>.</>
+                      <>Your email app has opened a draft to <strong className="break-all">{CONTACT.email}</strong> with your project details - just hit <strong>send</strong>.</>
                     )}
                   </p>
                   {CONTACT.whatsapp && (
@@ -450,7 +450,10 @@ export const ContactPage: React.FC = () => {
             {/* Card 1: Email Address */}
             <a
               href={`mailto:${CONTACT.email}`}
-              className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-6 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer no-underline"
+              onClick={() => {
+                window.location.href = `mailto:${CONTACT.email}`;
+              }}
+              className="group bg-white rounded-[20px] p-3 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer no-underline"
             >
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 group-hover:bg-neutral-200/70 transition-colors">
@@ -472,7 +475,15 @@ export const ContactPage: React.FC = () => {
             </a>
 
             {/* Card 2: Location (Mumbai, India) */}
-            <div className="group bg-white rounded-[20px] sm:rounded-[20px] p-5 sm:p-6 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4">
+            <a
+              href="https://maps.google.com/?q=Mumbai,+India"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                window.open("https://maps.google.com/?q=Mumbai,+India", "_blank", "noopener,noreferrer");
+              }}
+              className="group bg-white rounded-[20px] p-3 border border-neutral-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer no-underline"
+            >
               <div className="flex items-center gap-3.5 min-w-0">
                 <div className="w-12 h-12 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 shrink-0 group-hover:bg-neutral-200/70 transition-colors">
                   <MapPin className="w-5 h-5" />
@@ -490,7 +501,7 @@ export const ContactPage: React.FC = () => {
               <div className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center shrink-0 text-neutral-400 group-hover:text-black group-hover:border-neutral-400 group-hover:translate-x-0.5 transition-all">
                 <ArrowRight className="w-3.5 h-3.5" />
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </main>

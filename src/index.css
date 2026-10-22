@@ -55,7 +55,7 @@
 /*
  * Design-system type scale. Kept in the components layer so responsive
  * Tailwind utilities (text-[40px] sm:text-[54px] …) can override the
- * desktop defaults — unlayered CSS would always win over utilities.
+ * desktop defaults - unlayered CSS would always win over utilities.
  */
 @layer components {
   .font-pop {

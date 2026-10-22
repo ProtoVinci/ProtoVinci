@@ -46,7 +46,7 @@ const ProjectCard: React.FC<{ project: ProjectItem; eager: boolean }> = ({ proje
           <span className="w-[42px]" />
         </div>
 
-        <div className="aspect-[2/1] overflow-hidden">
+        <div className="overflow-hidden">
           <img
             src={project.landingImage}
             alt={`${project.name} website homepage`}
@@ -54,7 +54,7 @@ const ProjectCard: React.FC<{ project: ProjectItem; eager: boolean }> = ({ proje
             height={800}
             decoding="async"
             loading={eager ? "eager" : "lazy"}
-            className="w-full h-full object-cover object-top select-none transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
+            className="w-full h-auto block select-none transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
           />
         </div>
       </div>

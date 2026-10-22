@@ -3,7 +3,7 @@ export const CONTACT = {
   email: "protovincistudio@gmail.com",
   location: "Mumbai, India",
   /**
-   * WhatsApp number in international format, digits only — no "+", spaces or dashes
+   * WhatsApp number in international format, digits only - no "+", spaces or dashes
    * (e.g. "919876543210" for +91 98765 43210). Leave empty to disable WhatsApp.
    */
   whatsapp: "",
@@ -19,10 +19,10 @@ export interface EnquiryForm {
 
 /** Budget ranges (INR). The contact form's dropdown and the enquiry message both read from this list. */
 export const BUDGET_OPTIONS = [
-  { value: "5000-7000", label: "₹5,000 – ₹7,000" },
-  { value: "7000-10000", label: "₹7,000 – ₹10,000" },
-  { value: "10000-15000", label: "₹10,000 – ₹15,000" },
-  { value: "15000-20000", label: "₹15,000 – ₹20,000" },
+  { value: "5000-7000", label: "₹5,000 - ₹7,000" },
+  { value: "7000-10000", label: "₹7,000 - ₹10,000" },
+  { value: "10000-15000", label: "₹10,000 - ₹15,000" },
+  { value: "15000-20000", label: "₹15,000 - ₹20,000" },
   { value: "20000-above", label: "₹20,000+" },
 ] as const;
 
@@ -67,7 +67,7 @@ export type SendResult = "sent" | "draft";
  * nothing on most Windows/Brave/Chrome machines).
  *
  * One-time setup: the very first submission makes FormSubmit email an activation link to
- * CONTACT.email — click it once and every later enquiry is delivered straight to the inbox.
+ * CONTACT.email - click it once and every later enquiry is delivered straight to the inbox.
  */
 const FORMSUBMIT_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT.email}`;
 
@@ -79,7 +79,7 @@ export async function sendEnquiry(form: EnquiryForm, honeypot = ""): Promise<Sen
       signal: AbortSignal.timeout(15000),
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
-        _subject: `New project request — ${form.name}`,
+        _subject: `New project request - ${form.name}`,
         _template: "table",
         _captcha: "false",
         _honey: honeypot, // bots fill hidden fields; FormSubmit drops those submissions
