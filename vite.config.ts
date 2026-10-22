@@ -18,7 +18,7 @@ export default defineConfig({
       output: {
         // Long-lived vendor chunks: redeploying app code doesn't bust the library cache
         // for returning visitors.
-        advancedChunks: {
+        codeSplitting: {
           groups: [
             { name: 'react', test: /node_modules[\\/](react|react-dom|react-router|scheduler)[\\/]/ },
             { name: 'animation', test: /node_modules[\\/](gsap|lenis)[\\/]/ },
