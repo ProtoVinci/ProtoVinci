@@ -66,9 +66,9 @@ export const ALL_PROJECTS: ProjectItem[] = [
     tag: "Product Catalogue",
     shortDescription:
       "A high-performance industrial equipment platform engineered with comprehensive machine catalogs, instant quotation flows, and precision responsive layout.",
-    timeline: "6 Weeks",
+    timeline: "2 Weeks",
     service: "Product Catalogue",
-    kickoff: "Jan 15, 2024",
+    kickoff: "Sep 2026",
     clientName: "Ramesh Kumar",
     clientRole: "Food Manufacturer",
     landingImage: rkEnterprisesImg,
@@ -95,9 +95,9 @@ export const ALL_PROJECTS: ProjectItem[] = [
     tag: "Digital Showroom",
     shortDescription:
       "A visually driven digital showroom crafted to translate the timeless quality of handcrafted marble art, temple architecture, and bespoke fountains into a compelling online experience.",
-    timeline: "4 Weeks",
+    timeline: "2 Weeks",
     service: "Digital Showroom",
-    kickoff: "May 06, 2024",
+    kickoff: "Oct 2026",
     clientName: "Kalamuddin",
     clientRole: "Founder of Firdosh Marble Arts, Makrana Rajasthan",
     landingImage: firdoshImg,
@@ -127,7 +127,7 @@ export const ALL_PROJECTS: ProjectItem[] = [
       "An energetic, street-culture inspired e-commerce landing experience built with bold art direction, punchy typography, and fluid social order channels.",
     timeline: "3 Weeks",
     service: "Social Commerce",
-    kickoff: "Apr 18, 2024",
+    kickoff: "Aug 2026",
     clientName: "Rudra Mewadi",
     clientRole: "Founder of thrift brands like Gully Culture and Rudezfit",
     landingImage: gullycultureImg,
@@ -155,9 +155,9 @@ export const ALL_PROJECTS: ProjectItem[] = [
     tag: "Agency Website",
     shortDescription:
       "A conversion-focused digital brand presence engineered to accelerate social momentum, elevate visual authority, and capture market share.",
-    timeline: "5 Weeks",
+    timeline: "3 Weeks",
     service: "Agency Website",
-    kickoff: "Nov 04, 2024",
+    kickoff: "Sep 2026",
     clientName: "Sanket Shedge",
     clientRole: "Founder of Vishay Group of Companies",
     landingImage: socialxbrandImg,
@@ -185,9 +185,9 @@ export const ALL_PROJECTS: ProjectItem[] = [
     tag: "Educational Software",
     shortDescription:
       "An interactive virtual laboratory for Wireless and Mobile Communication, designed to help students explore networking concepts through practical hands-on experiments.",
-    timeline: "4 Weeks",
+    timeline: "6 Weeks",
     service: "Educational Software",
-    kickoff: "Feb 10, 2024",
+    kickoff: "Jul 2026",
     clientName: "Prof. Priyadarshini Badgujjar",
     clientRole:
       "Faculty at K.C. College of Engineering & Management Studies & Research Thane",
@@ -216,9 +216,9 @@ export const ALL_PROJECTS: ProjectItem[] = [
     tag: "Workflow Automation",
     shortDescription:
       "A certificate automation infrastructure structured to generate, verify, and deliver high-volume credentials with zero friction.",
-    timeline: "4 Weeks",
+    timeline: "6 Weeks",
     service: "Workflow Automation",
-    kickoff: "Mar 12, 2024",
+    kickoff: "Jul 2026",
     clientName: "Dr. B.R. Patil",
     clientRole:
       "Principal of K.C. College of Engineering & Management Studies & Research Thane",
