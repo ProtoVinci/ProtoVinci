@@ -143,7 +143,7 @@ export const TestimonialsSection: React.FC = () => {
     place(indexRef.current - 1, true);
   }, [place]);
 
-  // After sliding onto the clones, snap back to the matching real card — it looks identical
+  // After sliding onto the clones, snap back to the matching real card - it looks identical
   const onTransitionEnd = (e: React.TransitionEvent) => {
     if (e.target !== trackRef.current || e.propertyName !== "transform") return;
     if (indexRef.current >= COUNT) place(indexRef.current - COUNT, false);

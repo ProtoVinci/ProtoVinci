@@ -99,8 +99,8 @@ export const FaqSection: React.FC = () => {
             <span className="text-neutral-400">answered.</span>
           </h2>
           <p className="m-0 mt-5 text-[16px] sm:text-[17px] leading-[1.55] font-[450] text-neutral-600 max-w-[400px]">
-            Everything you need to know about working with us — timelines, revisions, communication and support.
-          </p>
+            Everything you need to know about working with us - timelines, revisions, communication and support.
+          </p> 
 
           <div className="mt-10 pt-6 border-t border-neutral-300 flex items-center gap-4 max-w-[400px]">
             <img

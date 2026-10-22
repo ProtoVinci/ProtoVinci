@@ -61,7 +61,7 @@ export const ProjectsPage: React.FC = () => {
         <header className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page">
           <div className="pt-4 sm:pt-8 lg:pt-12">
             <div>
-              <SectionLabel>Selected work · 2024 — Now</SectionLabel>
+              <SectionLabel>Selected work , 2024 - Now</SectionLabel>
               <h1 className="m-0 mt-5 sm:mt-6 text-[clamp(40px,10.5vw,52px)] sm:text-[64px] md:text-[76px] lg:text-[84px] font-[600] leading-[0.98] tracking-[-0.045em] text-black">
                 {headline.map((line, i) => (
                   <span key={i} className="block">
@@ -78,7 +78,7 @@ export const ProjectsPage: React.FC = () => {
 
             <div className="hero-aside mt-7 sm:mt-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <p className="m-0 text-[16px] sm:text-[17px] leading-[1.55] font-[450] text-neutral-600 max-w-[460px]">
-                A selection of digital products we've designed and shipped — from industrial catalogues and
+                A selection of digital products we've designed and shipped - from industrial catalogues and
                 craft showrooms to virtual labs and automation tools.
               </p>
               <div className="flex flex-wrap items-center gap-3 shrink-0">
