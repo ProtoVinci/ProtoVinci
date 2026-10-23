@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { Pointer } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { PopButton } from "@/components/ui/pop-button";
+import { BackgroundNoiseGrid } from "@/components/ui/background-noise-grid";
 import { HeroShowcase } from "@/components/HeroShowcase";
 import { useInView } from "@/lib/hooks";
 import { useGoToContactForm } from "@/lib/useContactNav";
@@ -101,8 +102,9 @@ export const HeroSection: React.FC = () => {
       // At least one full screen tall (svh = with the browser bars showing), so the next section never peeks in.
       // Phones (< 640px): larger cards, and the hero extends just past the screen with the cards anchored to its
       // bottom, so about 90% of each card shows above the fold. Card height = 0.52 × card width.
-      className="relative w-full flex flex-col overflow-hidden bg-[linear-gradient(to_bottom,#f4f4f5_0%,#f4f4f5_60%,#e1e1e1_100%)] [--hero-card-w:clamp(260px,76vw,600px)] sm:[--hero-card-w:clamp(280px,40vw,600px)] min-h-[calc(100svh_+_var(--hero-card-w)_*_0.05_+_56px)] sm:min-h-[100svh]"
+      className="relative w-full flex flex-col overflow-hidden bg-[#f7f7f9] [--hero-card-w:clamp(260px,76vw,600px)] sm:[--hero-card-w:clamp(280px,40vw,600px)] min-h-[calc(100svh_+_var(--hero-card-w)_*_0.05_+_56px)] sm:min-h-[100svh]"
     >
+      <BackgroundNoiseGrid />
       <Navbar />
 
       {/* Phones: this block takes the free height and centres the copy above the cards; sm+: natural height */}
