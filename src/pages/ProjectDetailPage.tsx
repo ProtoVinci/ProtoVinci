@@ -109,10 +109,11 @@ export const ProjectDetailPage: React.FC = () => {
       {/* 1. Expandable Pop-out Navbar */}
       <Navbar />
 
-      {/* 2. Header Area: Tag, Project Title & Full Description */}
-      <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-8 sm:pb-12 flex flex-col items-center text-center">
-        {/* Project Status Capsule Pill matching Reference Image */}
-        <div className="inline-flex items-center gap-2.5 p-1 pr-4 rounded-full bg-white border border-[#e2e2e2] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-5 select-none">
+      <main id="main-content">
+        {/* 2. Header Area: Tag, Project Title & Full Description */}
+        <header className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page pb-8 sm:pb-12 flex flex-col items-center text-center">
+          {/* Project Status Capsule Pill matching Reference Image */}
+          <div className="inline-flex items-center gap-2.5 p-1 pr-4 rounded-full bg-white border border-[#e2e2e2] shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-5 select-none">
           <div className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-[12px] sm:text-[13px] font-[700] shrink-0">
             {project.step}
           </div>
@@ -387,6 +388,7 @@ export const ProjectDetailPage: React.FC = () => {
 
       {/* 8. Get Started Section with Liquid Cursor Gradient */}
       <GetStartedSection />
+      </main>
 
       {/* 9. Footer Section with Looping Muted Video & Brand Links */}
       <Footer />

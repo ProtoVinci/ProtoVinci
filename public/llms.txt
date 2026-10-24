@@ -1,0 +1,45 @@
+# ProtoVinci
+
+> ProtoVinci is a Mumbai-based, full-service technology and digital solutions agency: websites and web apps, custom software, mobile apps, AI and automation, integrations, UI/UX, video and ongoing maintenance.
+
+ProtoVinci crafts modern, high-performance web applications, bespoke business platforms, and automated workflows with clean engineering, elegant motion, and meticulous visual standards.
+
+## Core Navigation
+
+- [Home](https://protovinci.vercel.app/): Agency overview, interactive showcases, recent work, delivery process, and FAQs.
+- [Services](https://protovinci.vercel.app/services): Complete breakdown of all 10 service offerings across Web & App Development, Intelligence & Automation, and Design & Media.
+- [Projects](https://protovinci.vercel.app/projects): Portfolio of shipped digital products, platforms, and client case studies.
+- [Contact](https://protovinci.vercel.app/contact): Project enquiry form, direct contact channels (email, phone, WhatsApp), and studio location.
+
+## Services & Capabilities
+
+- [Web Development](https://protovinci.vercel.app/services#service-web-dev): High-performance websites, Next.js / Vite web applications, interactive portals.
+- [Custom Software](https://protovinci.vercel.app/services#service-custom-software): Scalable SaaS systems, cloud architectures, database design.
+- [Mobile Apps](https://protovinci.vercel.app/services#service-mobile-apps): Cross-platform iOS and Android mobile solutions with React Native.
+- [AI Solutions](https://protovinci.vercel.app/services#service-ai-solutions): LLM integrations, autonomous agent workflows, custom RAG pipelines.
+- [Automation](https://protovinci.vercel.app/services#service-automation): Business process automation, webhook orchestration, data pipelines.
+- [API Integrations](https://protovinci.vercel.app/services#service-api-integrations): Third-party payment gateways, ERP/CRM bridges, GraphQL and REST APIs.
+- [UI/UX Design](https://protovinci.vercel.app/services#service-ui-ux): Design systems, interactive prototypes, user journeys in Figma.
+- [Cloud Solutions](https://protovinci.vercel.app/services#service-cloud): AWS, GCP, Vercel deployments, CI/CD pipelines, containerization.
+- [Maintenance & Support](https://protovinci.vercel.app/services#service-maintenance): SLA-backed ongoing monitoring, security updates, and performance tuning.
+- [Video Editing](https://protovinci.vercel.app/services#service-video): High-fidelity promotional video, product animations, and brand assets.
+
+## Case Studies & Shipped Projects
+
+- [Firdosh Jewels](https://protovinci.vercel.app/projects/firdosh-jewels): High-end jewellery brand showcase with bespoke catalogue design and smooth transitions.
+- [RK Enterprises](https://protovinci.vercel.app/projects/rk-enterprises): Comprehensive corporate industrial equipment catalogue and lead capture system.
+- [Gully Culture](https://protovinci.vercel.app/projects/gully-culture): Urban streetwear brand e-commerce storefront with drop-release architecture.
+- [Social X Brand](https://protovinci.vercel.app/projects/social-x-brand): Influencer and digital talent management platform with dynamic roster showcase.
+- [Ward Medical Center](https://protovinci.vercel.app/projects/ward-medical-center): Healthcare clinic patient portal and consultation booking infrastructure.
+- [AwardDock](https://protovinci.vercel.app/projects/awarddock): Creative portfolio platform spotlighting global design awards and recognitions.
+
+## Contact Information
+
+- Email: info@protovinci.com
+- Phone: +91 80972 23030
+- Location: Mumbai, Maharashtra, India
+- Hours: Monday - Saturday: 9:00 AM - 7:00 PM IST
+
+## Optional Information
+
+- [Full Plaintext Context](https://protovinci.vercel.app/llms-full.txt): Comprehensive plain-text documentation of the entire agency site.

@@ -1,0 +1,64 @@
+# ProtoVinci - Comprehensive Context & Specifications
+
+ProtoVinci is a Mumbai-based, full-service technology and digital solutions agency.
+Website: https://protovinci.vercel.app/
+Contact: info@protovinci.com | +91 80972 23030 | Mumbai, Maharashtra, India
+
+## Agency Overview
+ProtoVinci bridges engineering rigor and creative craft. The studio builds web applications, SaaS platforms, mobile apps, AI integrations, automation workflows, and tailored UI/UX design systems. Typical project delivery ranges between 2 to 6 weeks with direct founder access and SLA-backed maintenance.
+
+## Services Detailed
+
+1. Web Development
+- Tech: React, Vite, Next.js, TypeScript, Tailwind CSS, GSAP, Node.js
+- Scope: High-speed corporate websites, dynamic web applications, bespoke customer portals, headless CMS architectures.
+
+2. Custom Software & SaaS
+- Tech: TypeScript, Python, PostgreSQL, Redis, Docker, REST/GraphQL
+- Scope: Multi-tenant platforms, internal enterprise tooling, custom dashboards, database design.
+
+3. Mobile Application Development
+- Tech: React Native, Expo, iOS, Android
+- Scope: Native-feeling cross-platform mobile apps, offline sync, push notifications, secure authentication.
+
+4. AI Solutions & Integrations
+- Tech: OpenAI, Anthropic Claude, Gemini, LangChain, LlamaIndex, Vector DBs (Pinecone, pgvector)
+- Scope: Custom RAG systems, customer service intelligence, automated document parsing, agentic tool workflows.
+
+5. Business Process Automation
+- Tech: Make, n8n, Zapier, Webhooks, custom Node/Python microservices
+- Scope: CRM-ERP synchronisation, automated invoicing, lead qualification, operational workflows.
+
+6. API & Systems Integration
+- Tech: Stripe, Razorpay, Twilio, Salesforce, HubSpot, Shopify, Custom APIs
+- Scope: Payment gateway setup, omni-channel messaging, third-party system data synchronization.
+
+7. UI/UX & Product Design
+- Tech: Figma, Framer, Design Systems, Interactive Prototypes
+- Scope: User research, wireframing, high-fidelity UI components, accessible WCAG-compliant design.
+
+8. Cloud Solutions & DevOps
+- Tech: AWS, Google Cloud, Vercel, Docker, GitHub Actions, Terraform
+- Scope: CI/CD automation, serverless setups, auto-scaling, SSL/DNS management, cost optimization.
+
+9. Maintenance & Support
+- Scope: Ongoing security patching, uptime monitoring, core dependency upgrades, performance audits.
+
+10. Video & Motion Design
+- Tech: After Effects, Premiere Pro, DaVinci Resolve
+- Scope: Product launch videos, 3D animations, social assets, brand storytelling.
+
+## Process / How It Works
+- Stage 01: Discovery & Strategy - Define requirements, scope, architecture, and timeline.
+- Stage 02: Design & Prototyping - Interactive Figma prototypes and aesthetic validation.
+- Stage 03: Engineering & Build - Clean, typed code with responsive layouts and buttery motion.
+- Stage 04: Testing & Optimization - Cross-browser testing, accessibility (a11y) checks, SEO, performance tuning.
+- Stage 05: Launch & Support - Zero-downtime deployment, analytics integration, and maintenance.
+
+## Shipped Work Highlights
+- Firdosh Jewels: Luxury jewellery e-commerce showcase with bespoke catalogue design.
+- RK Enterprises: Heavy industrial equipment catalogue with automated lead capture.
+- Gully Culture: High-energy urban streetwear apparel storefront.
+- Social X Brand: Creative agency and creator roster talent showcase.
+- Ward Medical Center: Comprehensive patient clinic portal and booking flow.
+- AwardDock: International creative awards and portfolio spotlight platform.

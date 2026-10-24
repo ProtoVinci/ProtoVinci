@@ -169,55 +169,59 @@ export const HowItWorksSection: React.FC = () => {
     const path = pathRef.current;
     if (!section || !path) return;
 
-    const totalLength = path.getTotalLength();
-    gsap.set(path, {
-      strokeDasharray: totalLength,
-      strokeDashoffset: totalLength,
+    let ctx: gsap.Context | null = null;
+    let rafId: number | null = null;
+
+    rafId = requestAnimationFrame(() => {
+      const totalLength = path.getTotalLength();
+      path.style.strokeDasharray = `${totalLength}px`;
+      path.style.strokeDashoffset = `${totalLength}px`;
+
+      ctx = gsap.context(() => {
+        const trigger = ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "+=2400", // Heavy, deliberate scroll distance for buttery smoothness
+          pin: true,
+          scrub: 1.6, // Weighted scrub in sync with Lenis
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const s = Math.min(Math.max(self.progress, 0), 1);
+            // Written straight to the DOM: a React state update here would re-render the
+            // whole section on every scroll frame.
+            if (areaRef.current) {
+              areaRef.current.style.opacity = String(Math.max(s * 1.2, 0.2));
+            }
+
+            // Compute exact physical trajectory along the cubic bezier
+            const { curveProgress, stageIndex } = calculateTrajectory(s);
+
+            // 1. Elevate the graph stroke directly without GSAP tween overhead
+            const currentOffset = totalLength * (1 - curveProgress);
+            path.style.strokeDashoffset = `${currentOffset}px`;
+
+            // 2. Position travelling beacon directly along the curve
+            if (beaconRef.current) {
+              const point = path.getPointAtLength(curveProgress * totalLength);
+              beaconRef.current.setAttribute("transform", `translate(${point.x}, ${point.y})`);
+            }
+
+            // 3. Switch active stage strictly when beacon arrives at the node
+            if (stageIndex !== activeIndexRef.current) {
+              activeIndexRef.current = stageIndex;
+              setActiveStageIndex(stageIndex);
+            }
+          },
+        });
+
+        triggerRef.current = trigger;
+      }, section);
     });
 
-    const ctx = gsap.context(() => {
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "+=2400", // Heavy, deliberate scroll distance for buttery smoothness
-        pin: true,
-        scrub: 1.6, // Weighted scrub in sync with Lenis
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const s = Math.min(Math.max(self.progress, 0), 1);
-          // Written straight to the DOM: a React state update here would re-render the
-          // whole section on every scroll frame.
-          if (areaRef.current) {
-            areaRef.current.style.opacity = String(Math.max(s * 1.2, 0.2));
-          }
-
-          // Compute exact physical trajectory along the cubic bezier
-          const { curveProgress, stageIndex } = calculateTrajectory(s);
-
-          // 1. Elevate the graph stroke exactly to the current point
-          const currentOffset = totalLength * (1 - curveProgress);
-          gsap.set(path, { strokeDashoffset: currentOffset });
-
-          // 2. Position travelling beacon directly along the curve
-          if (beaconRef.current) {
-            const point = path.getPointAtLength(curveProgress * totalLength);
-            gsap.set(beaconRef.current, {
-              attr: { transform: `translate(${point.x}, ${point.y})` },
-            });
-          }
-
-          // 3. Switch active stage strictly when beacon arrives at the node
-          if (stageIndex !== activeIndexRef.current) {
-            activeIndexRef.current = stageIndex;
-            setActiveStageIndex(stageIndex);
-          }
-        },
-      });
-
-      triggerRef.current = trigger;
-    }, section);
-
-    return () => ctx.revert();
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   // Jump to a specific stage when clicking its graph node

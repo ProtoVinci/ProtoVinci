@@ -58,7 +58,7 @@ export const ProjectsPage: React.FC = () => {
     >
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* Hero: editorial, left-aligned headline with the intro and CTAs on the right */}
         <header className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 pt-page">
           <div className="pt-4 sm:pt-8 lg:pt-12">

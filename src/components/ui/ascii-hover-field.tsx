@@ -178,8 +178,19 @@ export const AsciiHoverField: React.FC<AsciiHoverFieldProps> = ({
     // Lens strength eases in on enter and out on leave, so the zoom never pops
     let lensAmount = 0;
 
+    let cachedHostRect: DOMRect | null = null;
+    const updateHostRect = () => {
+      if (host) cachedHostRect = host.getBoundingClientRect();
+    };
+
     const layout = () => {
-      const { width, height } = host.getBoundingClientRect();
+      // 1. Batch all layout reads BEFORE modifying canvas or DOM properties
+      const hostRect = host.getBoundingClientRect();
+      cachedHostRect = hostRect;
+      const { width, height } = hostRect;
+      const safeEls = Array.from(host.querySelectorAll<HTMLElement>(safeSelector)).map((el) => el.getBoundingClientRect());
+
+      // 2. Batch canvas dimensions and context configuration
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
@@ -196,16 +207,14 @@ export const AsciiHoverField: React.FC<AsciiHoverFieldProps> = ({
       grain = new Float32Array(cols * rows).map(() => 0.8 + Math.random() * 0.4);
       blocked = new Uint8Array(cols * rows);
 
-      const hostRect = host.getBoundingClientRect();
-      host.querySelectorAll<HTMLElement>(safeSelector).forEach((el) => {
-        const r = el.getBoundingClientRect();
-        const pad = 6;
+      const pad = 6;
+      for (const r of safeEls) {
         const c0 = Math.max(0, Math.floor((r.left - hostRect.left - pad) / cellWidth));
         const c1 = Math.min(cols - 1, Math.floor((r.right - hostRect.left + pad) / cellWidth));
         const r0 = Math.max(0, Math.floor((r.top - hostRect.top - pad) / cellHeight));
         const r1 = Math.min(rows - 1, Math.floor((r.bottom - hostRect.top + pad) / cellHeight));
         for (let y = r0; y <= r1; y++) for (let x = c0; x <= c1; x++) blocked[y * cols + x] = 1;
-      });
+      }
     };
 
     // Cursor target (raw) and drawn position (smoothed), in host px
@@ -331,12 +340,13 @@ export const AsciiHoverField: React.FC<AsciiHoverFieldProps> = ({
     };
 
     const local = (e: PointerEvent) => {
-      const r = host.getBoundingClientRect();
+      const r = cachedHostRect || host.getBoundingClientRect();
       return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
 
     const onEnter = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      updateHostRect();
       const p = local(e);
       target.x = pos.x = p.x;
       target.y = pos.y = p.y;
@@ -360,6 +370,7 @@ export const AsciiHoverField: React.FC<AsciiHoverFieldProps> = ({
     host.addEventListener("pointerenter", onEnter);
     host.addEventListener("pointermove", onMove, { passive: true });
     host.addEventListener("pointerleave", onLeave);
+    window.addEventListener("scroll", updateHostRect, { passive: true });
 
     return () => {
       disposed = true;
@@ -368,6 +379,7 @@ export const AsciiHoverField: React.FC<AsciiHoverFieldProps> = ({
       host.removeEventListener("pointerenter", onEnter);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("scroll", updateHostRect);
     };
   }, [ramp, cellWidth, cellHeight, fontSize, radius, decay, color, maxAlpha, safeSelector, glyphSrc, lens, lensRadius]);
 

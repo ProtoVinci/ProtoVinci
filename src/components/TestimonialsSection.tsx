@@ -315,12 +315,16 @@ export const TestimonialsSection: React.FC = () => {
                 <li
                   key={`${item.id}-${i}`}
                   aria-hidden={clone || undefined}
-                  role={clone ? undefined : "group"}
-                  aria-roledescription={clone ? undefined : "slide"}
-                  aria-label={clone ? undefined : `${i + 1} of ${COUNT}`}
                   className="shrink-0 basis-[86%] sm:basis-[calc((100%-1.25rem)/2)] lg:basis-[calc((100%-2.5rem)/3)]"
                 >
-                  <TestimonialCard item={item} clone={clone} />
+                  <div
+                    role={clone ? undefined : "group"}
+                    aria-roledescription={clone ? undefined : "slide"}
+                    aria-label={clone ? undefined : `${i + 1} of ${COUNT}`}
+                    className="h-full w-full"
+                  >
+                    <TestimonialCard item={item} clone={clone} />
+                  </div>
                 </li>
               );
             })}

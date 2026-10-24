@@ -323,77 +323,80 @@ export const ServicesPage: React.FC = () => {
     >
       <Navbar />
 
-      <header className={`relative z-10 ${CONTAINER} pt-page flex flex-col items-center text-center`}>
-        <div className="mb-2.5 sm:mb-3">
-          <SectionLabel>Services</SectionLabel>
-        </div>
+      <main id="main-content">
+        <header className={`relative z-10 ${CONTAINER} pt-page flex flex-col items-center text-center`}>
+          <div className="mb-2.5 sm:mb-3">
+            <SectionLabel>Services</SectionLabel>
+          </div>
 
-        <h1
-          ref={headlineRef}
-          className="m-0 text-center text-balance text-[clamp(32px,9.6vw,38px)] sm:text-[50px] md:text-[62px] lg:text-[70px] font-[600] leading-[1.05] tracking-[-0.038em] text-black max-w-4xl mx-auto"
-        >
-          <span className="sm:block">
-            <span className="services-word inline-block">Everything</span>{" "}
-            <span className="services-word inline-block">you</span>{" "}
-            <span className="services-word inline-block">need</span>{" "}
-            <span className="services-word inline-block">to</span>
-          </span>{" "}
-          <span className="sm:block">
-            <span className="services-word inline-block">build,</span>{" "}
-            <span className="services-word inline-block text-[#6b7280]">automate</span>{" "}
-            <span className="services-word inline-block">and</span>{" "}
-            <span className="services-word inline-block">grow</span>
-          </span>
-        </h1>
-
-        <p
-          ref={descRef}
-          className="m-0 mt-3.5 sm:mt-4 text-[15px] sm:text-[16.5px] text-[#4b5563] font-[450] max-w-[600px] mx-auto leading-snug sm:leading-normal"
-        >
-          Websites, custom software, mobile apps, AI, automation, design and video. Ten services that take your
-          project from concept to execution, under one roof.
-        </p>
-
-        <div ref={ctaRef} className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-          <PopButton
-            color="black"
-            size="lg"
-            onClick={goToContactForm}
-            className="rounded-full px-6 sm:px-7 py-3 text-[15px] sm:text-[16px] font-[500] text-white gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
+          <h1
+            ref={headlineRef}
+            className="m-0 text-center text-balance text-[clamp(32px,9.6vw,38px)] sm:text-[50px] md:text-[62px] lg:text-[70px] font-[600] leading-[1.05] tracking-[-0.038em] text-black max-w-4xl mx-auto"
           >
-            <span>Start a project</span>
-            <span className="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center">
-              <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+            <span className="sm:block">
+              <span className="services-word inline-block">Everything</span>{" "}
+              <span className="services-word inline-block">you</span>{" "}
+              <span className="services-word inline-block">need</span>{" "}
+              <span className="services-word inline-block">to</span>
+            </span>{" "}
+            <span className="sm:block">
+              <span className="services-word inline-block">build,</span>{" "}
+              <span className="services-word inline-block text-[#6b7280]">automate</span>{" "}
+              <span className="services-word inline-block">and</span>{" "}
+              <span className="services-word inline-block">grow</span>
             </span>
-          </PopButton>
-          <PopButton
-            color="default"
-            size="lg"
-            onClick={() => navigate("/projects")}
-            className="rounded-full px-7 sm:px-8 py-3 text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all cursor-pointer"
+          </h1>
+
+          <p
+            ref={descRef}
+            className="m-0 mt-3.5 sm:mt-4 text-[15px] sm:text-[16.5px] text-[#4b5563] font-[450] max-w-[600px] mx-auto leading-snug sm:leading-normal"
           >
-            <span>View projects</span>
-          </PopButton>
+            Websites, custom software, mobile apps, AI, automation, design and video. Ten services that take your
+            project from concept to execution, under one roof.
+          </p>
+
+          <div ref={ctaRef} className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+            <PopButton
+              color="black"
+              size="lg"
+              onClick={goToContactForm}
+              className="rounded-full px-6 sm:px-7 py-3 text-[15px] sm:text-[16px] font-[500] text-white gap-3 shadow-md hover:shadow-lg transition-transform cursor-pointer"
+            >
+              <span>Start a project</span>
+              <span className="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center">
+                <ArrowRight className="w-3 h-3 stroke-[2.5]" />
+              </span>
+            </PopButton>
+            <PopButton
+              color="default"
+              size="lg"
+              onClick={() => navigate("/projects")}
+              className="rounded-full px-7 sm:px-8 py-3 text-[15px] sm:text-[16px] font-[550] bg-white hover:bg-neutral-50 border-neutral-300 border-b-neutral-400 text-neutral-900 shadow-sm transition-all cursor-pointer"
+            >
+              <span>View projects</span>
+            </PopButton>
+          </div>
+        </header>
+
+        <ServiceIndex />
+
+        <div className="mt-16 sm:mt-20">
+          {SERVICE_PILLARS.map((pillar, idx) => (
+            <PillarChapter key={pillar.id} pillar={pillar} first={idx === 0} onStart={goToContactForm} />
+          ))}
         </div>
-      </header>
 
-      <ServiceIndex />
+        <WorkingTogether />
 
-      <div className="mt-16 sm:mt-20">
-        {SERVICE_PILLARS.map((pillar, idx) => (
-          <PillarChapter key={pillar.id} pillar={pillar} first={idx === 0} onStart={goToContactForm} />
-        ))}
-      </div>
+        {/* Process (shared with the homepage) */}
+        <div className="border-t border-[#cecece] bg-[#eeeef0]">
+          <HowItWorksSection />
+        </div>
 
-      <WorkingTogether />
+        <FaqSection />
+        <GetStartedSection />
+      </main>
 
-      {/* Process (shared with the homepage) */}
-      <div className="border-t border-[#cecece] bg-[#eeeef0]">
-        <HowItWorksSection />
-      </div>
-
-      <FaqSection />
-      <GetStartedSection />
       <Footer />
     </div>
   );

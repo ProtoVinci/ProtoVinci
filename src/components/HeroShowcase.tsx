@@ -47,10 +47,11 @@ const CardSet: React.FC<{ setId: "a" | "b"; activeKey: string | null; leavingKey
                 <span className="relative block h-full w-full overflow-hidden rounded-[14px] bg-[#e4e4e7]">
                   <img
                     src={project.landingImage}
-                    alt=""
+                    alt={`${project.name} preview`}
                     width={1600}
                     height={800}
                     loading={!clone && idx < EAGER_COUNT ? "eager" : "lazy"}
+                    fetchPriority={!clone && idx === 0 ? "high" : "auto"}
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover object-top"
                   />

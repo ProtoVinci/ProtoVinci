@@ -196,20 +196,23 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <HeroSection />
+      <main id="main-content" className="w-full">
+        <HeroSection />
 
-      <div ref={contentRef}>
-        <ServicesOverview />
-        <SelectedWork />
-      </div>
+        <div ref={contentRef}>
+          <ServicesOverview />
+          <SelectedWork />
+        </div>
 
-      <div className="border-t border-[#cecece] bg-[#eeeef0]">
-        <HowItWorksSection />
-      </div>
+        <div className="border-t border-[#cecece] bg-[#eeeef0]">
+          <HowItWorksSection />
+        </div>
 
-      <FaqSection />
-      <TestimonialsSection />
-      <GetStartedSection />
+        <FaqSection />
+        <TestimonialsSection />
+        <GetStartedSection />
+      </main>
+
       <Footer />
     </div>
   );

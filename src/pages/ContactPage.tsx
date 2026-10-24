@@ -157,7 +157,7 @@ export const ContactPage: React.FC = () => {
       <Navbar />
 
       {/* Main Container */}
-      <main className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-3 md:px-8 lg:px-10 pt-page pb-20 sm:pb-28 flex flex-col items-center">
+      <main id="main-content" className="relative z-10 w-full max-w-[1300px] mx-auto px-4 sm:px-3 md:px-8 lg:px-10 pt-page pb-20 sm:pb-28 flex flex-col items-center">
         {/* Top Indicator: ▪ CONTACT US (Exact from Image 1) */}
         <div className="flex items-center gap-2 mb-4 sm:mb-5 select-none">
           <span className="w-1.5 h-1.5 rounded-[1px] bg-black inline-block" />

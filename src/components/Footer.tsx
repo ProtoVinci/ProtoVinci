@@ -4,7 +4,6 @@ import { useInView, useMediaQuery } from "@/lib/hooks";
 import { scrollToTarget } from "@/lib/scroll";
 import { CONTACT } from "@/lib/contact";
 import vinciFooterWebm from "@/assets/vinci-footer.webm";
-import vinciFooterMp4 from "@/assets/vinci-footer.mp4";
 import logoImg from "@/assets/logo.webp";
 import { PopButton } from "@/components/ui/pop-button";
 
@@ -217,7 +216,7 @@ export const Footer: React.FC = () => {
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               aria-hidden="true"
               className="w-full h-full object-cover object-center block"
               style={{
@@ -226,7 +225,6 @@ export const Footer: React.FC = () => {
               }}
             >
               <source src={vinciFooterWebm} type="video/webm" />
-              <source src={vinciFooterMp4} type="video/mp4" />
             </video>
           )}
         </div>
