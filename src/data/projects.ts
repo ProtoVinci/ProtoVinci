@@ -4,6 +4,7 @@ import socialxbrandImg from "@/assets/landing-pages/socialxbrand.webp";
 import wmcImg from "@/assets/landing-pages/wmc.webp";
 import gullycultureImg from "@/assets/landing-pages/gullyculture.webp";
 import firdoshImg from "@/assets/landing-pages/firdosh.webp";
+import theArtEventsImg from "@/assets/landing-pages/theart.webp";
 
 // Gallery image imports
 import rk1 from "@/assets/rk/rk-1.webp";
@@ -35,6 +36,11 @@ import dock1 from "@/assets/awarddock/dock-1.webp";
 import dock2 from "@/assets/awarddock/dock-2.webp";
 import dock3 from "@/assets/awarddock/dock-3.webp";
 import dock4 from "@/assets/awarddock/dock-4.webp";
+
+import tae1 from "@/assets/the-art-events/the-art-event-1.webp";
+import tae2 from "@/assets/the-art-events/the-art-event-2.webp";
+import tae3 from "@/assets/the-art-events/the-art-event-3.webp";
+import tae4 from "@/assets/the-art-events/the-art-event-4.webp";
 
 export interface ProjectItem {
   id: string;
@@ -239,5 +245,35 @@ export const ALL_PROJECTS: ProjectItem[] = [
     ],
     result:
       "A centralised certificate management platform that streamlines bulk certificate creation and distribution, reduces repetitive administrative work, and provides organisers with a more organised process for managing certificate delivery.",
+  },
+  {
+    id: "the-art-events",
+    step: "07",
+    name: "The Art Events",
+    tag: "Celebration Décor",
+    shortDescription:
+      "A visually engaging celebration décor and styling showcase engineered to turn creative event themes and balloon installations into client enquiries.",
+    timeline: "1 Week",
+    service: "Event Website & Digital Portfolio",
+    kickoff: "Oct 2026",
+    clientName: "The Art Events",
+    clientRole: "Celebration Décor & Styling Company",
+    landingImage: theArtEventsImg,
+    galleryImages: [tae1, tae2, tae3, tae4],
+    isMobileGallery: false,
+    liveUrl: "https://theartevents.vercel.app/#top",
+    siteLabel: "The Art Events",
+    theme: "light",
+    overview:
+      "We designed and developed a visually engaging website for The Art Events, a celebration décor and styling company, to showcase its creative work, highlight its services, and help customers plan their celebrations. The goal was to translate the company's creativity and attention to detail into a polished digital experience that inspires visitors and turns their ideas into enquiries.",
+    process: [
+      "Structured the website around the company's services, occasions, and creative portfolio.",
+      "Designed an image-led interface that showcases event décor, themed backdrops, balloon installations, and venue styling.",
+      "Organised services and past work into clear, easy-to-explore sections.",
+      "Integrated an event enquiry form to help prospective customers share their occasion, date, venue, and styling preferences.",
+      "Developed and deployed a responsive website optimised for desktop and mobile browsing.",
+    ],
+    result:
+      "A modern digital showcase that strengthens The Art Events' online presence, brings its creative work to life, and makes it easier for customers to discover services and enquire about customised event décor.",
   },
 ];

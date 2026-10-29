@@ -62,3 +62,4 @@ ProtoVinci bridges engineering rigor and creative craft. The studio builds web a
 - Social X Brand: Creative agency and creator roster talent showcase.
 - Ward Medical Center: Comprehensive patient clinic portal and booking flow.
 - AwardDock: International creative awards and portfolio spotlight platform.
+- The Art Events: Celebration décor and event styling digital portfolio and custom enquiry system.

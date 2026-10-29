@@ -32,6 +32,7 @@ ProtoVinci crafts modern, high-performance web applications, bespoke business pl
 - [Social X Brand](https://protovinci.vercel.app/projects/social-x-brand): Influencer and digital talent management platform with dynamic roster showcase.
 - [Ward Medical Center](https://protovinci.vercel.app/projects/ward-medical-center): Healthcare clinic patient portal and consultation booking infrastructure.
 - [AwardDock](https://protovinci.vercel.app/projects/awarddock): Creative portfolio platform spotlighting global design awards and recognitions.
+- [The Art Events](https://protovinci.vercel.app/projects/the-art-events): Celebration décor, balloon styling, and event portfolio digital showcase with integrated enquiry form.
 
 ## Contact Information
 
